@@ -1,5 +1,6 @@
-from pico2d import *
 import os
+
+from pico2d import *
 
 Head_Lenght = 45
 Head_Raw = 42
@@ -22,13 +23,13 @@ def handle_events():
                 GamePlay = False
 
             if event.key == SDLK_a:
-                Issac_Body.direction = 1
+                Issac_Body.Left = True
             elif event.key == SDLK_d:
-                Issac_Body.direction = 2
+                Issac_Body.Right = True
             elif event.key == SDLK_w:
-                Issac_Body.direction = 3
+                Issac_Body.Up = True
             elif event.key == SDLK_s:
-                Issac_Body.direction = 4
+                Issac_Body.Down = True
 
             if event.key == SDLK_LEFT:
                 Issac_Head.frame = 7
@@ -39,16 +40,22 @@ def handle_events():
             elif event.key == SDLK_DOWN:
                 Issac_Head.frame = 1
         elif event.type == SDL_KEYUP:
-            if event.key == SDLK_a or SDLK_d or SDLK_w or SDLK_s:
-                Issac_Body.direction = 0
-            if event.key == SDLK_LEFT:
-                Issac_Head.frame = 6
-            elif event.key == SDLK_RIGHT:
-                Issac_Head.frame = 2
-            elif event.key == SDLK_UP:
-                Issac_Head.frame = 4
-            elif event.key == SDLK_DOWN:
-                Issac_Head.frame = 0
+            if event.key == SDLK_a:
+                Issac_Body.Left = False
+            elif event.key == SDLK_d:
+                Issac_Body.Right = False
+            elif event.key == SDLK_w:
+                Issac_Body.Up = False
+            elif event.key == SDLK_s:
+                Issac_Body.Down = False
+        if event.key == SDLK_LEFT:
+            Issac_Head.frame = 6
+        elif event.key == SDLK_RIGHT:
+            Issac_Head.frame = 2
+        elif event.key == SDLK_UP:
+            Issac_Head.frame = 4
+        elif event.key == SDLK_DOWN:
+            Issac_Head.frame = 0
 
 open_canvas()
 #==============================================================
@@ -61,31 +68,35 @@ class Isaac_Body:
         self.frame = 0
         self.x = 400
         self.y = 300
-        self.direction = 0                      # 0 = 가만히, 1 = 왼쪽, 2 = 오른쪽, 3 = 위쪽, 4 = 밑쪽
+        self.Left = False
+        self.Right = False
+        self.Up = False
+        self.Down = False
 
     def update(self):
-        if self.direction == 0:
+        if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
             self.frame = 0
         else:
             self.frame = (self.frame + 1) % 10
-            if self.direction == 1:
+            if self.Left:
                 self.x -= 7
-            elif self.direction == 2:
+            if self.Right:
                 self.x += 7
-            elif self.direction == 3:
+            if self.Up:
                 self.y += 7
-            elif self.direction == 4:
+            if self.Down:
                 self.y -= 7
 
     def draw(self):
-        if self.direction == 0:
+        if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
             self.image.clip_draw(self.frame * Body_Lenght, 50, Body_Lenght, Body_Raw, self.x,
                                  self.y)
-        elif self.direction != 4:
-            self.image.clip_draw(self.frame * Body_Lenght, (self.direction - 1) * 25, Body_Lenght, Body_Raw, self.x, self.y)
+        elif self.Left:
+            self.image.clip_draw(self.frame * Body_Lenght, 0 * 25, Body_Lenght, Body_Raw, self.x, self.y)
+        elif self.Right:
+            self.image.clip_draw(self.frame * Body_Lenght, 1 * 25, Body_Lenght, Body_Raw, self.x, self.y)
         else:
-            self.image.clip_draw(self.frame * Body_Lenght, (self.direction - 2) * 25, Body_Lenght, Body_Raw, self.x,
-                                 self.y)
+            self.image.clip_draw(self.frame * Body_Lenght, 2 * 25, Body_Lenght, Body_Raw, self.x, self.y)
 
 
 Issac_Body = Isaac_Body()
