@@ -68,10 +68,7 @@ class Isaac_Body:
         self.frame = 0
         self.x = 400
         self.y = 300
-        self.Left = False
-        self.Right = False
-        self.Up = False
-        self.Down = False
+        self.Left, self.Right, self.Up, self.Down = False, False, False, False
 
     def update(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
