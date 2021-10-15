@@ -18,6 +18,9 @@ def handle_events():
         if event.type == SDL_QUIT:
             GamePlay = False
         elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_ESCAPE:
+                GamePlay = False
+
             if event.key == SDLK_a:
                 Issac_Body.direction = 1
             elif event.key == SDLK_d:
