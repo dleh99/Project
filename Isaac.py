@@ -18,7 +18,14 @@ def handle_events():
         if event.type == SDL_QUIT:
             GamePlay = False
         elif event.type == SDL_KEYDOWN:
-            pass
+            if event.key == 'A':
+                Issac_Body.direction = 1
+            elif event.key == 'D':
+                Issac_Body.direction = 2
+            elif event.key == 'W':
+                Issac_Body.direction = 3
+            elif event.key == 'S':
+                Issac_Body.direction = 4
         elif event.type == SDL_KEYUP:
             if event.key == 'D' or 'W' or 'A' or 'S':
                 Issac_Body.direction = 0
