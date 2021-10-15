@@ -17,6 +17,11 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             GamePlay = False
+        elif event.type == SDL_KEYDOWN:
+            pass
+        elif event.type == SDL_KEYUP:
+            if event.key == 'D' or 'W' or 'A' or 'S':
+                Issac_Body.direction = 0
 
 open_canvas()
 #==============================================================
@@ -36,6 +41,14 @@ class Isaac_Body:
             self.frame = 0
         else:
             self.frame = (self.frame + 1) % 10
+            if self.direction == 1:
+                pass
+            elif self.direction == 2:
+                pass
+            elif self.direction == 3:
+                pass
+            elif self.direction == 4:
+                pass
 
     def draw(self):
         self.image.clip_draw(self.frame * Body_Lenght, 0, Body_Lenght, Body_Raw, self.x, self.y)
