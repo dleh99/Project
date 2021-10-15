@@ -26,9 +26,26 @@ def handle_events():
                 Issac_Body.direction = 3
             elif event.key == SDLK_s:
                 Issac_Body.direction = 4
+
+            if event.key == SDLK_LEFT:
+                Issac_Head.frame = 7
+            elif event.key == SDLK_RIGHT:
+                Issac_Head.frame = 3
+            elif event.key == SDLK_UP:
+                Issac_Head.frame = 5
+            elif event.key == SDLK_DOWN:
+                Issac_Head.frame = 1
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_a or SDLK_d or SDLK_w or SDLK_s:
                 Issac_Body.direction = 0
+            if event.key == SDLK_LEFT:
+                Issac_Head.frame = 6
+            elif event.key == SDLK_RIGHT:
+                Issac_Head.frame = 2
+            elif event.key == SDLK_UP:
+                Issac_Head.frame = 4
+            elif event.key == SDLK_DOWN:
+                Issac_Head.frame = 0
 
 open_canvas()
 #==============================================================
@@ -84,7 +101,7 @@ class Isaac_Head:
         self.y = Issac_Body.y + Body_Raw
 
     def draw(self):
-        self.image.clip_draw(0 * Head_Lenght, 0, Head_Lenght, Head_Raw, self.x, self.y)
+        self.image.clip_draw(self.frame * Head_Lenght, 0, Head_Lenght, Head_Raw, self.x, self.y)
 
 
 Issac_Head = Isaac_Head()
