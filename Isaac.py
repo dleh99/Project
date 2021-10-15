@@ -18,16 +18,16 @@ def handle_events():
         if event.type == SDL_QUIT:
             GamePlay = False
         elif event.type == SDL_KEYDOWN:
-            if event.key == 'A':
+            if event.key == SDLK_a:
                 Issac_Body.direction = 1
-            elif event.key == 'D':
+            elif event.key == SDLK_d:
                 Issac_Body.direction = 2
-            elif event.key == 'W':
+            elif event.key == SDLK_w:
                 Issac_Body.direction = 3
-            elif event.key == 'S':
+            elif event.key == SDLK_s:
                 Issac_Body.direction = 4
         elif event.type == SDL_KEYUP:
-            if event.key == 'D' or 'W' or 'A' or 'S':
+            if event.key == SDLK_a or SDLK_d or SDLK_w or SDLK_s:
                 Issac_Body.direction = 0
 
 open_canvas()
@@ -37,7 +37,7 @@ os.chdir('d:/2DGP/Project/Sprite/Isaac')
 
 class Isaac_Body:
     def __init__(self):
-        self.image = load_image('Isaac_Body.png')
+        self.image = load_image('Isaac_Body_Full.png')
         self.frame = 0
         self.x = 400
         self.y = 300
@@ -49,16 +49,23 @@ class Isaac_Body:
         else:
             self.frame = (self.frame + 1) % 10
             if self.direction == 1:
-                pass
+                self.x -= 7
             elif self.direction == 2:
-                pass
+                self.x += 7
             elif self.direction == 3:
-                pass
+                self.y += 7
             elif self.direction == 4:
-                pass
+                self.y -= 7
 
     def draw(self):
-        self.image.clip_draw(self.frame * Body_Lenght, 0, Body_Lenght, Body_Raw, self.x, self.y)
+        if self.direction == 0:
+            self.image.clip_draw(self.frame * Body_Lenght, 50, Body_Lenght, Body_Raw, self.x,
+                                 self.y)
+        elif self.direction != 4:
+            self.image.clip_draw(self.frame * Body_Lenght, (self.direction - 1) * 25, Body_Lenght, Body_Raw, self.x, self.y)
+        else:
+            self.image.clip_draw(self.frame * Body_Lenght, (self.direction - 2) * 25, Body_Lenght, Body_Raw, self.x,
+                                 self.y)
 
 
 Issac_Body = Isaac_Body()
@@ -73,7 +80,8 @@ class Isaac_Head:
 
 
     def update(self):
-        pass
+        self.x = Issac_Body.x
+        self.y = Issac_Body.y + Body_Raw
 
     def draw(self):
         self.image.clip_draw(0 * Head_Lenght, 0, Head_Lenght, Head_Raw, self.x, self.y)
