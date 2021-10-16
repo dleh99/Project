@@ -10,12 +10,25 @@ Tear_Size = 10
 
 frame = 0
 
-Isaac_Tear_count = 0
-
 GamePlay = True
 
+
+def Tear_Crush(x, y):
+    if x <= 0 or x >= 800 or y <= 0 or y >= 600:
+        return True
+    return False
+
+
+def Tear_Count(i):
+    for count in range(5):
+        if Issac_Tear[count].isView == False:
+            Issac_Tear[count].isView = True
+            Issac_Tear[count].direction = i
+            break
+
+
 def handle_events():
-    global GamePlay, Isaac_Tear_count
+    global GamePlay
 
     events = get_events()
     for event in events:
@@ -36,16 +49,16 @@ def handle_events():
 
             if event.key == SDLK_LEFT:
                 Issac_Head.frame = 7
-                Issac_Tear[Isaac_Tear_count].direction = 1
-                Issac_Tear[Isaac_Tear_count].isView = True
-                if Isaac_Tear_count <= 3:
-                    Isaac_Tear_count += 1
+                Tear_Count(1)
             elif event.key == SDLK_RIGHT:
                 Issac_Head.frame = 3
+                Tear_Count(2)
             elif event.key == SDLK_UP:
                 Issac_Head.frame = 5
+                Tear_Count(3)
             elif event.key == SDLK_DOWN:
                 Issac_Head.frame = 1
+                Tear_Count(4)
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_a:
                 Issac_Body.Left = False
@@ -104,15 +117,6 @@ class Isaac_Body:
 
 
 Issac_Body = Isaac_Body()
-
-
-def Tear_Crush(x, y):
-    global Isaac_Tear_count
-
-    if x <= 0 or x >= 800 or y <= 0 or y >= 600:
-        Isaac_Tear_count -= 1
-        return True
-    return False
 
 
 class Isaac_Head:
