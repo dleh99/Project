@@ -6,13 +6,16 @@ Head_Lenght = 45
 Head_Raw = 42
 Body_Lenght = 29
 Body_Raw = 25
+Tear_Size = 10
 
 frame = 0
+
+Isaac_Tear_count = 0
 
 GamePlay = True
 
 def handle_events():
-    global GamePlay
+    global GamePlay, Isaac_Tear_count
 
     events = get_events()
     for event in events:
@@ -33,6 +36,10 @@ def handle_events():
 
             if event.key == SDLK_LEFT:
                 Issac_Head.frame = 7
+                Issac_Tear[Isaac_Tear_count].direction = 1
+                Issac_Tear[Isaac_Tear_count].isView = True
+                if Isaac_Tear_count <= 3:
+                    Isaac_Tear_count += 1
             elif event.key == SDLK_RIGHT:
                 Issac_Head.frame = 3
             elif event.key == SDLK_UP:
@@ -99,13 +106,21 @@ class Isaac_Body:
 Issac_Body = Isaac_Body()
 
 
+def Tear_Crush(x, y):
+    global Isaac_Tear_count
+
+    if x <= 0 or x >= 800 or y <= 0 or y >= 600:
+        Isaac_Tear_count -= 1
+        return True
+    return False
+
+
 class Isaac_Head:
     def __init__(self):
         self.image = load_image('Isaac_Head.png')
         self.frame = 0
         self.x = Issac_Body.x
         self.y = Issac_Body.y + Body_Raw
-
 
     def update(self):
         self.x = Issac_Body.x
@@ -115,16 +130,49 @@ class Isaac_Head:
         self.image.clip_draw(self.frame * Head_Lenght, 0, Head_Lenght, Head_Raw, self.x, self.y)
 
 
+class Isaac_Tear:
+    def __init__(self):
+        self.image = load_image('Isaac_Tear.png')
+        self.x = Issac_Head.x
+        self.y = Issac_Head.y
+        self.isView = False
+        self.direction = 0              # 1 = 왼쪽, 2 = 오른쪽, 3 = 위, 4 = 아래
+
+    def update(self):
+        if self.isView:
+            if self.direction == 1:
+                self.x -= 15
+            elif self.direction == 2:
+                self.x += 15
+            elif self.direction == 3:
+                self.y += 15
+            elif self.direction == 4:
+                self.y -= 15
+        if Tear_Crush(self.x, self.y):
+            self.isView = False
+            self.x = Issac_Head.x
+            self.y = Issac_Head.y
+
+    def draw(self):
+        if self.isView:
+            self.image.clip_draw(0, 0, Tear_Size, Tear_Size, self.x, self.y)
+
+
 Issac_Head = Isaac_Head()
+Issac_Tear = [Isaac_Tear() for i in range(5)]
 
 #==============================================================
 while GamePlay:
     Issac_Body.update()
     Issac_Head.update()
+    for i in range(5):
+        Issac_Tear[i].update()
 
     clear_canvas()
     Issac_Body.draw()
     Issac_Head.draw()
+    for i in range(5):
+        Issac_Tear[i].draw()
     update_canvas()
 
     handle_events()
