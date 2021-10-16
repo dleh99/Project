@@ -148,10 +148,12 @@ class Isaac_Tear:
                 self.y += 15
             elif self.direction == 4:
                 self.y -= 15
-        if Tear_Crush(self.x, self.y):
-            self.isView = False
+        else:
             self.x = Issac_Head.x
             self.y = Issac_Head.y
+
+        if Tear_Crush(self.x, self.y):
+            self.isView = False
 
     def draw(self):
         if self.isView:
