@@ -68,10 +68,14 @@ def Tile_Image_Define():
                 Tiles[i].image = load_image('tile_2.png')
 
 
-def Tear_Crush(x, y):
-    if x <= 0 + 30 or x >= 800 - 30 or y <= 0 + 30 or y >= 600 - 30:
-        return True
-    return False
+def Tear_Crush():
+    for i in range(5):
+        if 30 > Issac_Tear[i].x or Issac_Tear[i].x > 770 or Issac_Tear[i].y < 30 or Issac_Tear[i].y > 570:
+            Issac_Tear[i].isView = False
+        for k in range(4):
+            if Issac_Tear[i].isView and Stone.Binding_Box[0][0] < Issac_Tear[i].Binding_Box[k][0] and Issac_Tear[i].Binding_Box[k][0] < Stone.Binding_Box[3][0] \
+                and Stone.Binding_Box[3][1] < Issac_Tear[i].Binding_Box[k][1] and Issac_Tear[i].Binding_Box[k][1] < Stone.Binding_Box[0][1]:
+                Issac_Tear[i].isView = False
 
 
 def Tear_Count(i):
@@ -260,8 +264,8 @@ class Isaac_Tear:
         self.Binding_Box[2] = (self.x - (Tear_Size / 2), self.y - (Tear_Size / 2))
         self.Binding_Box[3] = (self.x + (Tear_Size / 2), self.y - (Tear_Size / 2))
 
-        if Tear_Crush(self.x, self.y):
-            self.isView = False
+        Tear_Crush()
+
         if self.acceleration < -15:
             self.isView = False
 
@@ -278,7 +282,7 @@ class Red_Spider_obj:
         self.y = random.randint(100, 600)
         self.image = load_image('red_spider.png')
         self.frame = 0
-        self.speed = random.randint(7, 20)
+        self.speed = random.randint(7, 15)
         self.DirectionX = 1
         self.DirectionY = 1
         self.ChaseTime = 0
@@ -327,11 +331,27 @@ class Tile:
         self.image.clip_draw(0, 0, Tile_Size, Tile_Size, self.x * 100 + 50, self.y * 100 + 50)
 
 
+class Obstacle:
+    def __init__(self):
+        self.x = 300
+        self.y = 300
+        self.image = load_image('Obstacle_1.png')
+        self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
+        self.Binding_Box[0] = (self.x - 30, self.y + 30)
+        self.Binding_Box[1] = (self.x + 30, self.y + 30)
+        self.Binding_Box[2] = (self.x - 30, self.y - 30)
+        self.Binding_Box[3] = (self.x + 30, self.y - 30)
+
+    def draw(self):
+        self.image.clip_draw(0, 0, 120, 124, self.x, self.y, 60, 60)
+
+
 Issac_Head = Isaac_Head()
 Issac_Tear = [Isaac_Tear() for i in range(0, 5)]
 Red_spider = [Red_Spider_obj() for i in range(0, 3)]
 Tiles = [Tile() for i in range(0, 48)]
 Heart = load_image('Heart.png')
+Stone = Obstacle()
 
 for i in range(0, 48):
     Tiles[i].x = i % 8
@@ -359,6 +379,7 @@ while GamePlay:
         Red_spider[i].draw()
     for i in range(Issac_Body.life):
         Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
+    Stone.draw()
 
     update_canvas()
 
