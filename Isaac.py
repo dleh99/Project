@@ -132,15 +132,23 @@ class Isaac_Body:
         else:
             self.frame = (self.frame + 1) % 10
 
-            if 30 < self.x and self.x < 800 and 30 < self.y and self.y < 600:
-                if self.Left:
-                    self.x -= 10
-                if self.Right:
-                    self.x += 10
-                if self.Up:
-                    self.y += 10
-                if self.Down:
-                    self.y -= 10
+            if self.Left:
+                self.x -= 10
+            if self.Right:
+                self.x += 10
+            if self.Up:
+                self.y += 10
+            if self.Down:
+                self.y -= 10
+
+            if self.x < 30:
+                self.x += 10
+            elif self.x > 770:
+                self.x -= 10
+            if self.y < 30:
+                self.y += 10
+            elif self.y > 570:
+                self.y -= 10
 
     def draw(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
