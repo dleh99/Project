@@ -11,14 +11,38 @@ Body_Raw = 25
 Tear_Size = 10
 Red_Spider_Lenght = 110
 Red_spider_Raw = 80
+Tile_Size = 100
 
 frame = 0
 
 GamePlay = True
 
+open_canvas()
+
+def Tile_Image_Define():
+    for i in range(48):
+        if Tiles[i].x == 0:
+            Tiles[i].image = load_image('tile_4.png')
+        if Tiles[i].x == 7:
+            Tiles[i].image = load_image('tile_5.png')
+        if Tiles[i].y == 0:
+            if Tiles[i].x == 0:
+                Tiles[i].image = load_image('tile_7.png')
+            elif Tiles[i].x == 7:
+                Tiles[i].image = load_image('tile_8.png')
+            else:
+                Tiles[i].image = load_image('tile_3.png')
+        if Tiles[i].y == 5:
+            if Tiles[i].x == 0:
+                Tiles[i].image = load_image('tile_6.png')
+            elif Tiles[i].x == 7:
+                Tiles[i].image = load_image('tile_9.png')
+            else:
+                Tiles[i].image = load_image('tile_2.png')
+
 
 def Tear_Crush(x, y):
-    if x <= 0 or x >= 800 or y <= 0 or y >= 600:
+    if x <= 0 + 30 or x >= 800 - 30 or y <= 0 + 30 or y >= 600 - 30:
         return True
     return False
 
@@ -90,7 +114,6 @@ def handle_events():
         elif event.key == SDLK_DOWN:
             Issac_Head.frame = 0
 
-open_canvas()
 #==============================================================
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -109,13 +132,13 @@ class Isaac_Body:
         else:
             self.frame = (self.frame + 1) % 10
             if self.Left:
-                self.x -= 7
+                self.x -= 10
             if self.Right:
-                self.x += 7
+                self.x += 10
             if self.Up:
-                self.y += 7
+                self.y += 10
             if self.Down:
-                self.y -= 7
+                self.y -= 10
 
     def draw(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -211,15 +234,24 @@ class Red_Spider_obj:
 
 class Tile:
     def __init__(self):
-        self.x = 0
-        self.y = 0
+        self.x = 1
+        self.y = 1
+        self.image = load_image('tile_1.png')
 
-    def 
+    def Draw(self):
+        self.image.clip_draw(0, 0, Tile_Size, Tile_Size, self.x * 100 + 50, self.y * 100 + 50)
 
 
 Issac_Head = Isaac_Head()
-Issac_Tear = [Isaac_Tear() for i in range(5)]
-Red_spider = [Red_Spider_obj() for i in range(3)]
+Issac_Tear = [Isaac_Tear() for i in range(0, 5)]
+Red_spider = [Red_Spider_obj() for i in range(0, 3)]
+Tiles = [Tile() for i in range(0, 48)]
+
+for i in range(0, 48):
+    Tiles[i].x = i % 8
+    Tiles[i].y = i // 8
+    Tile_Image_Define()
+
 
 #==============================================================
 while GamePlay:
@@ -231,6 +263,8 @@ while GamePlay:
         Red_spider[i].update()
 
     clear_canvas()
+    for i in range(48):
+        Tiles[i].Draw()
     Issac_Body.draw()
     Issac_Head.draw()
     for i in range(5):
