@@ -20,7 +20,16 @@ GamePlay = True
 open_canvas()
 
 def CheckCrush():
-    pass
+    for i in range(4):
+        for j in range(3):
+            if not Issac_Body.invincibility and Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0] and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1]:
+                Issac_Body.invincibility = True
+                Issac_Body.life -= 1
+                Red_spider[j].x -= 30
+                Red_spider[j].y += 30
+                Issac_Body.x += 30
+                Issac_Body.y -= 30
+
 
 def Tile_Image_Define():
     for i in range(48):
@@ -129,7 +138,9 @@ class Isaac_Body:
         self.y = 300
         self.Left, self.Right, self.Up, self.Down = False, False, False, False
         self.life = 3
-        self.Binding_Box = [0, 0, 0, 0]
+        self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
+        self.invincibility = False
+        self.invincibilityCount = 0
 
     def update(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -155,10 +166,17 @@ class Isaac_Body:
             elif self.y > 570:
                 self.y -= 10
 
-        self.Binding_Box[0] = self.x - (Body_Lenght / 2)
-        self.Binding_Box[1] = self.y + (Body_Raw / 2)
-        self.Binding_Box[2] = self.x + (Body_Lenght / 2)
-        self.Binding_Box[3] = self.y - (Body_Raw / 2)
+        self.Binding_Box[0] = (self.x - (Body_Lenght / 2), self.y + (Body_Raw / 2))
+        self.Binding_Box[1] = (self.x + (Body_Lenght / 2), self.y + (Body_Raw / 2))
+        self.Binding_Box[2] = (self.x - (Body_Lenght / 2), self.y - (Body_Raw / 2))
+        self.Binding_Box[3] = (self.x + (Body_Lenght / 2), self.y - (Body_Raw / 2))
+
+        if self.invincibility:
+            self.invincibilityCount += 1
+
+            if self.invincibilityCount == 50:
+                self.invincibility = False
+                self.invincibilityCount = 0
 
         CheckCrush()
 
@@ -183,16 +201,16 @@ class Isaac_Head:
         self.frame = 0
         self.x = Issac_Body.x
         self.y = Issac_Body.y + Body_Raw
-        self.Binding_Box = [0, 0, 0, 0]
+        self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
 
     def update(self):
         self.x = Issac_Body.x
         self.y = Issac_Body.y + Body_Raw
 
-        self.Binding_Box[0] = self.x - (Head_Lenght / 2)
-        self.Binding_Box[1] = self.y + (Head_Raw / 2)
-        self.Binding_Box[2] = self.x + (Head_Lenght / 2)
-        self.Binding_Box[3] = self.y - (Head_Raw / 2)
+        self.Binding_Box[0] = (self.x - (Head_Lenght / 2), self.y + (Head_Raw / 2))
+        self.Binding_Box[1] = (self.x + (Head_Lenght / 2), self.y + (Head_Raw / 2))
+        self.Binding_Box[2] = (self.x - (Head_Lenght / 2), self.y - (Head_Raw / 2))
+        self.Binding_Box[3] = (self.x + (Head_Lenght / 2), self.y - (Head_Raw / 2))
 
         CheckCrush()
 
@@ -241,7 +259,7 @@ class Red_Spider_obj:
         self.DirectionX = 1
         self.DirectionY = 1
         self.ChaseTime = 0
-        self.Binding_Box = [0, 0, 0, 0]aa                # 0 = left, 1 = top, 2 = right, 3 = bottom
+        self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]         # 0 = left, 1 = top, 2 = right, 3 = bottom
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -258,10 +276,10 @@ class Red_Spider_obj:
             self.ChaseTime = 0
             Chase_Issac()
 
-        self.Binding_Box[0] = self.x - (Red_Spider_Lenght / 2)
-        self.Binding_Box[1] = self.y + (Red_spider_Raw / 2)
-        self.Binding_Box[2] = self.x + (Red_Spider_Lenght / 2)
-        self.Binding_Box[3] = self.y - (Red_spider_Raw / 2)
+        self.Binding_Box[0] = (self.x - (Red_Spider_Lenght / 2), self.y + (Red_spider_Raw / 2))
+        self.Binding_Box[1] = (self.x + (Red_Spider_Lenght / 2), self.y + (Red_spider_Raw / 2))
+        self.Binding_Box[2] = (self.x - (Red_Spider_Lenght / 2), self.y - (Red_spider_Raw / 2))
+        self.Binding_Box[3] = (self.x + (Red_Spider_Lenght / 2), self.y - (Red_spider_Raw / 2))
 
         self.ChaseTime += 1
 
