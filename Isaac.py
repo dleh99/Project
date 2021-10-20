@@ -2,6 +2,7 @@ import os
 
 from pico2d import *
 import math
+import random
 
 Head_Lenght = 45
 Head_Raw = 42
@@ -34,8 +35,9 @@ def Tear_Count(i):
 
 
 def Chase_Issac():
-    Red_spider.x += Red_spider.DirectionX * abs(Red_spider.x - Issac_Body.x) / Red_spider.speed
-    Red_spider.y += Red_spider.DirectionY * abs(Red_spider.y - Issac_Body.y) / Red_spider.speed
+    for i in range(3):
+        Red_spider[i].x += Red_spider[i].DirectionX * abs(Red_spider[i].x - Issac_Body.x) / Red_spider[i].speed
+        Red_spider[i].y += Red_spider[i].DirectionY * abs(Red_spider[i].y - Issac_Body.y) / Red_spider[i].speed
 
 
 def handle_events():
@@ -178,13 +180,14 @@ class Isaac_Tear:
 
 class Red_Spider_obj:
     def __init__(self):
-        self.x = 100
-        self.y = 100
+        self.x = random.randint(100, 600)
+        self.y = random.randint(100, 600)
         self.image = load_image('red_spider.png')
         self.frame = 0
-        self.speed = 10
+        self.speed = random.randint(10, 20)
         self.DirectionX = 1
         self.DirectionY = 1
+        self.ChaseTime = 0
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -197,7 +200,11 @@ class Red_Spider_obj:
         else:
             self.DirectionY = 1
 
-        Chase_Issac()
+        if self.ChaseTime == 5:
+            self.ChaseTime = 0
+            Chase_Issac()
+
+        self.ChaseTime += 1
 
     def draw(self):
         self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
@@ -205,7 +212,7 @@ class Red_Spider_obj:
 
 Issac_Head = Isaac_Head()
 Issac_Tear = [Isaac_Tear() for i in range(5)]
-Red_spider = Red_Spider_obj()
+Red_spider = [Red_Spider_obj() for i in range(3)]
 
 #==============================================================
 while GamePlay:
@@ -213,14 +220,16 @@ while GamePlay:
     Issac_Head.update()
     for i in range(5):
         Issac_Tear[i].update()
-    Red_spider.update()
+    for i in range(3):
+        Red_spider[i].update()
 
     clear_canvas()
     Issac_Body.draw()
     Issac_Head.draw()
     for i in range(5):
         Issac_Tear[i].draw()
-    Red_spider.draw()
+    for i in range(3):
+        Red_spider[i].draw()
     update_canvas()
 
     handle_events()
