@@ -1,6 +1,7 @@
 import os
 
 from pico2d import *
+import math
 
 Head_Lenght = 45
 Head_Raw = 42
@@ -30,6 +31,11 @@ def Tear_Count(i):
             Issac_Tear[count].direction = i
             Issac_Tear[count].acceleration = 0
             break
+
+
+def Chase_Issac():
+    Red_spider.x += Red_spider.DirectionX * abs(Red_spider.x - Issac_Body.x) / Red_spider.speed
+    Red_spider.y += Red_spider.DirectionY * abs(Red_spider.y - Issac_Body.y) / Red_spider.speed
 
 
 def handle_events():
@@ -176,10 +182,22 @@ class Red_Spider_obj:
         self.y = 100
         self.image = load_image('red_spider.png')
         self.frame = 0
-        self.speed = 5
+        self.speed = 10
+        self.DirectionX = 1
+        self.DirectionY = 1
 
     def update(self):
         self.frame = (self.frame + 1) % 8
+        if self.x > Issac_Body.x:
+            self.DirectionX = -1
+        else:
+            self.DirectionX = 1
+        if self.y > Issac_Body.y:
+            self.DirectionY = -1
+        else:
+            self.DirectionY = 1
+
+        Chase_Issac()
 
     def draw(self):
         self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
