@@ -278,7 +278,7 @@ class Red_Spider_obj:
         self.y = random.randint(100, 600)
         self.image = load_image('red_spider.png')
         self.frame = 0
-        self.speed = random.randint(10, 20)
+        self.speed = random.randint(7, 20)
         self.DirectionX = 1
         self.DirectionY = 1
         self.ChaseTime = 0
