@@ -45,6 +45,27 @@ def Tear_Enemy_Crush():
                     Red_spider[j].hp -= Issac_Tear[i].damage
 
 
+def Obstacle_Crush():
+    a = []
+    for i in range(4):
+        for j in range(3):
+            for k in range(2):
+                if Stone[k].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Stone[k].Binding_Box[3][0] \
+                    and Stone[k].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Stone[k].Binding_Box[0][1] or \
+                    Stone[k].Binding_Box[0][0] < Issac_Body.Binding_Box[i][0] and Issac_Body.Binding_Box[i][0] < Stone[k].Binding_Box[3][0] \
+                    and Stone[k].Binding_Box[3][1] < Issac_Body.Binding_Box[i][1] and Issac_Body.Binding_Box[i][1] < Stone[k].Binding_Box[0][1]:
+                    a.append(i)
+    return a
+
+def Obstacle_Crush_Enemy():
+    a = []
+    for i in range(4):
+        for j in range(3):
+            for k in range(2):
+                if Stone[k].Binding_Box[0][0] < Red_spider[j].Binding_Box[i][0] and Red_spider[j].Binding_Box[i][0] < \
+                    Stone[k].Binding_Box[3][0] and Stone[k].Binding_Box[3][1] < Red_spider[j].Binding_Box[i][1] and Red_spider[j].Binding_Box[i][1] < Stone[k].Binding_Box[0][1]:
+                    a.append(i)
+    return a
 
 def Tile_Image_Define():
     for i in range(48):
@@ -73,9 +94,10 @@ def Tear_Crush():
         if 30 > Issac_Tear[i].x or Issac_Tear[i].x > 770 or Issac_Tear[i].y < 30 or Issac_Tear[i].y > 570:
             Issac_Tear[i].isView = False
         for k in range(4):
-            if Issac_Tear[i].isView and Stone.Binding_Box[0][0] < Issac_Tear[i].Binding_Box[k][0] and Issac_Tear[i].Binding_Box[k][0] < Stone.Binding_Box[3][0] \
-                and Stone.Binding_Box[3][1] < Issac_Tear[i].Binding_Box[k][1] and Issac_Tear[i].Binding_Box[k][1] < Stone.Binding_Box[0][1]:
-                Issac_Tear[i].isView = False
+            for j in range(2):
+                if Issac_Tear[i].isView and Stone[j].Binding_Box[0][0] < Issac_Tear[i].Binding_Box[k][0] and Issac_Tear[i].Binding_Box[k][0] < Stone[j].Binding_Box[3][0] \
+                    and Stone[j].Binding_Box[3][1] < Issac_Tear[i].Binding_Box[k][1] and Issac_Tear[i].Binding_Box[k][1] < Stone[j].Binding_Box[0][1]:
+                    Issac_Tear[i].isView = False
 
 
 def Tear_Count(i):
@@ -199,6 +221,22 @@ class Isaac_Body:
                 self.invincibilityCount = 0
 
         CheckCrush()
+        b = Obstacle_Crush()
+
+        for i in range(len(b)):
+            if b[i] == 0:
+                self.x += 2
+                self.y -= 2
+            elif b[i] == 1:
+                self.x -= 2
+                self.y -= 2
+            elif b[i] == 2:
+                self.x += 2
+                self.y += 2
+            elif b[i] == 3:
+                self.x -= 2
+                self.y += 2
+
 
     def draw(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -314,6 +352,22 @@ class Red_Spider_obj:
 
         Tear_Enemy_Crush()
 
+        b = Obstacle_Crush_Enemy()
+
+        for i in range(len(b)):
+            if b[i] == 0:
+                self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+                self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+            elif b[i] == 1:
+                self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+                self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+            elif b[i] == 2:
+                self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+                self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+            elif b[i] == 3:
+                self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+                self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+
         if self.hp < 0:
             self.isView = False
 
@@ -333,8 +387,8 @@ class Tile:
 
 class Obstacle:
     def __init__(self):
-        self.x = 300
-        self.y = 300
+        self.x = random.randint(100, 400)
+        self.y = random.randint(100, 400)
         self.image = load_image('Obstacle_1.png')
         self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
         self.Binding_Box[0] = (self.x - 30, self.y + 30)
@@ -351,7 +405,7 @@ Issac_Tear = [Isaac_Tear() for i in range(0, 5)]
 Red_spider = [Red_Spider_obj() for i in range(0, 3)]
 Tiles = [Tile() for i in range(0, 48)]
 Heart = load_image('Heart.png')
-Stone = Obstacle()
+Stone = [Obstacle() for i in range(2)]
 
 for i in range(0, 48):
     Tiles[i].x = i % 8
@@ -379,7 +433,8 @@ while GamePlay:
         Red_spider[i].draw()
     for i in range(Issac_Body.life):
         Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
-    Stone.draw()
+    for i in range(2):
+        Stone[i].draw()
 
     update_canvas()
 
