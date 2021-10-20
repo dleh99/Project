@@ -200,7 +200,7 @@ class Red_Spider_obj:
         else:
             self.DirectionY = 1
 
-        if self.ChaseTime == 5:
+        if self.ChaseTime == 4:
             self.ChaseTime = 0
             Chase_Issac()
 
@@ -208,6 +208,13 @@ class Red_Spider_obj:
 
     def draw(self):
         self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
+
+class Tile:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+
+    def 
 
 
 Issac_Head = Isaac_Head()
