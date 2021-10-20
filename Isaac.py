@@ -352,21 +352,21 @@ class Red_Spider_obj:
 
         Tear_Enemy_Crush()
 
-        b = Obstacle_Crush_Enemy()
-
-        for i in range(len(b)):
-            if b[i] == 0:
-                self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
-                self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
-            elif b[i] == 1:
-                self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
-                self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
-            elif b[i] == 2:
-                self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
-                self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
-            elif b[i] == 3:
-                self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
-                self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+        # b = Obstacle_Crush_Enemy()
+        #
+        # for i in range(len(b)):
+        #     if b[i] == 0:
+        #         self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+        #         self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+        #     elif b[i] == 1:
+        #         self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+        #         self.y -= (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+        #     elif b[i] == 2:
+        #         self.x += (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+        #         self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
+        #     elif b[i] == 3:
+        #         self.x -= (self.DirectionX * abs(self.x - Issac_Body.x) / self.speed) / 2
+        #         self.y += (self.DirectionY * abs(self.y - Issac_Body.y) / self.speed) / 2
 
         if self.hp < 0:
             self.isView = False
