@@ -23,7 +23,10 @@ def Tear_Count(i):
     for count in range(5):
         if Issac_Tear[count].isView == False:
             Issac_Tear[count].isView = True
+            Issac_Tear[count].x = Issac_Head.x
+            Issac_Tear[count].y = Issac_Head.y
             Issac_Tear[count].direction = i
+            Issac_Tear[count].acceleration = 0
             break
 
 
@@ -141,23 +144,28 @@ class Isaac_Tear:
         self.y = Issac_Head.y
         self.isView = False
         self.direction = 0              # 1 = 왼쪽, 2 = 오른쪽, 3 = 위, 4 = 아래
+        self.acceleration = 0
 
     def update(self):
         if self.isView:
             if self.direction == 1:
-                self.x -= 15
+                self.x -= 15 + self.acceleration
             elif self.direction == 2:
-                self.x += 15
+                self.x += 15 + self.acceleration
             elif self.direction == 3:
-                self.y += 15
+                self.y += 15 + self.acceleration
             elif self.direction == 4:
-                self.y -= 15
+                self.y -= 15 + self.acceleration
         else:
             self.x = Issac_Head.x
             self.y = Issac_Head.y
 
         if Tear_Crush(self.x, self.y):
             self.isView = False
+        if self.acceleration < -15:
+            self.isView = False
+
+        self.acceleration -= 0.4
 
     def draw(self):
         if self.isView:
