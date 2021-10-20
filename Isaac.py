@@ -22,7 +22,11 @@ open_canvas()
 def CheckCrush():
     for i in range(4):
         for j in range(3):
-            if not Issac_Body.invincibility and Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0] and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1]:
+            if not Issac_Body.invincibility and Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
+                and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1] and\
+                Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
+                and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1]:
+
                 Issac_Body.invincibility = True
                 Issac_Body.life -= 1
                 Red_spider[j].x -= 30
