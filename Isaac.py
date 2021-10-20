@@ -147,18 +147,14 @@ class Isaac_Tear:
         self.acceleration = 0
 
     def update(self):
-        if self.isView:
-            if self.direction == 1:
-                self.x -= 15 + self.acceleration
-            elif self.direction == 2:
-                self.x += 15 + self.acceleration
-            elif self.direction == 3:
-                self.y += 15 + self.acceleration
-            elif self.direction == 4:
-                self.y -= 15 + self.acceleration
-        else:
-            self.x = Issac_Head.x
-            self.y = Issac_Head.y
+        if self.direction == 1:
+            self.x -= 15 + self.acceleration
+        elif self.direction == 2:
+            self.x += 15 + self.acceleration
+        elif self.direction == 3:
+            self.y += 15 + self.acceleration
+        elif self.direction == 4:
+            self.y -= 15 + self.acceleration
 
         if Tear_Crush(self.x, self.y):
             self.isView = False
@@ -169,7 +165,7 @@ class Isaac_Tear:
 
     def draw(self):
         if self.isView:
-            self.image.clip_draw(0, 0, Tear_Size, Tear_Size, self.x, self.y)
+            self.image.clip_draw(0, 0, Tear_Size, Tear_Size, self.x, self.y, 15, 15)
 
 
 Issac_Head = Isaac_Head()
