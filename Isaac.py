@@ -125,6 +125,7 @@ class Isaac_Body:
         self.x = 400
         self.y = 300
         self.Left, self.Right, self.Up, self.Down = False, False, False, False
+        self.life = 3
 
     def update(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -256,6 +257,7 @@ Issac_Head = Isaac_Head()
 Issac_Tear = [Isaac_Tear() for i in range(0, 5)]
 Red_spider = [Red_Spider_obj() for i in range(0, 3)]
 Tiles = [Tile() for i in range(0, 48)]
+Heart = load_image('Heart.png')
 
 for i in range(0, 48):
     Tiles[i].x = i % 8
@@ -281,6 +283,8 @@ while GamePlay:
         Issac_Tear[i].draw()
     for i in range(3):
         Red_spider[i].draw()
+    for i in range(Issac_Body.life):
+        Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
     update_canvas()
 
     handle_events()
