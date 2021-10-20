@@ -22,10 +22,10 @@ open_canvas()
 def CheckCrush():
     for i in range(4):
         for j in range(3):
-            if not Issac_Body.invincibility and Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
+            if not Issac_Body.invincibility and Red_spider[j].isView and Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
                 and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1] and\
-                Red_spider[j].Binding_Box[0][0] < Issac_Head.Binding_Box[i][0] and Issac_Head.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
-                and Red_spider[j].Binding_Box[3][1] < Issac_Head.Binding_Box[i][1] and Issac_Head.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1]:
+                Red_spider[j].Binding_Box[0][0] < Issac_Body.Binding_Box[i][0] and Issac_Body.Binding_Box[i][0] < Red_spider[j].Binding_Box[3][0]\
+                and Red_spider[j].Binding_Box[3][1] < Issac_Body.Binding_Box[i][1] and Issac_Body.Binding_Box[i][1] < Red_spider[j].Binding_Box[0][1]:
 
                 Issac_Body.invincibility = True
                 Issac_Body.life -= 1
@@ -33,6 +33,17 @@ def CheckCrush():
                 Red_spider[j].y += 30
                 Issac_Body.x += 30
                 Issac_Body.y -= 30
+
+
+def Tear_Enemy_Crush():
+    for i in range(5):
+        for j in range(3):
+            for k in range(4):
+                if Issac_Tear[i].isView and Red_spider[j].isView and Red_spider[j].Binding_Box[0][0] < Issac_Tear[i].Binding_Box[k][0] and Issac_Tear[i].Binding_Box[k][0] < Red_spider[j].Binding_Box[3][0]\
+                    and Red_spider[j].Binding_Box[3][1] < Issac_Tear[i].Binding_Box[k][1] and Issac_Tear[i].Binding_Box[k][1] < Red_spider[j].Binding_Box[0][1]:
+                    Issac_Tear[i].isView = False
+                    Red_spider[j].hp -= Issac_Tear[i].damage
+
 
 
 def Tile_Image_Define():
@@ -145,6 +156,7 @@ class Isaac_Body:
         self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
         self.invincibility = False
         self.invincibilityCount = 0
+        self.speed = 7
 
     def update(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -153,13 +165,13 @@ class Isaac_Body:
             self.frame = (self.frame + 1) % 10
 
             if self.Left:
-                self.x -= 10
+                self.x -= self.speed
             if self.Right:
-                self.x += 10
+                self.x += self.speed
             if self.Up:
-                self.y += 10
+                self.y += self.speed
             if self.Down:
-                self.y -= 10
+                self.y -= self.speed
 
             if self.x < 30:
                 self.x += 10
@@ -230,6 +242,8 @@ class Isaac_Tear:
         self.isView = False
         self.direction = 0              # 1 = 왼쪽, 2 = 오른쪽, 3 = 위, 4 = 아래
         self.acceleration = 0
+        self.damage = 15
+        self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]
 
     def update(self):
         if self.direction == 1:
@@ -240,6 +254,11 @@ class Isaac_Tear:
             self.y += 15 + self.acceleration
         elif self.direction == 4:
             self.y -= 15 + self.acceleration
+
+        self.Binding_Box[0] = (self.x - (Tear_Size / 2), self.y + (Tear_Size / 2))
+        self.Binding_Box[1] = (self.x + (Tear_Size / 2), self.y + (Tear_Size / 2))
+        self.Binding_Box[2] = (self.x - (Tear_Size / 2), self.y - (Tear_Size / 2))
+        self.Binding_Box[3] = (self.x + (Tear_Size / 2), self.y - (Tear_Size / 2))
 
         if Tear_Crush(self.x, self.y):
             self.isView = False
@@ -264,6 +283,8 @@ class Red_Spider_obj:
         self.DirectionY = 1
         self.ChaseTime = 0
         self.Binding_Box = [(0, 0), (0, 0), (0, 0), (0, 0)]         # 0 = left, 1 = top, 2 = right, 3 = bottom
+        self.hp = 100
+        self.isView = True
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -280,15 +301,21 @@ class Red_Spider_obj:
             self.ChaseTime = 0
             Chase_Issac()
 
-        self.Binding_Box[0] = (self.x - (Red_Spider_Lenght / 2), self.y + (Red_spider_Raw / 2))
-        self.Binding_Box[1] = (self.x + (Red_Spider_Lenght / 2), self.y + (Red_spider_Raw / 2))
-        self.Binding_Box[2] = (self.x - (Red_Spider_Lenght / 2), self.y - (Red_spider_Raw / 2))
-        self.Binding_Box[3] = (self.x + (Red_Spider_Lenght / 2), self.y - (Red_spider_Raw / 2))
+        self.Binding_Box[0] = (self.x - 40, self.y + 30)
+        self.Binding_Box[1] = (self.x + 40, self.y + 30)
+        self.Binding_Box[2] = (self.x - 40, self.y - (Red_spider_Raw / 2))
+        self.Binding_Box[3] = (self.x + 40, self.y - (Red_spider_Raw / 2))
 
         self.ChaseTime += 1
 
+        Tear_Enemy_Crush()
+
+        if self.hp < 0:
+            self.isView = False
+
     def draw(self):
-        self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
+        if self.isView:
+            self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
 
 class Tile:
     def __init__(self):
@@ -332,6 +359,7 @@ while GamePlay:
         Red_spider[i].draw()
     for i in range(Issac_Body.life):
         Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
+
     update_canvas()
 
     handle_events()
