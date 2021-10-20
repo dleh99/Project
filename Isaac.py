@@ -19,6 +19,9 @@ GamePlay = True
 
 open_canvas()
 
+def CheckCrush():
+    pass
+
 def Tile_Image_Define():
     for i in range(48):
         if Tiles[i].x == 0:
@@ -126,6 +129,7 @@ class Isaac_Body:
         self.y = 300
         self.Left, self.Right, self.Up, self.Down = False, False, False, False
         self.life = 3
+        self.Binding_Box = [0, 0, 0, 0]
 
     def update(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
@@ -151,6 +155,13 @@ class Isaac_Body:
             elif self.y > 570:
                 self.y -= 10
 
+        self.Binding_Box[0] = self.x - (Body_Lenght / 2)
+        self.Binding_Box[1] = self.y + (Body_Raw / 2)
+        self.Binding_Box[2] = self.x + (Body_Lenght / 2)
+        self.Binding_Box[3] = self.y - (Body_Raw / 2)
+
+        CheckCrush()
+
     def draw(self):
         if self.Left == False and self.Right == False and self.Up == False and self.Down == False:
             self.image.clip_draw(self.frame * Body_Lenght, 50, Body_Lenght, Body_Raw, self.x,
@@ -172,10 +183,18 @@ class Isaac_Head:
         self.frame = 0
         self.x = Issac_Body.x
         self.y = Issac_Body.y + Body_Raw
+        self.Binding_Box = [0, 0, 0, 0]
 
     def update(self):
         self.x = Issac_Body.x
         self.y = Issac_Body.y + Body_Raw
+
+        self.Binding_Box[0] = self.x - (Head_Lenght / 2)
+        self.Binding_Box[1] = self.y + (Head_Raw / 2)
+        self.Binding_Box[2] = self.x + (Head_Lenght / 2)
+        self.Binding_Box[3] = self.y - (Head_Raw / 2)
+
+        CheckCrush()
 
     def draw(self):
         self.image.clip_draw(self.frame * Head_Lenght, 0, Head_Lenght, Head_Raw, self.x, self.y)
@@ -222,6 +241,7 @@ class Red_Spider_obj:
         self.DirectionX = 1
         self.DirectionY = 1
         self.ChaseTime = 0
+        self.Binding_Box = [0, 0, 0, 0]aa                # 0 = left, 1 = top, 2 = right, 3 = bottom
 
     def update(self):
         self.frame = (self.frame + 1) % 8
@@ -237,6 +257,11 @@ class Red_Spider_obj:
         if self.ChaseTime == 4:
             self.ChaseTime = 0
             Chase_Issac()
+
+        self.Binding_Box[0] = self.x - (Red_Spider_Lenght / 2)
+        self.Binding_Box[1] = self.y + (Red_spider_Raw / 2)
+        self.Binding_Box[2] = self.x + (Red_Spider_Lenght / 2)
+        self.Binding_Box[3] = self.y - (Red_spider_Raw / 2)
 
         self.ChaseTime += 1
 
