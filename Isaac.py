@@ -7,6 +7,8 @@ Head_Raw = 42
 Body_Lenght = 29
 Body_Raw = 25
 Tear_Size = 10
+Red_Spider_Lenght = 110
+Red_spider_Raw = 80
 
 frame = 0
 
@@ -82,7 +84,7 @@ def handle_events():
 
 open_canvas()
 #==============================================================
-os.chdir('d:/2DGP/Project/Sprite/Isaac')
+os.chdir('d:/2DGP/Project/Sprite')
 
 
 class Isaac_Body:
@@ -168,8 +170,24 @@ class Isaac_Tear:
             self.image.clip_draw(0, 0, Tear_Size, Tear_Size, self.x, self.y, 15, 15)
 
 
+class Red_Spider_obj:
+    def __init__(self):
+        self.x = 100
+        self.y = 100
+        self.image = load_image('red_spider.png')
+        self.frame = 0
+        self.speed = 5
+
+    def update(self):
+        self.frame = (self.frame + 1) % 8
+
+    def draw(self):
+        self.image.clip_draw(self.frame * Red_Spider_Lenght, 0, Red_Spider_Lenght, Red_spider_Raw, self.x, self.y, 55, 40)
+
+
 Issac_Head = Isaac_Head()
 Issac_Tear = [Isaac_Tear() for i in range(5)]
+Red_spider = Red_Spider_obj()
 
 #==============================================================
 while GamePlay:
@@ -177,12 +195,14 @@ while GamePlay:
     Issac_Head.update()
     for i in range(5):
         Issac_Tear[i].update()
+    Red_spider.update()
 
     clear_canvas()
     Issac_Body.draw()
     Issac_Head.draw()
     for i in range(5):
         Issac_Tear[i].draw()
+    Red_spider.draw()
     update_canvas()
 
     handle_events()
