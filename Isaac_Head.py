@@ -1,7 +1,11 @@
+import os
+
 import game_framework
 from pico2d import *
 
 import game_world
+
+os.chdir('d:/2DGP/Project/Sprite')
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -28,39 +32,108 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_DOWN): DOWN_DOWN,
 }
 
-class Go_Left:
-    pass
+class IdleState:
+    def enter(head, event):
+        if event == D_DOWN:
+            head.velocity_x += RUN_SPEED_PPS
+        elif event == A_DOWN:
+            head.velocity_x -= RUN_SPEED_PPS
+        elif event == D_UP:
+            head.velocity_x -= RUN_SPEED_PPS
+        elif event == A_UP:
+            head.velocity_x += RUN_SPEED_PPS
+        if event == W_DOWN:
+            head.velocity_y += RUN_SPEED_PPS
+        elif event == S_DOWN:
+            head.velocity_y -= RUN_SPEED_PPS
+        elif event == W_UP:
+            head.velocity_y -= RUN_SPEED_PPS
+        elif event == S_UP:
+            head.velocity_y += RUN_SPEED_PPS
 
-class Go_Right:
-    pass
+    def exit(head, event):
+        pass
 
-class Go_Up:
-    pass
+    def do(head):
+        head.frame = (head.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
 
-class Go_Down:
-    pass
+    def draw(head):
+        if head.dir == 1:
+            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 2:
+            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 3:
+            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 4:
+            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+
+class RunState:
+
+    def enter(head, event):
+        if event == D_DOWN:
+            head.velocity_x += RUN_SPEED_PPS
+            head.dir = 2
+        elif event == A_DOWN:
+            head.velocity_x -= RUN_SPEED_PPS
+            head.dir = 4
+        elif event == D_UP:
+            head.velocity_x -= RUN_SPEED_PPS
+        elif event == A_UP:
+            head.velocity_x += RUN_SPEED_PPS
+        if event == W_DOWN:
+            head.velocity_y += RUN_SPEED_PPS
+            head.dir = 3
+        elif event == S_DOWN:
+            head.velocity_y -= RUN_SPEED_PPS
+            head.dir = 1
+        elif event == W_UP:
+            head.velocity_y -= RUN_SPEED_PPS
+        elif event == S_UP:
+            head.velocity_y += RUN_SPEED_PPS
+
+    def exit(head, event):
+        pass
+
+    def do(head):
+        #boy.frame = (boy.frame + 1) % 8
+        head.x += head.velocity_x * game_framework.frame_time
+        head.y += head.velocity_y * game_framework.frame_time
+        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
+        head.y = clamp(head.size_y // 2, head.y, 800 - head.size_y // 2)
+
+    def draw(head):
+        if head.dir == 1:
+            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 2:
+            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 3:
+            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 4:
+            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+
 
 next_state_table = {
-    Go_Left: {},
-    Go_Right: {},
-    Go_Up: {},
-    Go_Down: {}
+    IdleState: {W_DOWN: RunState, A_DOWN: RunState, S_DOWN: RunState, D_DOWN: RunState,
+                W_UP: RunState, A_UP: RunState, S_UP: RunState, D_UP: RunState},
+    RunState: {W_DOWN: IdleState, A_DOWN: IdleState, S_DOWN: IdleState, D_DOWN: IdleState,
+                W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState}
 }
 
 class Isaac_head:
 
     def __init__(self):
         self.image = load_image('Isaac_Head.png')
-        self.font = load_font('ENCR10B.TTF', 16)
+        # self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1                # 1 = 정면, 2 = 오른쪽, 3 = 위, 4 = 왼쪽
         self.frame = 0
-        self.velocity = 0
+        self.velocity_x = 0
+        self.velocity_y = 0
         self.x = 800 // 2
         self.y = 600 // 2
         self.size_x = 45
         self.size_y = 42
         self.event_que = []
-        self.cur_state = None
+        self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
     def get_bb(self):
@@ -84,7 +157,7 @@ class Isaac_head:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        # self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
         draw_rectangle(*self.get_bb())
         #fill here
 
