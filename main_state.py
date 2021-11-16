@@ -6,19 +6,14 @@ from pico2d import *
 import game_framework
 import game_world
 
-from Isaac import
-
-
 name = "MainState"
 
-boy = None
-
 def enter():
-    global boy
-    boy = Boy()
-    grass = Grass()
-    game_world.add_object(grass, 0)
-    game_world.add_object(boy, 1)
+    global issac_head, issac_body
+    issac_body = Isaac_Body()
+    issac_head = Isaac_Head()
+    game_world.add_object(issac_body, 1)
+    game_world.add_object(issac_head, 1)
 
 
 def exit():
@@ -40,7 +35,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         else:
-            boy.handle_event(event)
+            issac_body.handle_event(event)
 
 
 def update():
