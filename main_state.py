@@ -7,15 +7,19 @@ import game_framework
 import game_world
 
 from Isaac_Head import Isaac_head
+from Isaac_Body import Isaac_body
 
 name = "MainState"
 
 isaac_head = None
+isaac_body = None
 
 def enter():
-    global issac_head
+    global issac_head, isaac_body
     issac_head = Isaac_head()
+    isaac_body = Isaac_body()
     game_world.add_object(issac_head, 1)
+    game_world.add_object(isaac_body, 0)
 
 
 def exit():
@@ -38,6 +42,8 @@ def handle_events():
                 game_framework.quit()
         else:
             issac_head.handle_event(event)
+            isaac_body.handle_event(event)
+
 
 
 def update():

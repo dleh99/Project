@@ -223,7 +223,7 @@ class Isaac_head:
         self.velocity_x = 0
         self.velocity_y = 0
         self.x = 800 // 2
-        self.y = 600 // 2
+        self.y = 600 // 2 + 25
         self.size_x = 45
         self.size_y = 42
         self.event_que = []
