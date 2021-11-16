@@ -36,16 +36,20 @@ class IdleState:
     def enter(head, event):
         if event == D_DOWN:
             head.velocity_x += RUN_SPEED_PPS
+            head.dir = 2
         elif event == A_DOWN:
             head.velocity_x -= RUN_SPEED_PPS
+            head.dir = 4
         elif event == D_UP:
             head.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
             head.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
             head.velocity_y += RUN_SPEED_PPS
+            head.dir = 3
         elif event == S_DOWN:
             head.velocity_y -= RUN_SPEED_PPS
+            head.dir = 1
         elif event == W_UP:
             head.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
@@ -123,7 +127,7 @@ class Isaac_head:
 
     def __init__(self):
         self.image = load_image('Isaac_Head.png')
-        # self.font = load_font('ENCR10B.TTF', 16)
+        self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1                # 1 = 정면, 2 = 오른쪽, 3 = 위, 4 = 왼쪽
         self.frame = 0
         self.velocity_x = 0
@@ -137,7 +141,7 @@ class Isaac_head:
         self.cur_state.enter(self, None)
 
     def get_bb(self):
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
 
     def fire_ball(self):
@@ -157,7 +161,7 @@ class Isaac_head:
 
     def draw(self):
         self.cur_state.draw(self)
-        # self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
         draw_rectangle(*self.get_bb())
         #fill here
 
