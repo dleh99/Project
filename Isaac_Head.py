@@ -71,7 +71,7 @@ class IdleState:
         elif head.dir == 4:
             head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
 
-class RunState:
+class One_RunState:
 
     def enter(head, event):
         if event == D_DOWN:
@@ -99,11 +99,97 @@ class RunState:
         pass
 
     def do(head):
-        #boy.frame = (boy.frame + 1) % 8
         head.x += head.velocity_x * game_framework.frame_time
         head.y += head.velocity_y * game_framework.frame_time
         head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
-        head.y = clamp(head.size_y // 2, head.y, 800 - head.size_y // 2)
+        head.y = clamp(head.size_y // 2, head.y, 600 - head.size_y // 2)
+
+    def draw(head):
+        if head.dir == 1:
+            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 2:
+            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 3:
+            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 4:
+            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+
+
+class Two_RunState:
+
+    def enter(head, event):
+        if event == D_DOWN:
+            head.velocity_x += RUN_SPEED_PPS
+            head.dir = 2
+        elif event == A_DOWN:
+            head.velocity_x -= RUN_SPEED_PPS
+            head.dir = 4
+        elif event == D_UP:
+            head.velocity_x -= RUN_SPEED_PPS
+        elif event == A_UP:
+            head.velocity_x += RUN_SPEED_PPS
+        if event == W_DOWN:
+            head.velocity_y += RUN_SPEED_PPS
+            head.dir = 3
+        elif event == S_DOWN:
+            head.velocity_y -= RUN_SPEED_PPS
+            head.dir = 1
+        elif event == W_UP:
+            head.velocity_y -= RUN_SPEED_PPS
+        elif event == S_UP:
+            head.velocity_y += RUN_SPEED_PPS
+
+    def exit(head, event):
+        pass
+
+    def do(head):
+        head.x += head.velocity_x * game_framework.frame_time
+        head.y += head.velocity_y * game_framework.frame_time
+        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
+        head.y = clamp(head.size_y // 2, head.y, 600 - head.size_y // 2)
+
+    def draw(head):
+        if head.dir == 1:
+            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 2:
+            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 3:
+            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        elif head.dir == 4:
+            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+
+class Three_RunState:
+
+    def enter(head, event):
+        if event == D_DOWN:
+            head.velocity_x += RUN_SPEED_PPS
+            head.dir = 2
+        elif event == A_DOWN:
+            head.velocity_x -= RUN_SPEED_PPS
+            head.dir = 4
+        elif event == D_UP:
+            head.velocity_x -= RUN_SPEED_PPS
+        elif event == A_UP:
+            head.velocity_x += RUN_SPEED_PPS
+        if event == W_DOWN:
+            head.velocity_y += RUN_SPEED_PPS
+            head.dir = 3
+        elif event == S_DOWN:
+            head.velocity_y -= RUN_SPEED_PPS
+            head.dir = 1
+        elif event == W_UP:
+            head.velocity_y -= RUN_SPEED_PPS
+        elif event == S_UP:
+            head.velocity_y += RUN_SPEED_PPS
+
+    def exit(head, event):
+        pass
+
+    def do(head):
+        head.x += head.velocity_x * game_framework.frame_time
+        head.y += head.velocity_y * game_framework.frame_time
+        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
+        head.y = clamp(head.size_y // 2, head.y, 600 - head.size_y // 2)
 
     def draw(head):
         if head.dir == 1:
@@ -117,10 +203,14 @@ class RunState:
 
 
 next_state_table = {
-    IdleState: {W_DOWN: RunState, A_DOWN: RunState, S_DOWN: RunState, D_DOWN: RunState,
-                W_UP: RunState, A_UP: RunState, S_UP: RunState, D_UP: RunState},
-    RunState: {W_DOWN: IdleState, A_DOWN: IdleState, S_DOWN: IdleState, D_DOWN: IdleState,
-                W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState}
+    IdleState: {W_DOWN: One_RunState, A_DOWN: One_RunState, S_DOWN: One_RunState, D_DOWN: One_RunState,
+                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState},
+    One_RunState: {W_DOWN: Two_RunState, A_DOWN: Two_RunState, S_DOWN: Two_RunState, D_DOWN: Two_RunState,
+                W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState},
+    Two_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
+                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState},
+    Three_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
+                W_UP: Two_RunState, A_UP: Two_RunState, S_UP: Two_RunState, D_UP: Two_RunState}
 }
 
 class Isaac_head:
