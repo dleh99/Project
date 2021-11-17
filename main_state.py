@@ -90,6 +90,13 @@ def update():
                 isaac_head.invincibility = True
                 isaac_body.life -= 1
                 isaac_head.life -= 1
+    for mob in game_world.Mob_objects():
+        for tear in game_world.Tear_objects():
+            if collide(mob, tear):
+                print('부딫침')
+                mob.hp -= tear.power
+                if mob.hp <= 0:
+                    print('체력 끝')
     # delay(1.0)
 
 
