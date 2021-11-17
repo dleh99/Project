@@ -134,12 +134,9 @@ def make_Map():
 
 
 def exit():
-    global isaac_head, isaac_body
-
-    isaac_body.veclocity_x = 0
-    isaac_body.veclocity_y = 0
-    isaac_head.veclocity_x = 0
-    isaac_head.veclocity_y = 0
+    global doors
+    for door in doors:
+        game_world.remove_object(door)
 
 
 def pause():
@@ -164,7 +161,7 @@ def handle_events():
 
 
 def update():
-    global isaac_head, isaac_body, red_spiders, Map_num
+    global isaac_head, isaac_body, red_spiders
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -206,27 +203,25 @@ def update():
                 if mob.hp <= 0:
                     game_world.remove_object(mob)
     for obs in game_world.Obs_objects():
-        if up_collide(isaac_body, obs):
-            isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
-            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
-        if down_collide(isaac_head, obs):
-            isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
-            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
-        if left_collide(isaac_head, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if left_collide(isaac_body, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if right_collide(isaac_head, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if right_collide(isaac_body, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
+        for isaac in game_world.Isaac_objects():
+            if up_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if down_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if left_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
+            if right_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
-        if left_collide(isaac_head, door):
-            game_framework.change_state(Stage_1_map_1)
+        for isaac in game_world.Isaac_objects():
+            if left_collide(isaac, door):
+                for all in game_world.Isaac_objects():
+                    all.x = 300
+                game_framework.change_state(Stage_1_map_1)
     # delay(1.0)
 
 

@@ -135,46 +135,44 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         else:
-            isaac_head.handle_event(event)
-            isaac_body.handle_event(event)
-
+            for isaac in game_world.Isaac_objects():
+                isaac.handle_event(event)
 
 
 def update():
-    global isaac_head, isaac_body, red_spiders, Map_num
 
     for game_object in game_world.all_objects():
         game_object.update()
     for mob in game_world.Mob_objects():
-        if abs(isaac_body.x - mob.x) > 100:
-            mob.x += (isaac_body.x - mob.x) / 500
-        else:
-            mob.x += (isaac_body.x - mob.x) / 200
-        if abs(isaac_body.y - mob.y) > 100:
-            mob.y += (isaac_body.y - mob.y) / 500
-        else:
-            mob.y += (isaac_body.y - mob.y) / 200
-        mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
-        mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-        if not isaac_head.invincibility:
-            if up_collide(isaac_body, mob) or down_collide(isaac_head, mob) or left_collide(isaac_head, mob) or\
-                left_collide(isaac_body, mob) or right_collide(isaac_head, mob) or right_collide(isaac_body, mob)or\
-                    collide(isaac_body, mob) or collide(isaac_head, mob):
-                isaac_head.invincibility = True
-                isaac_body.life -= 1
-                isaac_head.life -= 1
-                if up_collide(isaac_body, mob):
-                    isaac_body.y += RUN_SPEED_PPS // 3
-                    isaac_head.y += RUN_SPEED_PPS // 3
-                elif down_collide(isaac_head, mob):
-                    isaac_body.y -= RUN_SPEED_PPS // 3
-                    isaac_head.y -= RUN_SPEED_PPS // 3
-                elif left_collide(isaac_head, mob) or left_collide(isaac_body, mob):
-                    isaac_body.x -= RUN_SPEED_PPS // 3
-                    isaac_head.x -= RUN_SPEED_PPS // 3
-                else:
-                    isaac_body.x += RUN_SPEED_PPS // 3
-                    isaac_head.x += RUN_SPEED_PPS // 3
+        for isaac in game_world.Isaac_objects():
+            if abs(isaac.x - mob.x) > 100:
+                mob.x += (isaac.x - mob.x) / 1000
+            else:
+                mob.x += (isaac.x - mob.x) / 400
+            if abs(isaac.y - mob.y) > 100:
+                mob.y += (isaac.y - mob.y) / 1000
+            else:
+                mob.y += (isaac.y - mob.y) / 400
+            mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
+            mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
+            if not isaac.invincibility:
+                if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or \
+                        right_collide(isaac, mob) or collide(isaac, mob):
+                    for all in game_world.Isaac_objects():
+                        all.invincibility = True
+                        all.life -= 1
+                    if up_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y += RUN_SPEED_PPS // 3
+                    elif down_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y -= RUN_SPEED_PPS // 3
+                    elif left_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.x -= RUN_SPEED_PPS // 3
+                    else:
+                        for all in game_world.Isaac_objects():
+                            all.x += RUN_SPEED_PPS // 3
     for mob in game_world.Mob_objects():
         for tear in game_world.Tear_objects():
             if collide(mob, tear):
@@ -183,27 +181,23 @@ def update():
                 if mob.hp <= 0:
                     game_world.remove_object(mob)
     for obs in game_world.Obs_objects():
-        if up_collide(isaac_body, obs):
-            isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
-            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
-        if down_collide(isaac_head, obs):
-            isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
-            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
-        if left_collide(isaac_head, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if left_collide(isaac_body, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if right_collide(isaac_head, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
-        if right_collide(isaac_body, obs):
-            isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
-            isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
+        for isaac in game_world.Isaac_objects():
+            if up_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if down_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if left_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
+            if right_collide(isaac, obs):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
-        if left_collide(isaac_head, door):
-            game_framework.change_state(Stage_1_map_1)
+        for isaac in game_world.Isaac_objects():
+            if left_collide(isaac, door):
+                pass
     # delay(1.0)
 
 
