@@ -16,9 +16,8 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-import Stage_1_map_1
 
-name = "MainState"
+name = "Stage_1_map_1"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -100,13 +99,9 @@ def enter():
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     isaac_head = Isaac_head()
     isaac_body = Isaac_body()
-    red_spiders = [Red_Spider() for i in range(3)]
     # print(type(red_spiders))
-    obstacle_rocks = Obstacle_Rock()
     game_world.add_object(isaac_body, 1)
     game_world.add_object(isaac_head, 1)
-    game_world.add_objects(red_spiders, 3)
-    game_world.add_object(obstacle_rocks, 4)
     Tile_1 = load_image('tile_1.png')
     Tile_2 = load_image('tile_2.png')
     Tile_3 = load_image('tile_3.png')
@@ -121,7 +116,7 @@ def enter():
 
 def make_Map():
     global tile, doors
-    f = open('d:/2DGP/Project/Stage/stage_1.txt')
+    f = open('d:/2DGP/Project/Stage/stage_2.txt')
     for i in range(7):
         tile.append(f.readline())
     f.close()
@@ -218,7 +213,7 @@ def update():
             isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
         if left_collide(isaac_head, door):
-            game_framework.change_state(Stage_1_map_1)
+            pass
     # delay(1.0)
 
 
