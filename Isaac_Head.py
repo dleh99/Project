@@ -3,6 +3,8 @@ import os
 import game_framework
 from pico2d import *
 
+from Isaac_Tear import Isaac_tear
+
 import game_world
 
 os.chdir('d:/2DGP/Project/Sprite')
@@ -56,7 +58,18 @@ class IdleState:
             head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
-        pass
+        if event == DOWN_DOWN:
+            head.tear_dir = 1
+            head.fire_tear()
+        elif event == RIGHT_DOWN:
+            head.tear_dir = 2
+            head.fire_tear()
+        elif event == UP_DOWN:
+            head.tear_dir = 3
+            head.fire_tear()
+        else:
+            head.tear_dir = 4
+            head.fire_tear()
 
     def do(head):
         head.frame = (head.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
@@ -96,7 +109,18 @@ class One_RunState:
             head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
-        pass
+        if event == DOWN_DOWN:
+            head.tear_dir = 1
+            head.fire_tear()
+        elif event == RIGHT_DOWN:
+            head.tear_dir = 2
+            head.fire_tear()
+        elif event == UP_DOWN:
+            head.tear_dir = 3
+            head.fire_tear()
+        else:
+            head.tear_dir = 4
+            head.fire_tear()
 
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
@@ -140,7 +164,18 @@ class Two_RunState:
             head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
-        pass
+        if event == DOWN_DOWN:
+            head.tear_dir = 1
+            head.fire_tear()
+        elif event == RIGHT_DOWN:
+            head.tear_dir = 2
+            head.fire_tear()
+        elif event == UP_DOWN:
+            head.tear_dir = 3
+            head.fire_tear()
+        else:
+            head.tear_dir = 4
+            head.fire_tear()
 
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
@@ -183,7 +218,18 @@ class Three_RunState:
             head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
-        pass
+        if event == DOWN_DOWN:
+            head.tear_dir = 1
+            head.fire_tear()
+        elif event == RIGHT_DOWN:
+            head.tear_dir = 2
+            head.fire_tear()
+        elif event == UP_DOWN:
+            head.tear_dir = 3
+            head.fire_tear()
+        else:
+            head.tear_dir = 4
+            head.fire_tear()
 
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
@@ -204,13 +250,17 @@ class Three_RunState:
 
 next_state_table = {
     IdleState: {W_DOWN: One_RunState, A_DOWN: One_RunState, S_DOWN: One_RunState, D_DOWN: One_RunState,
-                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState},
+                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState,
+                DOWN_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_DOWN: IdleState, LEFT_DOWN: IdleState},
     One_RunState: {W_DOWN: Two_RunState, A_DOWN: Two_RunState, S_DOWN: Two_RunState, D_DOWN: Two_RunState,
-                W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState},
+                W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState,
+                DOWN_DOWN: One_RunState, RIGHT_DOWN: One_RunState, UP_DOWN: One_RunState, LEFT_DOWN: One_RunState},
     Two_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
-                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState},
+                W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState,
+                DOWN_DOWN: Two_RunState, RIGHT_DOWN: Two_RunState, UP_DOWN: Two_RunState, LEFT_DOWN: Two_RunState},
     Three_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
-                W_UP: Two_RunState, A_UP: Two_RunState, S_UP: Two_RunState, D_UP: Two_RunState}
+                W_UP: Two_RunState, A_UP: Two_RunState, S_UP: Two_RunState, D_UP: Two_RunState,
+                DOWN_DOWN: Three_RunState, RIGHT_DOWN: Three_RunState, UP_DOWN: Three_RunState, LEFT_DOWN: Three_RunState}
 }
 
 class Isaac_head:
@@ -219,6 +269,7 @@ class Isaac_head:
         self.image = load_image('Isaac_Head.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1                # 1 = 정면, 2 = 오른쪽, 3 = 위, 4 = 왼쪽
+        self.tear_dir = 0
         self.frame = 0
         self.velocity_x = 0
         self.velocity_y = 0
@@ -234,8 +285,15 @@ class Isaac_head:
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
 
-    def fire_ball(self):
-        pass
+    def fire_tear(self):
+        if self.tear_dir == 1:
+            print('밑\n')
+        elif self.tear_dir == 2:
+            print('오른쪽\n')
+        elif self.tear_dir == 3:
+            print('위\n')
+        else: 
+            print('왼쪽\n')
 
 
     def add_event(self, event):
