@@ -59,16 +59,16 @@ class IdleState:
 
     def exit(head, event):
         if event == DOWN_DOWN:
-            head.tear_dir = 1
+            head.dir = 1
             head.fire_tear()
         elif event == RIGHT_DOWN:
-            head.tear_dir = 2
+            head.dir = 2
             head.fire_tear()
         elif event == UP_DOWN:
-            head.tear_dir = 3
+            head.dir = 3
             head.fire_tear()
-        else:
-            head.tear_dir = 4
+        elif event == LEFT_DOWN:
+            head.dir = 4
             head.fire_tear()
 
     def do(head):
@@ -110,16 +110,16 @@ class One_RunState:
 
     def exit(head, event):
         if event == DOWN_DOWN:
-            head.tear_dir = 1
+            head.dir = 1
             head.fire_tear()
         elif event == RIGHT_DOWN:
-            head.tear_dir = 2
+            head.dir = 2
             head.fire_tear()
         elif event == UP_DOWN:
-            head.tear_dir = 3
+            head.dir = 3
             head.fire_tear()
-        else:
-            head.tear_dir = 4
+        elif event == LEFT_DOWN:
+            head.dir = 4
             head.fire_tear()
 
     def do(head):
@@ -165,16 +165,16 @@ class Two_RunState:
 
     def exit(head, event):
         if event == DOWN_DOWN:
-            head.tear_dir = 1
+            head.dir = 1
             head.fire_tear()
         elif event == RIGHT_DOWN:
-            head.tear_dir = 2
+            head.dir = 2
             head.fire_tear()
         elif event == UP_DOWN:
-            head.tear_dir = 3
+            head.dir = 3
             head.fire_tear()
-        else:
-            head.tear_dir = 4
+        elif event == LEFT_DOWN:
+            head.dir = 4
             head.fire_tear()
 
     def do(head):
@@ -219,16 +219,16 @@ class Three_RunState:
 
     def exit(head, event):
         if event == DOWN_DOWN:
-            head.tear_dir = 1
+            head.dir = 1
             head.fire_tear()
         elif event == RIGHT_DOWN:
-            head.tear_dir = 2
+            head.dir = 2
             head.fire_tear()
         elif event == UP_DOWN:
-            head.tear_dir = 3
+            head.dir = 3
             head.fire_tear()
-        else:
-            head.tear_dir = 4
+        elif event == LEFT_DOWN:
+            head.dir = 4
             head.fire_tear()
 
     def do(head):
@@ -269,7 +269,6 @@ class Isaac_head:
         self.image = load_image('Isaac_Head.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1                # 1 = 정면, 2 = 오른쪽, 3 = 위, 4 = 왼쪽
-        self.tear_dir = 0
         self.frame = 0
         self.velocity_x = 0
         self.velocity_y = 0
@@ -286,14 +285,7 @@ class Isaac_head:
 
 
     def fire_tear(self):
-        if self.tear_dir == 1:
-            print('밑\n')
-        elif self.tear_dir == 2:
-            print('오른쪽\n')
-        elif self.tear_dir == 3:
-            print('위\n')
-        else: 
-            print('왼쪽\n')
+        pass
 
 
     def add_event(self, event):
