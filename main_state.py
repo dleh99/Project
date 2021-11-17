@@ -128,11 +128,19 @@ def make_Map():
 
     if tile[6][0] == '2':
         doors.append(Door_Cl(800 - 15, 600 // 2, 'Door_5.png'))
+    elif tile[6][0] == '4':
+        doors.append(Door_Cl(15, 600 // 2, 'Door_6.png'))
     game_world.add_objects(doors, 5)
 
 
 def exit():
-    game_world.clear()
+    global isaac_head, isaac_body
+
+    isaac_body.veclocity_x = 0
+    isaac_body.veclocity_y = 0
+    isaac_head.veclocity_x = 0
+    isaac_head.veclocity_y = 0
+
 
 def pause():
     pass
@@ -161,35 +169,35 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     for mob in game_world.Mob_objects():
-        if abs(isaac_body.x - mob.x) > 100:
-            mob.x += (isaac_body.x - mob.x) / 500
-        else:
-            mob.x += (isaac_body.x - mob.x) / 200
-        if abs(isaac_body.y - mob.y) > 100:
-            mob.y += (isaac_body.y - mob.y) / 500
-        else:
-            mob.y += (isaac_body.y - mob.y) / 200
-        mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
-        mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-        if not isaac_head.invincibility:
-            if up_collide(isaac_body, mob) or down_collide(isaac_head, mob) or left_collide(isaac_head, mob) or\
-                left_collide(isaac_body, mob) or right_collide(isaac_head, mob) or right_collide(isaac_body, mob)or\
-                    collide(isaac_body, mob) or collide(isaac_head, mob):
-                isaac_head.invincibility = True
-                isaac_body.life -= 1
-                isaac_head.life -= 1
-                if up_collide(isaac_body, mob):
-                    isaac_body.y += RUN_SPEED_PPS // 3
-                    isaac_head.y += RUN_SPEED_PPS // 3
-                elif down_collide(isaac_head, mob):
-                    isaac_body.y -= RUN_SPEED_PPS // 3
-                    isaac_head.y -= RUN_SPEED_PPS // 3
-                elif left_collide(isaac_head, mob) or left_collide(isaac_body, mob):
-                    isaac_body.x -= RUN_SPEED_PPS // 3
-                    isaac_head.x -= RUN_SPEED_PPS // 3
-                else:
-                    isaac_body.x += RUN_SPEED_PPS // 3
-                    isaac_head.x += RUN_SPEED_PPS // 3
+        for isaac in game_world.Isaac_objects():
+            if abs(isaac.x - mob.x) > 100:
+                mob.x += (isaac.x - mob.x) / 1000
+            else:
+                mob.x += (isaac.x - mob.x) / 400
+            if abs(isaac.y - mob.y) > 100:
+                mob.y += (isaac.y - mob.y) / 1000
+            else:
+                mob.y += (isaac.y - mob.y) / 400
+            mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
+            mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
+            if not isaac.invincibility:
+                if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or\
+                right_collide(isaac, mob) or collide(isaac, mob):
+                    for all in game_world.Isaac_objects():
+                        all.invincibility = True
+                        all.life -= 1
+                    if up_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y += RUN_SPEED_PPS // 3
+                    elif down_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y -= RUN_SPEED_PPS // 3
+                    elif left_collide(isaac, mob):
+                        for all in game_world.Isaac_objects():
+                            all.x -= RUN_SPEED_PPS // 3
+                    else:
+                        for all in game_world.Isaac_objects():
+                            all.x += RUN_SPEED_PPS // 3
     for mob in game_world.Mob_objects():
         for tear in game_world.Tear_objects():
             if collide(mob, tear):

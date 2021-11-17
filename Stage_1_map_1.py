@@ -16,16 +16,10 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-
 name = "Stage_1_map_1"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
-isaac_head = None
-isaac_body = None
-red_spiders = None
-isaac_hearts = None
-obstacle_rocks = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 doors = []
 tile = []
@@ -95,13 +89,7 @@ def right_collide(a, b):
         return False
 
 def enter():
-    global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
-    isaac_head = Isaac_head()
-    isaac_body = Isaac_body()
-    # print(type(red_spiders))
-    game_world.add_object(isaac_body, 1)
-    game_world.add_object(isaac_head, 1)
     Tile_1 = load_image('tile_1.png')
     Tile_2 = load_image('tile_2.png')
     Tile_3 = load_image('tile_3.png')
@@ -123,6 +111,8 @@ def make_Map():
 
     if tile[6][0] == '2':
         doors.append(Door_Cl(800 - 15, 600 // 2, 'Door_5.png'))
+    elif tile[6][0] == '4':
+        doors.append(Door_Cl(15, 600 // 2, 'Door_6.png'))
     game_world.add_objects(doors, 5)
 
 
@@ -213,7 +203,7 @@ def update():
             isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
         if left_collide(isaac_head, door):
-            pass
+            game_framework.change_state(Stage_1_map_1)
     # delay(1.0)
 
 
@@ -245,9 +235,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-
