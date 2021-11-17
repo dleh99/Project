@@ -1,7 +1,7 @@
 import os
-
 import game_framework
 from pico2d import *
+from Isaac_Tear import Isaac_tear
 
 from Isaac_Tear import Isaac_tear
 
@@ -285,7 +285,8 @@ class Isaac_head:
 
 
     def fire_tear(self):
-        pass
+        tear = Isaac_tear(self.x, self.y, self.dir)
+        game_world.add_object(tear, 1)
 
 
     def add_event(self, event):
