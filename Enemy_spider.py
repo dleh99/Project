@@ -42,10 +42,4 @@ class Red_Spider:
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        # print('x =', isaac_body.x, 'y =', isaac_body.y)
-        pass
-
-    #fill here for def stop
-    def stop(self):
-        self.fall_speed = 0
 

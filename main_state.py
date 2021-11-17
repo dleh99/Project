@@ -9,7 +9,7 @@ import game_world
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
-from Isaac_Tear import Isaac_tear
+from Obstacle import Obstacle_Rock
 
 name = "MainState"
 
@@ -19,6 +19,7 @@ isaac_head = None
 isaac_body = None
 red_spiders = None
 isaac_hearts = None
+obstacle_rocks = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 tile = []
 
@@ -34,14 +35,16 @@ def collide(a, b):
     return True
 
 def enter():
-    global isaac_head, isaac_body, red_spiders, isaac_hearts
+    global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     isaac_head = Isaac_head()
     isaac_body = Isaac_body()
     red_spiders = [Red_Spider() for i in range(3)]
+    obstacle_rocks = Obstacle_Rock()
     game_world.add_object(isaac_body, 1)
     game_world.add_object(isaac_head, 1)
     game_world.add_objects(red_spiders, 3)
+    game_world.add_object(obstacle_rocks, 4)
     Tile_1 = load_image('tile_1.png')
     Tile_2 = load_image('tile_2.png')
     Tile_3 = load_image('tile_3.png')
@@ -102,8 +105,6 @@ def update():
             mob.y += (isaac_body.y - mob.y) / 200
         mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
         mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-        #     if collide(red_spiders[i], Isaac_tear):
-        #         red_spiders[i].hp -= Isaac_tear.power
         if not isaac_head.invincibility:
             if collide(isaac_body, mob):
                 isaac_head.invincibility = True
