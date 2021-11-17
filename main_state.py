@@ -36,9 +36,9 @@ def enter():
     isaac_body = Isaac_body()
     isaac_hearts = [Isaac_heart((i + 1), 550) for i in range(isaac_head.life)]
     red_spiders = [Red_Spider() for i in range(3)]
+    game_world.add_object(isaac_body, 1)
     game_world.add_object(isaac_head, 1)
-    game_world.add_object(isaac_body, 0)
-    game_world.add_objects(red_spiders, 1)
+    game_world.add_objects(red_spiders, 3)
     game_world.add_objects(isaac_hearts, 0)
 
 
@@ -102,6 +102,7 @@ def update():
         isaac_hearts.remove(heart)
         game_world.remove_object(heart)
     isaac_hearts = [Isaac_heart((i + 1), 550) for i in range(isaac_head.life)]
+    print(isaac_hearts[0].x)
     game_world.add_objects(isaac_hearts, 0)
     # delay(1.0)
 

@@ -289,7 +289,7 @@ class Isaac_head:
 
     def fire_tear(self):
         tear = Isaac_tear(self.x, self.y, self.dir)
-        game_world.add_object(tear, 1)
+        game_world.add_object(tear, 2)
 
 
     def add_event(self, event):

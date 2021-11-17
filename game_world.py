@@ -1,7 +1,9 @@
 
 # layer 0: Background Objects
 # layer 1: Foreground Objects
-objects = [[],[]]
+# layer 2: Tear Objects
+# layer 3: Mob Objects
+objects = [[], [], [], []]
 
 
 def add_object(o, layer):
@@ -37,4 +39,13 @@ def all_objects():
     for i in range(len(objects)):
         for o in objects[i]:
             yield o
+
+def Tear_objects():
+    for o in objects[2]:
+        yield o
+
+
+def Mob_objects():
+    for o in objects[3]:
+        yield o
 
