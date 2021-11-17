@@ -282,6 +282,7 @@ class Isaac_head:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.Heart = load_image('heart.png')
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -298,7 +299,7 @@ class Isaac_head:
     def update(self):
         if self.invincibility:
             self.invincibilitycount += 1
-            if self.invincibilitycount == 500:
+            if self.invincibilitycount == 1000:
                 self.invincibility = False
                 self.invincibilitycount = 0
         self.cur_state.do(self)
@@ -310,6 +311,8 @@ class Isaac_head:
 
     def draw(self):
         self.cur_state.draw(self)
+        for i in range(self.life):
+            self.Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
         draw_rectangle(*self.get_bb())
         #fill here
 

@@ -10,7 +10,6 @@ from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Isaac_Tear import Isaac_tear
-from heart import Isaac_heart
 
 name = "MainState"
 
@@ -34,12 +33,10 @@ def enter():
     global isaac_head, isaac_body, red_spiders, isaac_hearts
     isaac_head = Isaac_head()
     isaac_body = Isaac_body()
-    isaac_hearts = [Isaac_heart((i + 1), 550) for i in range(isaac_head.life)]
     red_spiders = [Red_Spider() for i in range(3)]
     game_world.add_object(isaac_body, 1)
     game_world.add_object(isaac_head, 1)
     game_world.add_objects(red_spiders, 3)
-    game_world.add_objects(isaac_hearts, 0)
 
 
 def exit():
@@ -71,39 +68,28 @@ def update():
 
     for game_object in game_world.all_objects():
         game_object.update()
-    for i in range(3):
-        if abs(isaac_body.x - red_spiders[i].x) > 100:
-            red_spiders[i].x += (isaac_body.x - red_spiders[i].x) / 500
+    for mob in game_world.Mob_objects():
+        if abs(isaac_body.x - mob.x) > 100:
+            mob.x += (isaac_body.x - mob.x) / 500
         else:
-            red_spiders[i].x += (isaac_body.x - red_spiders[i].x) / 200
-        if abs(isaac_body.y - red_spiders[i].y) > 100:
-            red_spiders[i].y += (isaac_body.y - red_spiders[i].y) / 500
+            mob.x += (isaac_body.x - mob.x) / 200
+        if abs(isaac_body.y - mob.y) > 100:
+            mob.y += (isaac_body.y - mob.y) / 500
         else:
-            red_spiders[i].y += (isaac_body.y - red_spiders[i].y) / 200
-        red_spiders[i].x = clamp(red_spiders[i].pixel_x // 2, red_spiders[i].x, 800 - red_spiders[i].pixel_x // 2)
-        red_spiders[i].y = clamp(red_spiders[i].pixel_y // 2, red_spiders[i].y, 600 - (red_spiders[i].pixel_y // 2))
-    #     if collide(red_spiders[i], Isaac_tear):
-    #         red_spiders[i].hp -= Isaac_tear.power
+            mob.y += (isaac_body.y - mob.y) / 200
+        mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
+        mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
+        #     if collide(red_spiders[i], Isaac_tear):
+        #         red_spiders[i].hp -= Isaac_tear.power
         if not isaac_head.invincibility:
-            if collide(isaac_body, red_spiders[i]):
+            if collide(isaac_body, mob):
                 isaac_head.invincibility = True
                 isaac_body.life -= 1
-            if collide(isaac_head, red_spiders[i]):
-                isaac_head.invincibility = True
                 isaac_head.life -= 1
-    if isaac_body.life < isaac_head.life:
-        isaac_head.life = isaac_body.life
-        print('몸에 맞았나봐용')
-    elif isaac_body.life > isaac_head.life:
-        isaac_body.life = isaac_head.life
-        print('머리에 맞았나봐용')
-
-    for heart in isaac_hearts:
-        isaac_hearts.remove(heart)
-        game_world.remove_object(heart)
-    isaac_hearts = [Isaac_heart((i + 1), 550) for i in range(isaac_head.life)]
-    print(isaac_hearts[0].x)
-    game_world.add_objects(isaac_hearts, 0)
+            if collide(isaac_head, mob):
+                isaac_head.invincibility = True
+                isaac_body.life -= 1
+                isaac_head.life -= 1
     # delay(1.0)
 
 
