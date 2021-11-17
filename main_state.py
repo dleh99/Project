@@ -10,7 +10,8 @@ from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
-from Door_side import Door_Cl
+from Door_side import Door_lr
+from Door_UD import Door_ud
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -126,10 +127,15 @@ def make_Map():
         tile.append(f.readline())
     f.close()
 
-    if tile[6][0] == '2':
-        doors.append(Door_Cl(800 - 15, 600 // 2, 'Door_5.png'))
-    elif tile[6][0] == '4':
-        doors.append(Door_Cl(15, 600 // 2, 'Door_6.png'))
+    for i in range(len(tile[6])):
+        if tile[6][i] == '1':
+            doors.append(Door_ud(800 // 2, 15, 'Door_7.png'))
+        elif tile[6][i] == '2':
+            doors.append(Door_lr(800 - 15, 600 // 2, 'Door_5.png'))
+        elif tile[6][i] == '3':
+            doors.append(Door_ud(800 // 2, 15, 'Door_8.png'))
+        elif tile[6][i] == '4':
+            doors.append(Door_lr(15, 600 // 2, 'Door_6.png'))
     game_world.add_objects(doors, 5)
 
 
