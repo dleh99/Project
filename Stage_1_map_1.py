@@ -214,6 +214,12 @@ def update():
             if right_collide(isaac, obs):
                 for all in game_world.Isaac_objects():
                     all.x -= all.velocity_x * game_framework.frame_time
+        for tear in game_world.Tear_objects():
+            if collide(tear, obs):
+                game_world.remove_object(tear)
+        for enemy_tear in game_world.Mob_Tear_objects():
+            if collide(enemy_tear, obs):
+                game_world.remove_object(enemy_tear)
     for door in game_world.Door_objects():
         for isaac in game_world.Isaac_objects():
             if right_collide(isaac, door):
