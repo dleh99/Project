@@ -59,7 +59,7 @@ def Obs_objects():
     for o in objects[4]:
         yield o
 
-def Obs_objects():
+def Door_objects():
     for o in objects[5]:
         yield o
 

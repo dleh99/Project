@@ -221,6 +221,8 @@ def update():
         if right_collide(isaac_body, obs):
             isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
             isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
+    for door in game_world.Door_objects():
+        pass
     # delay(1.0)
 
 
