@@ -75,7 +75,22 @@ def down_collide(a, b):
 
 def left_collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
+    a_left_Up, a_middle_Up, a_right_Up = (left_a, top_a), (a.x, top_a), (right_a, top_a)
+    a_middle_left, a_middle_right = (left_a, a.y), (right_a, a.y)
+    a_left_Down, a_middle_Down, a_right_Down = (left_a, bottom_a), (a.x, bottom_a), (right_a, bottom_a)
     left_b, bottom_b, right_b, top_b = b.get_bb()
+    b_left_Up, b_middle_Up, b_right_Up = (left_b, top_b), (b.x, top_b), (right_b, top_b)
+    b_middle_left, b_middle_right = (left_b, b.y), (right_b, b.y)
+    b_left_Down, b_middle_Down, b_right_Down = (left_b, bottom_b), (b.x, bottom_b), (right_b, bottom_b)
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+    if left_b < a_middle_right[0] < right_b and bottom_b < a_middle_right[1] < top_b:
+        return True
+    else:
+        return False
 
 def right_collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -171,7 +186,18 @@ def update():
     for obs in game_world.Obs_objects():
         if up_collide(isaac_body, obs):
             isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
-            isaac_head.y -= isaac_body.velocity_y * game_framework.frame_time
+            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
+        elif down_collide(isaac_head, obs):
+            isaac_body.y -= isaac_body.velocity_y * game_framework.frame_time
+            isaac_head.y -= isaac_head.velocity_y * game_framework.frame_time
+        elif down_collide(isaac_head, obs):
+            # isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
+            # isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
+            print('머리 오른쪽 충돌')
+        elif down_collide(isaac_body, obs):
+            # isaac_body.x -= isaac_body.velocity_x * game_framework.frame_time
+            # isaac_head.x -= isaac_head.velocity_x * game_framework.frame_time
+            print('몸 오른쪽 충돌')
     # delay(1.0)
 
 
