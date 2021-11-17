@@ -287,7 +287,6 @@ class Isaac_head:
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
-
     def fire_tear(self):
         tear = Isaac_tear(self.x, self.y, self.dir)
         game_world.add_object(tear, 2)

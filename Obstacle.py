@@ -28,7 +28,7 @@ class Obstacle_Rock:
                self.x + ROCK_PIXEL_SIZE_LENGHT // 2, self.y + ROCK_PIXEL_SIZE_RAW // 2
 
     def draw(self):
-        self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, ROCK_REAL_SIZE_LENGHT_M, ROCK_PIXEL_SIZE_RAW)
+        self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, ROCK_PIXEL_SIZE_LENGHT, ROCK_PIXEL_SIZE_RAW)
         draw_rectangle(*self.get_bb())
 
     def update(self):

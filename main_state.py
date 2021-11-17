@@ -34,6 +34,36 @@ def collide(a, b):
 
     return True
 
+def up_collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    a_left_Up, a_middle_Up, a_right_Up = (left_a, top_a), (a.x, top_a), (right_a, top_a)
+    a_middle_left, a_middle_right = (left_a, a.y), (right_a, a.y)
+    a_left_Down, a_middle_Down, a_right_Down = (left_a, bottom_a), (a.x, bottom_a), (right_a, bottom_a)
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+    b_left_Up, b_middle_Up, b_right_Up = (left_b, top_b), (b.x, top_b), (right_b, top_b)
+    b_middle_left, b_middle_right = (left_b, b.y), (right_b, b.y)
+    b_left_Down, b_middle_Down, b_right_Down = (left_b, bottom_b), (b.x, bottom_b), (right_b, bottom_b)
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+    if left_b < a_middle_Down[0] < right_b and bottom_b < a_middle_Down[1] < top_b: return True
+    else: return False
+
+
+def down_collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+def left_collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+def right_collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
 def enter():
     global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
@@ -121,6 +151,9 @@ def update():
                 mob.hp -= tear.power
                 if mob.hp <= 0:
                     game_world.remove_object(mob)
+    for obs in game_world.Obs_objects():
+        if up_collide(isaac_body, obs):
+            print('위에서 충돌')
     # delay(1.0)
 
 

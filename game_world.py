@@ -41,6 +41,10 @@ def all_objects():
         for o in objects[i]:
             yield o
 
+def Isaac_objects():
+    for o in objects[1]:
+        yield o
+
 def Tear_objects():
     for o in objects[2]:
         yield o
