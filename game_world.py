@@ -4,7 +4,8 @@
 # layer 2: Tear Objects
 # layer 3: Mob Objects
 # layer 4: Obstacle Objects
-objects = [[], [], [], [], []]
+# layer 5: Door Objects
+objects = [[], [], [], [], [], []]
 
 
 def add_object(o, layer):
@@ -56,5 +57,9 @@ def Mob_objects():
 
 def Obs_objects():
     for o in objects[4]:
+        yield o
+
+def Obs_objects():
+    for o in objects[5]:
         yield o
 

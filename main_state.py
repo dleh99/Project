@@ -10,6 +10,7 @@ from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
+from Door import Door_Cl
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -25,6 +26,7 @@ red_spiders = None
 isaac_hearts = None
 obstacle_rocks = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
+door = None
 tile = []
 Map_num = 1
 
@@ -120,9 +122,11 @@ def make_Map(count):
     global tile
     if count == 1:
         f = open('d:/2DGP/Project/Stage/stage_1.txt')
-        for i in range(6):
+        for i in range(7):
             tile.append(f.readline())
         f.close()
+    if tile[6][0] == '1':
+        print('들어왔어용')
 
 
 def exit():
