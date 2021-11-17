@@ -10,6 +10,8 @@ from Enemy_spider import *
 from Door_side import Door_lr
 from Door_UD import Door_ud
 
+from Enemy_Satan import Satan
+
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -21,6 +23,7 @@ os.chdir('d:/2DGP/Project/Sprite')
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 doors = []
 tile = []
+satan = None
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -97,6 +100,8 @@ def enter():
     Tile_7 = load_image('tile_7.png')
     Tile_8 = load_image('tile_8.png')
     Tile_9 = load_image('tile_9.png')
+    satan = Satan()
+    game_world.add_object(satan, 3)
     make_Map()
 
 
@@ -206,6 +211,12 @@ def update():
                 for all in game_world.Isaac_objects():
                     all.y = 600 - 30
                     game_framework.change_state()
+    for enemy_tear in game_world.Mob_Tear_objects():
+        for isaac in game_world.Isaac_objects():
+            if collide(isaac, enemy_tear):
+                for all in game_world.Isaac_objects():
+                    all.invincibility = True
+                    all.life -= 1
     # delay(1.0)
 
 
