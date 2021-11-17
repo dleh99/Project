@@ -26,6 +26,7 @@ isaac_hearts = None
 obstacle_rocks = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 tile = []
+Map_num = 1
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -94,6 +95,7 @@ def right_collide(a, b):
 def enter():
     global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
+    global Map_num
     isaac_head = Isaac_head()
     isaac_body = Isaac_body()
     red_spiders = [Red_Spider() for i in range(3)]
@@ -111,15 +113,16 @@ def enter():
     Tile_7 = load_image('tile_7.png')
     Tile_8 = load_image('tile_8.png')
     Tile_9 = load_image('tile_9.png')
-    make_Map()
+    make_Map(Map_num)
 
 
-def make_Map():
+def make_Map(count):
     global tile
-    f = open('d:/2DGP/Project/Stage/stage_1.txt')
-    for i in range(6):
-        tile.append(f.readline())
-    f.close()
+    if count == 1:
+        f = open('d:/2DGP/Project/Stage/stage_1.txt')
+        for i in range(6):
+            tile.append(f.readline())
+        f.close()
 
 
 def exit():
