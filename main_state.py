@@ -84,14 +84,25 @@ def update():
         red_spiders[i].y = clamp(red_spiders[i].pixel_y // 2, red_spiders[i].y, 600 - (red_spiders[i].pixel_y // 2))
     #     if collide(red_spiders[i], Isaac_tear):
     #         red_spiders[i].hp -= Isaac_tear.power
-        if collide(isaac_body, red_spiders[i]):
-            print('몸이랑 부딫침')
-        if collide(isaac_head, red_spiders[i]):
-            print('머리랑 부딫침')
+        if not isaac_head.invincibility:
+            if collide(isaac_body, red_spiders[i]):
+                isaac_head.invincibility = True
+                isaac_body.life -= 1
+            if collide(isaac_head, red_spiders[i]):
+                isaac_head.invincibility = True
+                isaac_head.life -= 1
     if isaac_body.life < isaac_head.life:
         isaac_head.life = isaac_body.life
+        print('몸에 맞았나봐용')
     elif isaac_body.life > isaac_head.life:
         isaac_body.life = isaac_head.life
+        print('머리에 맞았나봐용')
+
+    for heart in isaac_hearts:
+        isaac_hearts.remove(heart)
+        game_world.remove_object(heart)
+    isaac_hearts = [Isaac_heart((i + 1), 550) for i in range(isaac_head.life)]
+    game_world.add_objects(isaac_hearts, 0)
     # delay(1.0)
 
 

@@ -277,6 +277,8 @@ class Isaac_head:
         self.size_x = 45
         self.size_y = 42
         self.life = 3
+        self.invincibility = False
+        self.invincibilitycount = 0
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
@@ -294,6 +296,11 @@ class Isaac_head:
         self.event_que.insert(0, event)
 
     def update(self):
+        if self.invincibility:
+            self.invincibilitycount += 1
+            if self.invincibilitycount == 500:
+                self.invincibility = False
+                self.invincibilitycount = 0
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
