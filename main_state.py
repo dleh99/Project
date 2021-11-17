@@ -53,8 +53,8 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    # print('x =', isaac_body.x, 'y =', isaac_body.y)
-    # delay(0.1)
+    # for i in range(3):
+    #     red_spiders[i].x += 1
 
 
 def draw():
