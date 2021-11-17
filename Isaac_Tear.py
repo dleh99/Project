@@ -35,7 +35,7 @@ class Isaac_tear:
         self.velocity -= 1.0
         if self.velocity <= 0.0:
             game_world.remove_object(self)
-        if self.x -5 <= 0 or self.x + 5 >= 800 or self.y - 5 <= 0 or self.y + 5 >= 600:
+        if self.x - 5 <= 0 or self.x + 5 >= 800 or self.y - 5 <= 0 or self.y + 5 >= 600:
             game_world.remove_object(self)
 
     #fill here for def stop

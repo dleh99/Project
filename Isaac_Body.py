@@ -11,7 +11,7 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-TIME_PER_ACTION = 0.166
+TIME_PER_ACTION = 0.166         # 1초에 6번 움직임
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 2
 
@@ -238,11 +238,6 @@ class Isaac_body:
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
-
-
-    def fire_ball(self):
-        pass
-
 
     def add_event(self, event):
         self.event_que.insert(0, event)

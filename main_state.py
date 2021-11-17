@@ -8,18 +8,22 @@ import game_world
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
+from Enemy_spider import Red_Spider
 
 name = "MainState"
 
 isaac_head = None
 isaac_body = None
+red_spiders = None
 
 def enter():
-    global issac_head, isaac_body
+    global issac_head, isaac_body, red_spiders
     issac_head = Isaac_head()
     isaac_body = Isaac_body()
+    red_spiders = [Red_Spider() for i in range(3)]
     game_world.add_object(issac_head, 1)
     game_world.add_object(isaac_body, 0)
+    game_world.add_objects(red_spiders, 1)
 
 
 def exit():
@@ -49,6 +53,7 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
+    # print('x =', isaac_body.x, 'y =', isaac_body.y)
     # delay(0.1)
 
 
