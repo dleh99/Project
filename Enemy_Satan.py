@@ -32,6 +32,7 @@ class Satan:
         self.size_y = 31
         self.switch = False
         self.reload = False
+        self.reload2 = False
         self.attackcount = 0
         self.hp = 100
 
@@ -54,17 +55,23 @@ class Satan:
                 self.switch = True
 
         self.attackcount += game_framework.frame_time
-        if self.attackcount >= 3:
+        if self.attackcount >= 2:
             self.frame = 1
-        if self.attackcount >= 4:
+        if self.attackcount >= 3:
             self.frame = 2
             if not self.reload:
                 tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
                 game_world.add_objects(tears, 7)
                 self.reload = True
-        if self.attackcount >= 5:
+        if self.attackcount >= 3.5:
+            if not self.reload2:
+                tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
+                game_world.add_objects(tears, 7)
+                self.reload2 = True
+        if self.attackcount >= 4:
             self.frame = 0
             self.attackcount = 0
             self.reload = False
+            self.reload2 = False
 
 

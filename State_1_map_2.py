@@ -214,6 +214,7 @@ def update():
     for enemy_tear in game_world.Mob_Tear_objects():
         for isaac in game_world.Isaac_objects():
             if collide(isaac, enemy_tear):
+                game_world.remove_object(enemy_tear)
                 for all in game_world.Isaac_objects():
                     all.invincibility = True
                     all.life -= 1
