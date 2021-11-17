@@ -101,8 +101,8 @@ class One_RunState:
     def do(body):
         body.x += body.velocity_x * game_framework.frame_time
         body.y += body.velocity_y * game_framework.frame_time
-        body.x = clamp(45 // 2, body.x, 800 - 45 // 2)
-        body.y = clamp(body.size_y // 2, body.y, 600 - (34 + body.size_y // 2))
+        body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
+        body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
 
     def draw(body):
@@ -146,8 +146,8 @@ class Two_RunState:
     def do(body):
         body.x += body.velocity_x * game_framework.frame_time
         body.y += body.velocity_y * game_framework.frame_time
-        body.x = clamp(45 // 2, body.x, 800 - 45 // 2)
-        body.y = clamp(body.size_y // 2, body.y, 600 - (34 + body.size_y // 2))
+        body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
+        body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
 
     def draw(body):
@@ -190,7 +190,8 @@ class Three_RunState:
     def do(body):
         body.x += body.velocity_x * game_framework.frame_time
         body.y += body.velocity_y * game_framework.frame_time
-
+        body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
+        body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
 
     def draw(body):

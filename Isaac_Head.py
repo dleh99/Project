@@ -125,8 +125,8 @@ class One_RunState:
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
         head.y += head.velocity_y * game_framework.frame_time
-        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
-        head.y = clamp(head.size_y // 2 + 17, head.y, 600 - head.size_y // 2)
+        head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
+        head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
     def draw(head):
         if head.dir == 1:
@@ -180,8 +180,8 @@ class Two_RunState:
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
         head.y += head.velocity_y * game_framework.frame_time
-        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
-        head.y = clamp(head.size_y // 2 + 17, head.y, 600 - head.size_y // 2)
+        head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
+        head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
     def draw(head):
         if head.dir == 1:
@@ -234,8 +234,8 @@ class Three_RunState:
     def do(head):
         head.x += head.velocity_x * game_framework.frame_time
         head.y += head.velocity_y * game_framework.frame_time
-        head.x = clamp(head.size_x // 2, head.x, 800 - head.size_x // 2)
-        head.y = clamp(head.size_y // 2 + 17, head.y, 600 - head.size_y // 2)
+        head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
+        head.y = clamp(30 +head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
     def draw(head):
         if head.dir == 1:

@@ -6,10 +6,7 @@ from pico2d import *
 import game_framework
 import game_world
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Enemy_spider import *
-from Obstacle import Obstacle_Rock
 from Door_side import Door_lr
 from Door_UD import Door_ud
 
@@ -17,17 +14,10 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-import Stage_1_map_1
-
-name = "MainState"
+name = "Stage_1_map_1"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
-isaac_head = None
-isaac_body = None
-red_spiders = None
-isaac_hearts = None
-obstacle_rocks = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 doors = []
 tile = []
@@ -97,17 +87,7 @@ def right_collide(a, b):
         return False
 
 def enter():
-    global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
-    isaac_head = Isaac_head()
-    isaac_body = Isaac_body()
-    red_spiders = [Red_Spider() for i in range(3)]
-    # print(type(red_spiders))
-    obstacle_rocks = Obstacle_Rock()
-    game_world.add_object(isaac_body, 1)
-    game_world.add_object(isaac_head, 1)
-    game_world.add_objects(red_spiders, 3)
-    game_world.add_object(obstacle_rocks, 4)
     Tile_1 = load_image('tile_1.png')
     Tile_2 = load_image('tile_2.png')
     Tile_3 = load_image('tile_3.png')
@@ -122,7 +102,7 @@ def enter():
 
 def make_Map():
     global tile, doors
-    f = open('d:/2DGP/Project/Stage/stage_1.txt')
+    f = open('d:/2DGP/Project/Stage/stage_3.txt')
     for i in range(7):
         tile.append(f.readline())
     f.close()
@@ -144,7 +124,6 @@ def exit():
     for door in doors:
         game_world.remove_object(door)
 
-
 def pause():
     pass
 
@@ -161,13 +140,11 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         else:
-            isaac_head.handle_event(event)
-            isaac_body.handle_event(event)
-
+            for isaac in game_world.Isaac_objects():
+                isaac.handle_event(event)
 
 
 def update():
-    global isaac_head, isaac_body, red_spiders
 
     for game_object in game_world.all_objects():
         game_object.update()
@@ -184,8 +161,8 @@ def update():
             mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
             mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
             if not isaac.invincibility:
-                if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or\
-                right_collide(isaac, mob) or collide(isaac, mob):
+                if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or \
+                        right_collide(isaac, mob) or collide(isaac, mob):
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
@@ -224,10 +201,13 @@ def update():
                     all.x -= all.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
         for isaac in game_world.Isaac_objects():
-            if left_collide(isaac, door):
+            if right_collide(isaac, door):
                 for all in game_world.Isaac_objects():
-                    all.x = 30 + 23
-                game_framework.change_state(Stage_1_map_1)
+                    pass
+            elif up_collide(isaac, door):
+                for all in game_world.Isaac_objects():
+                    all.y = 600 - 30
+                    game_framework.change_state()
     # delay(1.0)
 
 
@@ -259,9 +239,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-

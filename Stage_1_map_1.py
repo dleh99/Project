@@ -10,6 +10,8 @@ from Enemy_spider import *
 from Door_side import Door_lr
 from Door_UD import Door_ud
 
+import State_1_map_2
+
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -109,13 +111,13 @@ def make_Map():
 
     for i in range(len(tile[6])):
         if tile[6][i] == '1':
-            doors.append(Door_ud(800 // 2, 15, 'Door_7.png'))
+            doors.append(Door_ud(800 // 2, 18, 'Door_7.png'))
         elif tile[6][i] == '2':
-            doors.append(Door_lr(800 - 15, 600 // 2, 'Door_5.png'))
+            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_5.png'))
         elif tile[6][i] == '3':
-            doors.append(Door_ud(800 // 2, 15, 'Door_8.png'))
+            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
         elif tile[6][i] == '4':
-            doors.append(Door_lr(15, 600 // 2, 'Door_6.png'))
+            doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
     game_world.add_objects(doors, 5)
 
 
@@ -201,8 +203,13 @@ def update():
                     all.x -= all.velocity_x * game_framework.frame_time
     for door in game_world.Door_objects():
         for isaac in game_world.Isaac_objects():
-            if left_collide(isaac, door):
-                pass
+            if right_collide(isaac, door):
+                for all in game_world.Isaac_objects():
+                    pass
+            elif up_collide(isaac, door):
+                for all in game_world.Isaac_objects():
+                    all.y = 600 - 30
+                    game_framework.change_state(State_1_map_2)
     # delay(1.0)
 
 
