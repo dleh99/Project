@@ -13,10 +13,13 @@ from Isaac_Tear import Isaac_tear
 
 name = "MainState"
 
+os.chdir('d:/2DGP/Project/Sprite')
+
 isaac_head = None
 isaac_body = None
 red_spiders = None
 isaac_hearts = None
+Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -31,12 +34,40 @@ def collide(a, b):
 
 def enter():
     global isaac_head, isaac_body, red_spiders, isaac_hearts
+    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     isaac_head = Isaac_head()
     isaac_body = Isaac_body()
     red_spiders = [Red_Spider() for i in range(3)]
     game_world.add_object(isaac_body, 1)
     game_world.add_object(isaac_head, 1)
     game_world.add_objects(red_spiders, 3)
+    Tile_1 = load_image('tile_1.png')
+    Tile_2 = load_image('tile_2.png')
+    Tile_3 = load_image('tile_3.png')
+    Tile_4 = load_image('tile_4.png')
+    Tile_5 = load_image('tile_5.png')
+    Tile_6 = load_image('tile_6.png')
+    Tile_7 = load_image('tile_7.png')
+    Tile_8 = load_image('tile_8.png')
+    Tile_9 = load_image('tile_9.png')
+    make_Map()
+
+
+def make_Map():
+    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
+    tile = []
+
+    f = open('d:/2DGP/Project/Stage/stage_1.txt')
+    for i in range(6):
+            tile.append(f.readline())
+    f.close()
+
+    for line in range(6):
+        for n in range(8):
+            if tile[line][n] == '1':
+                print('들어갔어용')
+            else:
+                pass
 
 
 def exit():
