@@ -93,10 +93,10 @@ def update():
     for mob in game_world.Mob_objects():
         for tear in game_world.Tear_objects():
             if collide(mob, tear):
-                print('부딫침')
+                game_world.remove_object(tear)
                 mob.hp -= tear.power
                 if mob.hp <= 0:
-                    print('체력 끝')
+                    game_world.remove_object(mob)
     # delay(1.0)
 
 
