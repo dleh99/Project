@@ -14,7 +14,7 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-name = "Stage_1_map_1"
+name = "Stage_1_map_2"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -116,6 +116,14 @@ def make_Map():
             doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
         elif tile[6][i] == '4':
             doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
+        elif tile[6][i] == '5':
+            doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
+        elif tile[6][i] == '6':
+            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
+        elif tile[6][i] == '7':
+            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
+        elif tile[6][i] == '8':
+            doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
     game_world.add_objects(doors, 5)
 
 

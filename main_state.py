@@ -136,13 +136,22 @@ def make_Map():
             doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
         elif tile[6][i] == '4':
             doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
+        elif tile[6][i] == '5':
+            doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
+        elif tile[6][i] == '6':
+            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
+        elif tile[6][i] == '7':
+            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
+        elif tile[6][i] == '8':
+            doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
     game_world.add_objects(doors, 5)
 
 
 def exit():
-    global doors
+    global doors, obstacle_rocks
     for door in doors:
         game_world.remove_object(door)
+    game_world.remove_object(obstacle_rocks)
 
 
 def pause():

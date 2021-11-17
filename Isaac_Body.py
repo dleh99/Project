@@ -35,25 +35,25 @@ key_event_table = {
 class IdleState:
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
 
     def exit(body, event):
         pass
@@ -75,25 +75,25 @@ class One_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
 
     def exit(body, event):
         pass
@@ -120,25 +120,25 @@ class Two_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
 
     def exit(body, event):
         pass
@@ -164,25 +164,25 @@ class Three_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= RUN_SPEED_PPS
+            body.velocity_x -= body.Accel * RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += RUN_SPEED_PPS
+            body.velocity_x += body.Accel * RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= RUN_SPEED_PPS
+            body.velocity_y -= body.Accel * RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += RUN_SPEED_PPS
+            body.velocity_y += body.Accel * RUN_SPEED_PPS
 
     def exit(body, event):
         pass
@@ -228,6 +228,7 @@ class Isaac_body:
         self.frame = 0
         self.velocity_x = 0
         self.velocity_y = 0
+        self.Accel = 1.0
         self.x = 800 // 2
         self.y = 600 // 2
         self.size_x = 29

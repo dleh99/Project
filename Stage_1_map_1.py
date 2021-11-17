@@ -9,6 +9,7 @@ import game_world
 from Enemy_spider import *
 from Door_side import Door_lr
 from Door_UD import Door_ud
+from Item import Item_clasic
 
 import State_1_map_2
 
@@ -20,6 +21,7 @@ name = "Stage_1_map_1"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
+item = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
 doors = []
 tile = []
@@ -90,6 +92,7 @@ def right_collide(a, b):
 
 def enter():
     global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
+    global item
     Tile_1 = load_image('tile_1.png')
     Tile_2 = load_image('tile_2.png')
     Tile_3 = load_image('tile_3.png')
@@ -99,6 +102,8 @@ def enter():
     Tile_7 = load_image('tile_7.png')
     Tile_8 = load_image('tile_8.png')
     Tile_9 = load_image('tile_9.png')
+    item = Item_clasic()
+    game_world.add_object(item, 6)
     make_Map()
 
 
@@ -118,6 +123,14 @@ def make_Map():
             doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
         elif tile[6][i] == '4':
             doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
+        elif tile[6][i] == '5':
+            doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
+        elif tile[6][i] == '6':
+            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
+        elif tile[6][i] == '7':
+            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
+        elif tile[6][i] == '8':
+            doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
     game_world.add_objects(doors, 5)
 
 
@@ -210,6 +223,12 @@ def update():
                 for all in game_world.Isaac_objects():
                     all.y = 600 - 30
                     game_framework.change_state(State_1_map_2)
+    for item in game_world.Item_objects():
+        for isaac in game_world.Isaac_objects():
+            if collide(isaac, item):
+                game_world.remove_object(item)
+                for all in game_world.Isaac_objects():
+                    all.life += 4
     # delay(1.0)
 
 
