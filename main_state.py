@@ -20,6 +20,7 @@ isaac_body = None
 red_spiders = None
 isaac_hearts = None
 Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
+tile = []
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -54,20 +55,11 @@ def enter():
 
 
 def make_Map():
-    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
-    tile = []
-
+    global tile
     f = open('d:/2DGP/Project/Stage/stage_1.txt')
     for i in range(6):
-            tile.append(f.readline())
+        tile.append(f.readline())
     f.close()
-
-    for line in range(6):
-        for n in range(8):
-            if tile[line][n] == '1':
-                print('들어갔어용')
-            else:
-                pass
 
 
 def exit():
@@ -132,7 +124,30 @@ def update():
 
 
 def draw():
+    global tile
+    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     clear_canvas()
+    for line in range(6):
+        for n in range(8):
+            if tile[line][n] == '1':
+                Tile_1.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '2':
+                Tile_2.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '3':
+                Tile_3.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '4':
+                Tile_4.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '5':
+                Tile_5.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '6':
+                Tile_6.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '7':
+                Tile_7.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '8':
+                Tile_8.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif tile[line][n] == '9':
+                Tile_9.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
