@@ -276,6 +276,7 @@ class Isaac_head:
         self.y = 600 // 2 + 25
         self.size_x = 45
         self.size_y = 42
+        self.life = 3
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
@@ -302,7 +303,6 @@ class Isaac_head:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
         draw_rectangle(*self.get_bb())
         #fill here
 

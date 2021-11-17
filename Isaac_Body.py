@@ -190,8 +190,7 @@ class Three_RunState:
     def do(body):
         body.x += body.velocity_x * game_framework.frame_time
         body.y += body.velocity_y * game_framework.frame_time
-        body.x = clamp(45 // 2, body.x, 800 - 45 // 2)
-        body.y = clamp(body.size_y // 2, body.y, 600 - (34 + body.size_y // 2))
+
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
 
     def draw(body):
@@ -232,6 +231,7 @@ class Isaac_body:
         self.y = 600 // 2
         self.size_x = 29
         self.size_y = 25
+        self.life = 3
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)

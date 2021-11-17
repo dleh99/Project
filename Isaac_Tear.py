@@ -14,6 +14,7 @@ class Isaac_tear:
         if Isaac_tear.image == None:
             Isaac_tear.image = load_image('Isaac_Tear.png')
         self.x, self.y, self.velocity, self.dir = x, y, TEAR_SPEED_PPS, dir
+        self.power = 10
 
     def get_bb(self):
         return self.x - 5, self.y - 5, self.x + 5, self.y + 5

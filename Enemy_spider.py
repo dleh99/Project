@@ -8,7 +8,7 @@ PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 3.3cm
 
 SPIDER_REAL_SIZE_LENGHT_M = 1.1            # 적 가로 크기 1.1m
 SPIDER_REAL_SIZE_RAW_M = 1.0               # 적 세로 크기 1m
-SPIDER_PIXEL_SIZE_LENGHT = SPIDER_REAL_SIZE_LENGHT_M * PIXEL_PER_METER
+SPIDER_PIXEL_SIZE_LENGHT = SPIDER_REAL_SIZE_LENGHT_M * PIXEL_PER_METER      # 픽셀로 했을 때 길이
 SPIDER_PIXEL_SIZE_RAW = SPIDER_REAL_SIZE_RAW_M * PIXEL_PER_METER
 
 SPIDER_SPEED_MPS = (75.0 / 10.8)       # 50m = 3초 > 주인공보다 1.5배 빠름
@@ -29,6 +29,7 @@ class Red_Spider:
         self.pixel_y = SPIDER_PIXEL_SIZE_RAW
         self.size_x = 110
         self.size_y = 80
+        self.hp = 50
 
     def get_bb(self):
         return self.x - SPIDER_PIXEL_SIZE_LENGHT // 2, self.y - SPIDER_PIXEL_SIZE_RAW // 2,\
