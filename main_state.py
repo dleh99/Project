@@ -102,36 +102,6 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    # for mob in game_world.Mob_objects():
-    #     for isaac in game_world.Isaac_objects():
-    #         if abs(isaac.x - mob.x) > 100:
-    #             mob.x += (isaac.x - mob.x) / 1000
-    #         else:
-    #             mob.x += (isaac.x - mob.x) / 400
-    #         if abs(isaac.y - mob.y) > 100:
-    #             mob.y += (isaac.y - mob.y) / 1000
-    #         else:
-    #             mob.y += (isaac.y - mob.y) / 400
-    #         mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
-    #         mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-    #         if not isaac.invincibility:
-    #             if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or\
-    #             right_collide(isaac, mob) or collide(isaac, mob):
-    #                 for all in game_world.Isaac_objects():
-    #                     all.invincibility = True
-    #                     all.life -= 1
-    #                 if up_collide(isaac, mob):
-    #                     for all in game_world.Isaac_objects():
-    #                         all.y += RUN_SPEED_PPS // 3
-    #                 elif down_collide(isaac, mob):
-    #                     for all in game_world.Isaac_objects():
-    #                         all.y -= RUN_SPEED_PPS // 3
-    #                 elif left_collide(isaac, mob):
-    #                     for all in game_world.Isaac_objects():
-    #                         all.x -= RUN_SPEED_PPS // 3
-    #                 else:
-    #                     for all in game_world.Isaac_objects():
-    #                         all.x += RUN_SPEED_PPS // 3
     # for door in game_world.Door_objects():
     #     for isaac in game_world.Isaac_objects():
     #         if left_collide(isaac, door):
