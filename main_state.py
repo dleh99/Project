@@ -132,13 +132,6 @@ def update():
     #                 else:
     #                     for all in game_world.Isaac_objects():
     #                         all.x += RUN_SPEED_PPS // 3
-    # for mob in game_world.Mob_objects():
-    #     for tear in game_world.Tear_objects():
-    #         if collide(mob, tear):
-    #             game_world.remove_object(tear)
-    #             mob.hp -= tear.power
-    #             if mob.hp <= 0:
-    #                 game_world.remove_object(mob)
     # for door in game_world.Door_objects():
     #     for isaac in game_world.Isaac_objects():
     #         if left_collide(isaac, door):

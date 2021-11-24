@@ -3,6 +3,8 @@ from pico2d import *
 import game_world
 import game_framework
 import random
+import server
+import collision
 
 PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 3.3cm
 
@@ -42,4 +44,11 @@ class Red_Spider:
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        # 눈물과 충돌 체크
+        for tear in game_world.Tear_objects():
+            if collision.collide(self, tear):
+                game_world.remove_object(tear)
+                self.hp -= tear.power
+                if self.hp <= 0:
+                    game_world.remove_object(self)
 
