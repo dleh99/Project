@@ -5,6 +5,7 @@ import os
 from pico2d import *
 import game_framework
 import game_world
+import server
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
@@ -22,15 +23,6 @@ import Stage_1_map_1
 name = "MainState"
 
 os.chdir('d:/2DGP/Project/Sprite')
-
-isaac_head = None
-isaac_body = None
-red_spiders = None
-isaac_hearts = None
-obstacle_rocks = None
-Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9 = None, None, None, None, None, None, None, None, None
-doors = []
-tile = []
 
 def collide(a, b):
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -97,61 +89,57 @@ def right_collide(a, b):
         return False
 
 def enter():
-    global isaac_head, isaac_body, red_spiders, isaac_hearts, obstacle_rocks
-    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
-    isaac_head = Isaac_head()
-    isaac_body = Isaac_body()
-    red_spiders = [Red_Spider() for i in range(3)]
+    server.isaac_head = Isaac_head()
+    server.isaac_body = Isaac_body()
+    server.red_spiders = [Red_Spider() for i in range(3)]
     # print(type(red_spiders))
-    obstacle_rocks = Obstacle_Rock()
-    game_world.add_object(isaac_body, 1)
-    game_world.add_object(isaac_head, 1)
-    game_world.add_objects(red_spiders, 3)
-    game_world.add_object(obstacle_rocks, 4)
-    Tile_1 = load_image('tile_1.png')
-    Tile_2 = load_image('tile_2.png')
-    Tile_3 = load_image('tile_3.png')
-    Tile_4 = load_image('tile_4.png')
-    Tile_5 = load_image('tile_5.png')
-    Tile_6 = load_image('tile_6.png')
-    Tile_7 = load_image('tile_7.png')
-    Tile_8 = load_image('tile_8.png')
-    Tile_9 = load_image('tile_9.png')
+    server.obstacle_rocks = Obstacle_Rock()
+    game_world.add_object(server.isaac_body, 1)
+    game_world.add_object(server.isaac_head, 1)
+    game_world.add_objects(server.red_spiders, 3)
+    game_world.add_object(server.obstacle_rocks, 4)
+    server.Tile_1 = load_image('tile_1.png')
+    server.Tile_2 = load_image('tile_2.png')
+    server.Tile_3 = load_image('tile_3.png')
+    server.Tile_4 = load_image('tile_4.png')
+    server.Tile_5 = load_image('tile_5.png')
+    server.Tile_6 = load_image('tile_6.png')
+    server.Tile_7 = load_image('tile_7.png')
+    server.Tile_8 = load_image('tile_8.png')
+    server.Tile_9 = load_image('tile_9.png')
     make_Map()
 
 
 def make_Map():
-    global tile, doors
     f = open('d:/2DGP/Project/Stage/stage_1.txt')
     for i in range(7):
-        tile.append(f.readline())
+        server.tile.append(f.readline())
     f.close()
 
-    for i in range(len(tile[6])):
-        if tile[6][i] == '1':
-            doors.append(Door_ud(800 // 2, 18, 'Door_7.png'))
-        elif tile[6][i] == '2':
-            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_5.png'))
-        elif tile[6][i] == '3':
-            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
-        elif tile[6][i] == '4':
-            doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
-        elif tile[6][i] == '5':
-            doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
-        elif tile[6][i] == '6':
-            doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
-        elif tile[6][i] == '7':
-            doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
-        elif tile[6][i] == '8':
-            doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
-    game_world.add_objects(doors, 5)
+    for i in range(len(server.tile[6])):
+        if server.tile[6][i] == '1':
+            server.doors.append(Door_ud(800 // 2, 18, 'Door_7.png'))
+        elif server.tile[6][i] == '2':
+            server.doors.append(Door_lr(800 - 18, 600 // 2, 'Door_5.png'))
+        elif server.tile[6][i] == '3':
+            server.doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
+        elif server.tile[6][i] == '4':
+            server.doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
+        elif server.tile[6][i] == '5':
+            server.doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
+        elif server.tile[6][i] == '6':
+            server.doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
+        elif server.tile[6][i] == '7':
+            server.doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
+        elif server.tile[6][i] == '8':
+            server.doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
+    game_world.add_objects(server.doors, 5)
 
 
 def exit():
-    global doors, obstacle_rocks
-    for door in doors:
+    for door in server.doors:
         game_world.remove_object(door)
-    game_world.remove_object(obstacle_rocks)
+    game_world.remove_object(server.obstacle_rocks)
 
 
 def pause():
@@ -170,14 +158,12 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                 game_framework.quit()
         else:
-            isaac_head.handle_event(event)
-            isaac_body.handle_event(event)
+            server.isaac_head.handle_event(event)
+            server.isaac_body.handle_event(event)
 
 
 
 def update():
-    global isaac_head, isaac_body, red_spiders
-
     for game_object in game_world.all_objects():
         game_object.update()
     for mob in game_world.Mob_objects():
@@ -247,29 +233,27 @@ def update():
 
 
 def draw():
-    global tile
-    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     clear_canvas()
     for line in range(6):
         for n in range(8):
-            if tile[line][n] == '1':
-                Tile_1.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '2':
-                Tile_2.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '3':
-                Tile_3.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '4':
-                Tile_4.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '5':
-                Tile_5.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '6':
-                Tile_6.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '7':
-                Tile_7.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '8':
-                Tile_8.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '9':
-                Tile_9.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            if server.tile[line][n] == '1':
+                server.Tile_1.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '2':
+                server.Tile_2.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '3':
+                server.Tile_3.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '4':
+                server.Tile_4.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '5':
+                server.Tile_5.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '6':
+                server.Tile_6.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '7':
+                server.Tile_7.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '8':
+                server.Tile_8.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
+            elif server.tile[line][n] == '9':
+                server.Tile_9.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
 
     for game_object in game_world.all_objects():
         game_object.draw()
