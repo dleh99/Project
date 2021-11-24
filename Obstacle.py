@@ -3,6 +3,8 @@ from pico2d import *
 import game_world
 import game_framework
 import random
+import server
+import collision
 
 PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 3.3cm
 ROCK_REAL_SIZE_LENGHT_M = 1.5            # 돌 가로 크기 1.5m
@@ -32,5 +34,23 @@ class Obstacle_Rock:
         draw_rectangle(*self.get_bb())
 
     def update(self):
-        pass
+        for isaac in game_world.Isaac_objects():
+            if collision.up_collide(isaac, self):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if collision.down_collide(isaac, self):
+                for all in game_world.Isaac_objects():
+                    all.y -= all.velocity_y * game_framework.frame_time
+            if collision.left_collide(isaac, self):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
+            if collision.right_collide(isaac, self):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
+        for tear in game_world.Tear_objects():
+            if collision.collide(tear, self):
+                game_world.remove_object(tear)
+        for enemy_tear in game_world.Mob_Tear_objects():
+            if collision.collide(enemy_tear, self):
+                game_world.remove_object(enemy_tear)
 

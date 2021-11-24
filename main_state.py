@@ -24,70 +24,6 @@ name = "MainState"
 
 os.chdir('d:/2DGP/Project/Sprite')
 
-def collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
-
-    return True
-
-def up_collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    a_middle_Down = (a.x, bottom_a)
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
-    if left_b < a_middle_Down[0] < right_b and bottom_b < a_middle_Down[1] < top_b: return True
-    else: return False
-
-
-def down_collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    a_middle_Up = (a.x, top_a)
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
-    if left_b < a_middle_Up[0] < right_b and bottom_b < a_middle_Up[1] < top_b: return True
-    else: return False
-
-def left_collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    a_middle_right = (right_a, a.y)
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
-    if left_b < a_middle_right[0] < right_b and bottom_b < a_middle_right[1] < top_b:
-        return True
-    else:
-        return False
-
-def right_collide(a, b):
-    left_a, bottom_a, right_a, top_a = a.get_bb()
-    a_middle_left = (left_a, a.y)
-    left_b, bottom_b, right_b, top_b = b.get_bb()
-
-    if left_a > right_b: return False
-    if right_a < left_b: return False
-    if top_a < bottom_b: return False
-    if bottom_a > top_b: return False
-    if left_b < a_middle_left[0] < right_b and bottom_b < a_middle_left[1] < top_b:
-        return True
-    else:
-        return False
-
 def enter():
     server.isaac_head = Isaac_head()
     server.isaac_body = Isaac_body()
@@ -166,69 +102,49 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    for mob in game_world.Mob_objects():
-        for isaac in game_world.Isaac_objects():
-            if abs(isaac.x - mob.x) > 100:
-                mob.x += (isaac.x - mob.x) / 1000
-            else:
-                mob.x += (isaac.x - mob.x) / 400
-            if abs(isaac.y - mob.y) > 100:
-                mob.y += (isaac.y - mob.y) / 1000
-            else:
-                mob.y += (isaac.y - mob.y) / 400
-            mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
-            mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-            if not isaac.invincibility:
-                if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or\
-                right_collide(isaac, mob) or collide(isaac, mob):
-                    for all in game_world.Isaac_objects():
-                        all.invincibility = True
-                        all.life -= 1
-                    if up_collide(isaac, mob):
-                        for all in game_world.Isaac_objects():
-                            all.y += RUN_SPEED_PPS // 3
-                    elif down_collide(isaac, mob):
-                        for all in game_world.Isaac_objects():
-                            all.y -= RUN_SPEED_PPS // 3
-                    elif left_collide(isaac, mob):
-                        for all in game_world.Isaac_objects():
-                            all.x -= RUN_SPEED_PPS // 3
-                    else:
-                        for all in game_world.Isaac_objects():
-                            all.x += RUN_SPEED_PPS // 3
-    for mob in game_world.Mob_objects():
-        for tear in game_world.Tear_objects():
-            if collide(mob, tear):
-                game_world.remove_object(tear)
-                mob.hp -= tear.power
-                if mob.hp <= 0:
-                    game_world.remove_object(mob)
-    for obs in game_world.Obs_objects():
-        for isaac in game_world.Isaac_objects():
-            if up_collide(isaac, obs):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if down_collide(isaac, obs):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if left_collide(isaac, obs):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
-            if right_collide(isaac, obs):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
-        for tear in game_world.Tear_objects():
-            if collide(tear, obs):
-                game_world.remove_object(tear)
-        for enemy_tear in game_world.Mob_Tear_objects():
-            if collide(enemy_tear, obs):
-                game_world.remove_object(enemy_tear)
-    for door in game_world.Door_objects():
-        for isaac in game_world.Isaac_objects():
-            if left_collide(isaac, door):
-                for all in game_world.Isaac_objects():
-                    all.x = 30 + 23
-                game_framework.change_state(Stage_1_map_1)
+    # for mob in game_world.Mob_objects():
+    #     for isaac in game_world.Isaac_objects():
+    #         if abs(isaac.x - mob.x) > 100:
+    #             mob.x += (isaac.x - mob.x) / 1000
+    #         else:
+    #             mob.x += (isaac.x - mob.x) / 400
+    #         if abs(isaac.y - mob.y) > 100:
+    #             mob.y += (isaac.y - mob.y) / 1000
+    #         else:
+    #             mob.y += (isaac.y - mob.y) / 400
+    #         mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
+    #         mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
+    #         if not isaac.invincibility:
+    #             if up_collide(isaac, mob) or down_collide(isaac, mob) or left_collide(isaac, mob) or\
+    #             right_collide(isaac, mob) or collide(isaac, mob):
+    #                 for all in game_world.Isaac_objects():
+    #                     all.invincibility = True
+    #                     all.life -= 1
+    #                 if up_collide(isaac, mob):
+    #                     for all in game_world.Isaac_objects():
+    #                         all.y += RUN_SPEED_PPS // 3
+    #                 elif down_collide(isaac, mob):
+    #                     for all in game_world.Isaac_objects():
+    #                         all.y -= RUN_SPEED_PPS // 3
+    #                 elif left_collide(isaac, mob):
+    #                     for all in game_world.Isaac_objects():
+    #                         all.x -= RUN_SPEED_PPS // 3
+    #                 else:
+    #                     for all in game_world.Isaac_objects():
+    #                         all.x += RUN_SPEED_PPS // 3
+    # for mob in game_world.Mob_objects():
+    #     for tear in game_world.Tear_objects():
+    #         if collide(mob, tear):
+    #             game_world.remove_object(tear)
+    #             mob.hp -= tear.power
+    #             if mob.hp <= 0:
+    #                 game_world.remove_object(mob)
+    # for door in game_world.Door_objects():
+    #     for isaac in game_world.Isaac_objects():
+    #         if left_collide(isaac, door):
+    #             for all in game_world.Isaac_objects():
+    #                 all.x = 30 + 23
+    #             game_framework.change_state(Stage_1_map_1)
     # delay(1.0)
 
 
