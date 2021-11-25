@@ -25,9 +25,6 @@ def remove_object(o):
             del o
             break
 
-
-
-
 def clear():
     for o in all_objects():
         del o
@@ -44,6 +41,10 @@ def all_objects():
         for o in objects[i]:
             yield o
 
+def Background_objects():
+    for o in objects[0]:
+        yield o
+
 def Isaac_objects():
     for o in objects[1]:
         yield o
@@ -51,7 +52,6 @@ def Isaac_objects():
 def Tear_objects():
     for o in objects[2]:
         yield o
-
 
 def Mob_objects():
     for o in objects[3]:

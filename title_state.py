@@ -36,11 +36,6 @@ def draw():
     update_canvas()
 
 
-
-
-
-
-
 def update():
     pass
 
