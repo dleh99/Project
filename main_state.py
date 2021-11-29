@@ -21,9 +21,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
 name = "MainState"
 
-os.chdir('d:/2DGP/Project/Sprite')
-
-
 def enter():
     server.isaac_head = Isaac_head()
     server.isaac_body = Isaac_body()
@@ -66,14 +63,6 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    # for door in game_world.Door_objects():
-    #     for isaac in game_world.Isaac_objects():
-    #         if left_collide(isaac, door):
-    #             for all in game_world.Isaac_objects():
-    #                 all.x = 30 + 23
-    #             game_framework.change_state(Stage_1_map_1)
-    # delay(1.0)
-
 
 def draw():
     clear_canvas()
