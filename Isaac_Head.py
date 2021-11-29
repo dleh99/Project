@@ -2,6 +2,8 @@ import os
 import game_framework
 from pico2d import *
 from Isaac_Tear import Isaac_tear
+import server
+import collision
 
 from Isaac_Tear import Isaac_tear
 
@@ -308,6 +310,9 @@ class Isaac_head:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+        for door in game_world.Door_objects():
+            if collision.collide(door, self) and server.room_1:
+                print('맵 클리어 했어요')
 
     def draw(self):
         self.cur_state.draw(self)

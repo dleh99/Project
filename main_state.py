@@ -22,13 +22,14 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "MainState"
 
 def enter():
+    if not server.room_1:
+        server.red_spiders = [Red_Spider() for i in range(3)]
+        game_world.add_objects(server.red_spiders, 3)
+    server.obstacle_rocks = Obstacle_Rock()
     server.isaac_head = Isaac_head()
     server.isaac_body = Isaac_body()
-    server.red_spiders = [Red_Spider() for i in range(3)]
-    server.obstacle_rocks = Obstacle_Rock()
     game_world.add_object(server.isaac_body, 1)
     game_world.add_object(server.isaac_head, 1)
-    game_world.add_objects(server.red_spiders, 3)
     game_world.add_object(server.obstacle_rocks, 4)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_1.txt')
 
@@ -59,10 +60,12 @@ def handle_events():
             server.isaac_body.handle_event(event)
 
 
-
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
+    if len(game_world.objects[3]) == 0:
+        server.room_1 = True
+
 
 def draw():
     clear_canvas()

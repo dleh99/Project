@@ -5,4 +5,5 @@ isaac_hearts = None
 obstacle_rocks = None
 doors = []
 tile = []
+room_1 = False
 

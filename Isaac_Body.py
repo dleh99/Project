@@ -290,6 +290,9 @@ class Isaac_body:
                         else:
                             for all in game_world.Isaac_objects():
                                 all.x += RUN_SPEED_PPS // 3
+        for door in game_world.Door_objects():
+            if collision.collide(door, self) and server.room_1:
+                print('맵 클리어 했어요')
 
     def draw(self):
         self.cur_state.draw(self)

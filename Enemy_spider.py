@@ -52,3 +52,4 @@ class Red_Spider:
                 if self.hp <= 0:
                     game_world.remove_object(self)
 
+
