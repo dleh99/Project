@@ -13,7 +13,7 @@ from Enemy_spider import *
 from Obstacle import Obstacle_Rock
 from Door_side import Door_lr
 from Door_UD import Door_ud
-from Tile import Tile
+from Tile import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -34,15 +34,6 @@ def enter():
     game_world.add_object(server.isaac_head, 1)
     game_world.add_objects(server.red_spiders, 3)
     game_world.add_object(server.obstacle_rocks, 4)
-    # server.Tile_1 = load_image('tile_1.png')
-    # server.Tile_2 = load_image('tile_2.png')
-    # server.Tile_3 = load_image('tile_3.png')
-    # server.Tile_4 = load_image('tile_4.png')
-    # server.Tile_5 = load_image('tile_5.png')
-    # server.Tile_6 = load_image('tile_6.png')
-    # server.Tile_7 = load_image('tile_7.png')
-    # server.Tile_8 = load_image('tile_8.png')
-    # server.Tile_9 = load_image('tile_9.png')
     make_Map()
 
 
@@ -54,7 +45,8 @@ def make_Map():
 
     for line in range(6):
         for n in range(8):
-            server.tile[line][n]
+            if server.tile[line][n] == '1':
+                game_world.add_object(Tile_1(line, n), 0)
 
     for i in range(len(server.tile[6])):
         if server.tile[6][i] == '1':
