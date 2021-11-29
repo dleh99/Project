@@ -1,7 +1,10 @@
+import os
 from pico2d import *
 import game_world
 import game_framework
 import server
+
+os.chdir('d:/2DGP/Project/Sprite')
 
 class Tile_1:
     image = None

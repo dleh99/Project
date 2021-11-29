@@ -26,6 +26,7 @@ name = "MainState"
 os.chdir('d:/2DGP/Project/Sprite')
 
 def enter():
+    print('저 들어갔어요')
     server.isaac_head = Isaac_head()
     server.isaac_body = Isaac_body()
     server.red_spiders = [Red_Spider() for i in range(3)]
