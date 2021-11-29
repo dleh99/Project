@@ -11,8 +11,7 @@ from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
-from Door_side import Door_lr
-from Door_UD import Door_ud
+from Door import *
 from Tile import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
@@ -66,21 +65,13 @@ def make_Map():
 
     for i in range(len(server.tile[6])):
         if server.tile[6][i] == '1':
-            server.doors.append(Door_ud(800 // 2, 18, 'Door_7.png'))
+            server.doors.append(Door_Down(800 // 2, 18))
         elif server.tile[6][i] == '2':
-            server.doors.append(Door_lr(800 - 18, 600 // 2, 'Door_5.png'))
+            server.doors.append(Door_right(800 - 18, 600 // 2))
         elif server.tile[6][i] == '3':
-            server.doors.append(Door_ud(800 // 2, 600 - 18, 'Door_8.png'))
+            server.doors.append(Door_Up(800 // 2, 600 - 18))
         elif server.tile[6][i] == '4':
-            server.doors.append(Door_lr(18, 600 // 2, 'Door_6.png'))
-        elif server.tile[6][i] == '5':
-            server.doors.append(Door_ud(800 // 2, 18, 'Door_3.png'))
-        elif server.tile[6][i] == '6':
-            server.doors.append(Door_lr(800 - 18, 600 // 2, 'Door_1.png'))
-        elif server.tile[6][i] == '7':
-            server.doors.append(Door_ud(800 // 2, 600 - 18, 'Door_4.png'))
-        elif server.tile[6][i] == '8':
-            server.doors.append(Door_lr(18, 600 // 2, 'Door_2.png'))
+            server.doors.append(Door_left(18, 600 // 2))
     game_world.add_objects(server.doors, 5)
 
 
@@ -125,27 +116,6 @@ def update():
 
 def draw():
     clear_canvas()
-    # for line in range(6):
-    #     for n in range(8):
-    #         if server.tile[line][n] == '1':
-    #             server.Tile_1.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '2':
-    #             server.Tile_2.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '3':
-    #             server.Tile_3.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '4':
-    #             server.Tile_4.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '5':
-    #             server.Tile_5.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '6':
-    #             server.Tile_6.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '7':
-    #             server.Tile_7.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '8':
-    #             server.Tile_8.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-    #         elif server.tile[line][n] == '9':
-    #             server.Tile_9.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
