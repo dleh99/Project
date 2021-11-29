@@ -36,6 +36,8 @@ class Door_right(Door_left):
     image = None
     def __init__(self, x, y):
         self.x, self.y = x, y
+        self.size_x = 30
+        self.size_y = 100
         if Door_right.image == None:
             Door_right.image = load_image('Door_5.png')
 
@@ -70,5 +72,7 @@ class Door_Down(Door_Up):
 
     def __init__(self, x, y):
         self.x, self.y = x, y
+        self.size_x = 100
+        self.size_y = 30
         if Door_Down.image == None:
             Door_Down.image == load_image('Door_8.png')
