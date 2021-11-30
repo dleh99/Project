@@ -286,6 +286,7 @@ class Isaac_head:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.Heart = load_image('heart.png')
+        self.nowPos = 1
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -311,8 +312,21 @@ class Isaac_head:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
         for door in game_world.Door_objects():
-            if collision.collide(door, self) and server.room_1:
-                print('맵 클리어 했어요')
+            if collision.collide(door, self):
+                if server.Floor_1[self.nowPos]:
+                    if self.y <= 100:
+                        for me in game_world.Isaac_objects():
+                            me.nowPos += 3
+                    elif self.y >= 500:
+                        for me in game_world.Isaac_objects():
+                            me.nowPos -= 3
+                    elif self.x <= 100:
+                        for me in game_world.Isaac_objects():
+                            me.nowPos -= 1
+                    elif self.x >= 700:
+                        for me in game_world.Isaac_objects():
+                            me.nowPos += 1
+
 
     def draw(self):
         self.cur_state.draw(self)
