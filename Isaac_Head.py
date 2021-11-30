@@ -286,7 +286,7 @@ class Isaac_head:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.Heart = load_image('heart.png')
-        self.nowPos = 1
+        self.nowPos = 0
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2

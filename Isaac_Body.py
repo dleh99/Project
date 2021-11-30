@@ -240,7 +240,7 @@ class Isaac_body:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-        self.nowPos = 1
+        self.nowPos = 0
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
