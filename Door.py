@@ -44,23 +44,22 @@ class Door_right(Door_left):
 
 class Door_Up:
     image = None
-
     def __init__(self, x, y):
         self.x, self.y = x, y
         if Door_Up.image == None:
-            Door_Up.image == load_image('Door_8.png')
-        self.pixel_x = DOOR_PIXEL_SIZE_LENGHT
-        self.pixel_y = DOOR_PIXEL_SIZE_RAW
+            Door_Up.image = load_image('Door_8.png')
+        self.pixel_x = DOOR_PIXEL_SIZE_RAW
+        self.pixel_y = DOOR_PIXEL_SIZE_LENGHT
         self.size_x = 100
         self.size_y = 30
 
     def get_bb(self):
-        return self.x - DOOR_PIXEL_SIZE_LENGHT // 2, self.y - DOOR_PIXEL_SIZE_RAW // 2, \
-               self.x + DOOR_PIXEL_SIZE_LENGHT // 2, self.y + DOOR_PIXEL_SIZE_RAW // 2
+        return self.x - DOOR_PIXEL_SIZE_RAW // 2, self.y - DOOR_PIXEL_SIZE_LENGHT // 2, \
+               self.x + DOOR_PIXEL_SIZE_RAW // 2, self.y + DOOR_PIXEL_SIZE_LENGHT // 2
 
     def draw(self):
-        self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, DOOR_PIXEL_SIZE_LENGHT,
-                             DOOR_PIXEL_SIZE_RAW)
+        self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, DOOR_PIXEL_SIZE_RAW,
+                             DOOR_PIXEL_SIZE_LENGHT)
         draw_rectangle(*self.get_bb())
 
     def update(self):
@@ -69,10 +68,9 @@ class Door_Up:
 
 class Door_Down(Door_Up):
     image = None
-
     def __init__(self, x, y):
         self.x, self.y = x, y
         self.size_x = 100
         self.size_y = 30
         if Door_Down.image == None:
-            Door_Down.image == load_image('Door_8.png')
+            Door_Down.image = load_image('Door_7.png')

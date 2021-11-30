@@ -63,7 +63,7 @@ def update():
         game_object.update()
     if len(game_world.objects[3]) == 0:
         server.Floor_1[1] = True
-    print(server.isaac_head.nowPos)
+    # print(server.isaac_head.nowPos)
 
 
 def draw():

@@ -316,15 +316,19 @@ class Isaac_head:
                 if server.Floor_1[self.nowPos]:
                     if self.y <= 100:
                         for me in game_world.Isaac_objects():
+                            me.y += 450
                             me.nowPos += 3
                     elif self.y >= 500:
                         for me in game_world.Isaac_objects():
+                            me.y -= 450
                             me.nowPos -= 3
                     elif self.x <= 100:
                         for me in game_world.Isaac_objects():
+                            me.x += 650
                             me.nowPos -= 1
                     elif self.x >= 700:
                         for me in game_world.Isaac_objects():
+                            me.x -= 650
                             me.nowPos += 1
 
 
