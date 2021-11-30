@@ -34,10 +34,13 @@ def make_Map(txt):
     for i in range(len(server.tile[6])):
         if server.tile[6][i] == '1':
             server.doors.append(Door_Down(800 // 2, 18))
+            game_world.add_objects(server.doors, 5)
         elif server.tile[6][i] == '2':
             server.doors.append(Door_right(800 - 18, 600 // 2))
+            game_world.add_objects(server.doors, 5)
         elif server.tile[6][i] == '3':
             server.doors.append(Door_Up(800 // 2, 600 - 18))
+            game_world.add_objects(server.doors, 5)
         elif server.tile[6][i] == '4':
             server.doors.append(Door_left(18, 600 // 2))
-    game_world.add_objects(server.doors, 5)
+            game_world.add_objects(server.doors, 5)

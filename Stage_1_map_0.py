@@ -9,8 +9,6 @@ import server
 
 import Stage_1_map_1
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
 import make_map
@@ -24,10 +22,6 @@ name = "Stage_1_map_0"
 
 def enter():
     server.obstacle_rocks = Obstacle_Rock()
-    server.isaac_head = Isaac_head()
-    server.isaac_body = Isaac_body()
-    game_world.add_object(server.isaac_body, 1)
-    game_world.add_object(server.isaac_head, 1)
     game_world.add_object(server.obstacle_rocks, 4)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_0.txt')
 

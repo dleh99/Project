@@ -2,11 +2,8 @@ import game_world
 import server
 
 def destroy():
-    for door in game_world.Door_objects():
-        game_world.remove_object(door)
-    for ob in game_world.Obs_objects():
-        game_world.remove_object(ob)
-    for tile in game_world.Background_objects():
-        game_world.remove_object(tile)
-    server.doors.clear()
-    server.tile.clear()
+    game_world.objects[5].clear()       # 문 파괴 훠훠
+    game_world.objects[4].clear()       # 장애물 파괴
+    game_world.objects[0].clear()       # 타일 파괴
+    server.doors.clear()                # 문 리스트 정리
+    server.tile.clear()                 # 타일 리스트 정리
