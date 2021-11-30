@@ -8,3 +8,5 @@ def destroy():
         game_world.remove_object(ob)
     for tile in game_world.Background_objects():
         game_world.remove_object(tile)
+    server.doors.clear()
+    server.tile.clear()

@@ -15,12 +15,13 @@ from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
 import make_map
+import destroy_map
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-name = "Stage_1_map_2"
+name = "Stage_1_map_1"
 
 def enter():
     if not server.Floor_1[1]:
@@ -30,9 +31,7 @@ def enter():
 
 
 def exit():
-    for door in server.doors:
-        game_world.remove_object(door)
-    game_world.remove_object(server.obstacle_rocks)
+    destroy_map.destroy()
 
 
 def pause():
