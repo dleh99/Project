@@ -3,6 +3,7 @@ from pico2d import *
 import game_world
 import game_framework
 import random
+import collision
 
 PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 3.3cm
 Item_REAL_SIZE_LENGHT_M = 1.5            # 아이템 가로 크기 1.5m
@@ -11,12 +12,12 @@ Item_PIXEL_SIZE_LENGHT = Item_REAL_SIZE_LENGHT_M * PIXEL_PER_METER      # 픽셀
 Item_PIXEL_SIZE_RAW = Item_REAL_SIZE_RAW_M * PIXEL_PER_METER
 
 
-class Item_clasic:
+class Item_Heal:
     image = None
 
     def __init__(self):
-        if Item_clasic.image == None:
-            Item_clasic.image = load_image('Hp_item.png')
+        if Item_Heal.image == None:
+            Item_Heal.image = load_image('Hp_item.png')
         self.x, self.y = 800 // 2, 600 // 2
         self.pixel_x = Item_PIXEL_SIZE_LENGHT
         self.pixel_y = Item_PIXEL_SIZE_RAW
@@ -41,4 +42,10 @@ class Item_clasic:
             self.y -= 0.1
             if self.y <= (600 // 2) - 10:
                 self.isUp = True
+
+        for isaac in game_world.Isaac_objects():
+            if collision.collide(isaac, self):
+                game_world.remove_object(self)
+                for all in game_world.Isaac_objects():
+                    all.life += 4
 

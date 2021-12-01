@@ -254,12 +254,6 @@ class Isaac_body:
 
     def collision_obs(self):
         for tile in game_world.Obs_objects():
-            # if collision.up_collide(self, tile) or collision.down_collide(self, tile):
-            #     for all in game_world.Isaac_objects():
-            #         all.y -= all.velocity_y * game_framework.frame_time
-            # if collision.left_collide(self, tile) or collision.right_collide(self, tile):
-            #     for all in game_world.Isaac_objects():
-            #         all.x -= all.velocity_x * game_framework.frame_time
             if collision.collide(self, tile):
                 for all in game_world.Isaac_objects():
                     all.x -= all.velocity_x * game_framework.frame_time

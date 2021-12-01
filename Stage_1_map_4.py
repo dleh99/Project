@@ -234,33 +234,74 @@
 #                 for all in game_world.Isaac_objects():
 #                     all.life += 4
 #     # delay(1.0)
+import random
+import json
+import os
+
+from pico2d import *
+import game_framework
+import game_world
+import server
+
+import Stage_1_map_1
+import Stage_1_map_5
+
+from Isaac_Head import Isaac_head
+from Isaac_Body import Isaac_body
+from Item import *
+import make_map
+import destroy_map
+
+PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
+RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+name = "Stage_1_map_4"
+
+def enter():
+    if server.item == None:
+        server.item = Item_Heal()
+        game_world.add_object(server.item, 6)
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_4.txt')
+
+
+def exit():
+    destroy_map.destroy()
+
+
+def pause():
+    pass
+
+
+def resume():
+    pass
+
+
+def handle_events():
+    events = get_events()
+    for event in events:
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+                game_framework.quit()
+        else:
+            server.isaac_head.handle_event(event)
+            server.isaac_body.handle_event(event)
+
+
+def update():
+    for game_object in game_world.all_objects():
+        game_object.update()
+    if len(game_world.objects[3]) == 0:
+        server.Floor_1[1] = True
+    if server.isaac_head.nowPos == 1:
+        game_framework.change_state(Stage_1_map_1)
+    if server.isaac_head.nowPos == 5:
+        game_framework.change_state(Stage_1_map_5)
 
 
 def draw():
-    global tile
-    global Tile_1, Tile_2, Tile_3, Tile_4, Tile_5, Tile_6, Tile_7, Tile_8, Tile_9
     clear_canvas()
-    for line in range(6):
-        for n in range(8):
-            if tile[line][n] == '1':
-                Tile_1.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '2':
-                Tile_2.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '3':
-                Tile_3.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '4':
-                Tile_4.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '5':
-                Tile_5.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '6':
-                Tile_6.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '7':
-                Tile_7.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '8':
-                Tile_8.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-            elif tile[line][n] == '9':
-                Tile_9.clip_draw(0, 0, 100, 100, n * 100 + 50, (5 - line) * 100 + 50)
-
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
