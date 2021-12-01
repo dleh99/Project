@@ -1,13 +1,14 @@
 
 # layer 0: Background Objects
-# layer 1: 주인공 Objects
+# layer 1:
 # layer 2: Tear Objects
 # layer 3: Mob Objects
 # layer 4: Obstacle Objects
 # layer 5: Door Objects
 # layer 6: Item Objects
 # layer 7: Mob Tear Objects
-objects = [[], [], [], [], [], [], [], []]
+# layer 8: 주인공 Objects
+objects = [[], [], [], [], [], [], [], [], []]
 
 
 def add_object(o, layer):
@@ -45,9 +46,7 @@ def Background_objects():
     for o in objects[0]:
         yield o
 
-def Isaac_objects():
-    for o in objects[1]:
-        yield o
+
 
 def Tear_objects():
     for o in objects[2]:
@@ -71,5 +70,9 @@ def Item_objects():
 
 def Mob_Tear_objects():
     for o in objects[7]:
+        yield o
+
+def Isaac_objects():
+    for o in objects[8]:
         yield o
 

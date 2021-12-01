@@ -34,19 +34,19 @@ class Obstacle_Rock:
         draw_rectangle(*self.get_bb())
 
     def update(self):
-        for isaac in game_world.Isaac_objects():
-            if collision.up_collide(isaac, self):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if collision.down_collide(isaac, self):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if collision.left_collide(isaac, self):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
-            if collision.right_collide(isaac, self):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
+        # for isaac in game_world.Isaac_objects():
+        #     if collision.up_collide(isaac, self):
+        #         for all in game_world.Isaac_objects():
+        #             all.y -= all.velocity_y * game_framework.frame_time
+        #     if collision.down_collide(isaac, self):
+        #         for all in game_world.Isaac_objects():
+        #             all.y -= all.velocity_y * game_framework.frame_time
+        #     if collision.left_collide(isaac, self):
+        #         for all in game_world.Isaac_objects():
+        #             all.x -= all.velocity_x * game_framework.frame_time
+        #     if collision.right_collide(isaac, self):
+        #         for all in game_world.Isaac_objects():
+        #             all.x -= all.velocity_x * game_framework.frame_time
         for tear in game_world.Tear_objects():
             if collision.collide(tear, self):
                 game_world.remove_object(tear)

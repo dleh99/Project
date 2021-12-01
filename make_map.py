@@ -28,8 +28,10 @@ def make_Map(txt):
                 game_world.add_object(Tile_7(line, n), 0)
             elif server.tile[line][n] == '8':
                 game_world.add_object(Tile_8(line, n), 0)
-            else:
+            elif server.tile[line][n] == '9':
                 game_world.add_object(Tile_9(line, n), 0)
+            elif server.tile[line][n] == 'f':
+                game_world.add_object(Tile_f(line, n), 4)
 
     for i in range(len(server.tile[6])):
         if server.tile[6][i] == '1':
