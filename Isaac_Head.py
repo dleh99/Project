@@ -299,6 +299,7 @@ class Isaac_head:
     def add_event(self, event):
         self.event_que.insert(0, event)
 
+
     def update(self):
         if self.invincibility:
             self.invincibilitycount += 1
@@ -330,13 +331,6 @@ class Isaac_head:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
                             me.nowPos += 1
-        for tile in game_world.Obs_objects():
-            if collision.up_collide(self, tile) or collision.down_collide(self, tile):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if collision.left_collide(self, tile) or collision.right_collide(self, tile):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
 
 
     def draw(self):

@@ -106,6 +106,7 @@ class One_RunState:
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
+        body.collision_obs()
 
     def draw(body):
         if body.dir == 1:
@@ -151,6 +152,7 @@ class Two_RunState:
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
+        body.collision_obs()
 
     def draw(body):
         if body.dir == 1:
@@ -195,6 +197,7 @@ class Three_RunState:
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
+        body.collision_obs()
 
     def draw(body):
         if body.dir == 1:
@@ -248,6 +251,19 @@ class Isaac_body:
 
     def add_event(self, event):
         self.event_que.insert(0, event)
+
+    def collision_obs(self):
+        for tile in game_world.Obs_objects():
+            # if collision.up_collide(self, tile) or collision.down_collide(self, tile):
+            #     for all in game_world.Isaac_objects():
+            #         all.y -= all.velocity_y * game_framework.frame_time
+            # if collision.left_collide(self, tile) or collision.right_collide(self, tile):
+            #     for all in game_world.Isaac_objects():
+            #         all.x -= all.velocity_x * game_framework.frame_time
+            if collision.collide(self, tile):
+                for all in game_world.Isaac_objects():
+                    all.x -= all.velocity_x * game_framework.frame_time
+                    all.y -= all.velocity_y * game_framework.frame_time
 
     def update(self):
         if self.invincibility:
@@ -311,13 +327,6 @@ class Isaac_body:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
                             me.nowPos += 1
-        for tile in game_world.Obs_objects():
-            if collision.up_collide(self, tile) or collision.down_collide(self, tile):
-                for all in game_world.Isaac_objects():
-                    all.y -= all.velocity_y * game_framework.frame_time
-            if collision.left_collide(self, tile) or collision.right_collide(self, tile):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
 
     def draw(self):
         self.cur_state.draw(self)
