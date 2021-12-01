@@ -26,7 +26,6 @@ class Enemy_tear:
         if self.dir == 1:
             self.x -= self.velocity * game_framework.frame_time
             self.y += self.velocity * game_framework.frame_time
-            print(self.x, self.y)
         elif self.dir == 2:
             self.y += self.velocity * game_framework.frame_time
         elif self.dir == 3:

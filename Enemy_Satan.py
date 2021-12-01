@@ -2,6 +2,8 @@ from pico2d import *
 import game_world
 import game_framework
 import random
+import server
+import collision
 
 from Enemy_Tear import Enemy_tear
 
@@ -61,17 +63,24 @@ class Satan:
             self.frame = 2
             if not self.reload:
                 tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
-                game_world.add_objects(tears, 7)
+                game_world.add_objects(tears, server.Mob_Tear_num)
                 self.reload = True
         if self.attackcount >= 3.5:
             if not self.reload2:
                 tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
-                game_world.add_objects(tears, 7)
+                game_world.add_objects(tears, server.Mob_Tear_num)
                 self.reload2 = True
         if self.attackcount >= 4:
             self.frame = 0
             self.attackcount = 0
             self.reload = False
             self.reload2 = False
+
+        for tear in game_world.Tear_objects():
+            if collision.collide(self, tear):
+                game_world.remove_object(tear)
+                self.hp -= tear.power
+                if self.hp <= 0:
+                    game_world.remove_object(self)
 
 

@@ -5,7 +5,7 @@ import game_framework
 import random
 import collision
 
-PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 3.3cm
+PIXEL_PER_METER = (1.0 / 0.033)          # 1px = 3.3cm
 Item_REAL_SIZE_LENGHT_M = 1.5            # 아이템 가로 크기 1.5m
 Item_REAL_SIZE_RAW_M = 1.5               # 아이템 세로 크기 1.5m
 Item_PIXEL_SIZE_LENGHT = Item_REAL_SIZE_LENGHT_M * PIXEL_PER_METER      # 픽셀로 했을 때 길이

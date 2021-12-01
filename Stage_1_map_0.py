@@ -22,7 +22,7 @@ name = "Stage_1_map_0"
 
 def enter():
     server.obstacle_rocks = Obstacle_Rock()
-    game_world.add_object(server.obstacle_rocks, 4)
+    game_world.add_object(server.obstacle_rocks, server.Obs_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_0.txt')
 
 
@@ -53,7 +53,7 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if len(game_world.objects[3]) == 0:
+    if len(game_world.objects[1]) == 0:
         server.Floor_1[0] = True
     if server.isaac_head.nowPos == 1:
         game_framework.change_state(Stage_1_map_1)

@@ -16,8 +16,8 @@ name = "set_up"
 def enter():
     server.isaac_head = Isaac_head()
     server.isaac_body = Isaac_body()
-    game_world.add_object(server.isaac_body, 8)
-    game_world.add_object(server.isaac_head, 8)
+    game_world.add_object(server.isaac_body, server.Isaac_num)
+    game_world.add_object(server.isaac_head, server.Isaac_num)
     game_framework.change_state(Stage_1_map_0)
 
 def update():

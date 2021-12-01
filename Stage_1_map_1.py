@@ -26,7 +26,7 @@ name = "Stage_1_map_1"
 def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.red_spiders = [Red_Spider() for i in range(3)]
-        game_world.add_objects(server.red_spiders, 3)
+        game_world.add_objects(server.red_spiders, server.Mob_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_1.txt')
 
 
@@ -57,7 +57,7 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if len(game_world.objects[3]) == 0:
+    if len(game_world.objects[1]) == 0:
         server.Floor_1[1] = True
     if server.isaac_head.nowPos == 0:
         game_framework.change_state(Stage_1_map_0)

@@ -293,7 +293,7 @@ class Isaac_head:
 
     def fire_tear(self):
         tear = Isaac_tear(self.x, self.y, self.dir)
-        game_world.add_object(tear, 2)
+        game_world.add_object(tear, server.Tear_num)
 
 
     def add_event(self, event):
@@ -331,6 +331,12 @@ class Isaac_head:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
                             me.nowPos += 1
+        for tear in game_world.Mob_Tear_objects():
+            if collision.collide(self, tear):
+                game_world.remove_object(tear)
+                for all in game_world.Isaac_objects():
+                    all.invincibility = True
+                    all.hp -= 1
 
 
     def draw(self):
