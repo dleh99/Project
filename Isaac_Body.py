@@ -272,36 +272,7 @@ class Isaac_body:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
 
-        for mob in game_world.Mob_objects():
-            for isaac in game_world.Isaac_objects():
-                if abs(isaac.x - mob.x) > 100:
-                    mob.x += (isaac.x - mob.x) / 1000
-                else:
-                    mob.x += (isaac.x - mob.x) / 400
-                if abs(isaac.y - mob.y) > 100:
-                    mob.y += (isaac.y - mob.y) / 1000
-                else:
-                    mob.y += (isaac.y - mob.y) / 400
-                mob.x = clamp(mob.pixel_x // 2, mob.x, 800 - mob.pixel_x // 2)
-                mob.y = clamp(mob.pixel_y // 2, mob.y, 600 - (mob.pixel_y // 2))
-                if not isaac.invincibility:
-                    if collision.up_collide(isaac, mob) or collision.down_collide(isaac, mob) or collision.left_collide(isaac, mob) or \
-                            collision.right_collide(isaac, mob) or collision.collide(isaac, mob):
-                        for all in game_world.Isaac_objects():
-                            all.invincibility = True
-                            all.life -= 1
-                        if collision.up_collide(isaac, mob):
-                            for all in game_world.Isaac_objects():
-                                all.y += RUN_SPEED_PPS // 3
-                        elif collision.down_collide(isaac, mob):
-                            for all in game_world.Isaac_objects():
-                                all.y -= RUN_SPEED_PPS // 3
-                        elif collision.left_collide(isaac, mob):
-                            for all in game_world.Isaac_objects():
-                                all.x -= RUN_SPEED_PPS // 3
-                        else:
-                            for all in game_world.Isaac_objects():
-                                all.x += RUN_SPEED_PPS // 3
+        # 문과 충돌
         for door in game_world.Door_objects():
             if collision.collide(door, self):
                 if server.Floor_1[self.nowPos]:
@@ -321,6 +292,36 @@ class Isaac_body:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
                             me.nowPos += 1
+        # 몹과 충돌
+        for mob in game_world.Mob_objects():
+            if not self.invincibility:
+                if collision.up_collide(self, mob) or collision.down_collide(self, mob) or collision.left_collide(
+                        self, mob) or \
+                        collision.right_collide(self, mob) or collision.collide(self, mob):
+                    for all in game_world.Isaac_objects():
+                        all.invincibility = True
+                        all.life -= 1
+                    if collision.up_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y += RUN_SPEED_PPS // 3
+                    elif collision.down_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y -= RUN_SPEED_PPS // 3
+                    elif collision.left_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.x -= RUN_SPEED_PPS // 3
+                    else:
+                        for all in game_world.Isaac_objects():
+                            all.x += RUN_SPEED_PPS // 3
+        # 몹의 눈물과의 충돌
+        for tear in game_world.Mob_Tear_objects():
+            if collision.collide(self, tear):
+                game_world.remove_object(tear)
+                for all in game_world.Isaac_objects():
+                    all.invincibility = True
+                    all.life -= 1
+
+
 
     def draw(self):
         self.cur_state.draw(self)

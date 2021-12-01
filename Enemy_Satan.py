@@ -47,6 +47,7 @@ class Satan:
         draw_rectangle(*self.get_bb())
 
     def update(self):
+        print(self.y)
         if self.switch:
             self.x -= self.velocity * game_framework.frame_time
             if self.x <= 30 + SATAN_PIXEL_SIZE_LENGHT // 2:

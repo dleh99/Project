@@ -312,6 +312,7 @@ class Isaac_head:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+        # 문과 충돌
         for door in game_world.Door_objects():
             if collision.collide(door, self):
                 if server.Floor_1[self.nowPos]:
@@ -331,12 +332,35 @@ class Isaac_head:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
                             me.nowPos += 1
+        # 몹과 충돌                    
+        for mob in game_world.Mob_objects():
+            if not self.invincibility:
+                if collision.up_collide(self, mob) or collision.down_collide(self, mob) or collision.left_collide(
+                        self, mob) or \
+                        collision.right_collide(self, mob) or collision.collide(self, mob):
+                    for all in game_world.Isaac_objects():
+                        all.invincibility = True
+                        all.life -= 1
+                    if collision.up_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y += RUN_SPEED_PPS // 3
+                    elif collision.down_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.y -= RUN_SPEED_PPS // 3
+                    elif collision.left_collide(self, mob):
+                        for all in game_world.Isaac_objects():
+                            all.x -= RUN_SPEED_PPS // 3
+                    else:
+                        for all in game_world.Isaac_objects():
+                            all.x += RUN_SPEED_PPS // 3
+        # 몹의 눈물과의 충돌                    
         for tear in game_world.Mob_Tear_objects():
             if collision.collide(self, tear):
                 game_world.remove_object(tear)
                 for all in game_world.Isaac_objects():
                     all.invincibility = True
-                    all.hp -= 1
+                    all.life -= 1
+        
 
 
     def draw(self):
