@@ -23,13 +23,16 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_4"
 
 def enter():
-    if server.item == None:
+    if server.item == None and not server.Floor_1_item[server.isaac_head.nowPos]:
         server.item = Item_Heal()
         game_world.add_object(server.item, server.Item_num)
+    else:
+        game_world.load_item()
     make_map.make_Map('d:/2DGP/Project/Stage/stage_4.txt')
 
 
 def exit():
+    game_world.save_item()
     destroy_map.destroy()
 
 

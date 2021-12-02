@@ -1,4 +1,4 @@
-
+import pickle
 # layer 0: Background Objects
 # layer 1: Mob Objects
 # layer 2: Obstacle Objects
@@ -8,6 +8,8 @@
 # layer 6: Mob Tear Objects
 # layer 7: 주인공 Objects
 # layer 8:
+import server
+
 objects = [[], [], [], [], [], [], [], [], []]
 
 
@@ -74,3 +76,14 @@ def Isaac_objects():
     for o in objects[7]:
         yield o
 
+def save_item():
+    with open('item.sav', 'wb') as f:
+        pickle.dump(objects[4], f)
+
+def load_item():
+    global objects
+
+    with open('item.sav', 'rb') as f:
+        objects[4] = pickle.load(f)
+
+    server.item = objects[4]
