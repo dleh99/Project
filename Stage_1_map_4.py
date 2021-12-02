@@ -9,6 +9,7 @@ import server
 
 import Stage_1_map_1
 import Stage_1_map_5
+import Stage_1_map_7
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
@@ -65,6 +66,8 @@ def update():
         game_framework.change_state(Stage_1_map_1)
     if server.isaac_head.nowPos == 5:
         game_framework.change_state(Stage_1_map_5)
+    if server.isaac_head.nowPos == 7:
+        game_framework.change_state(Stage_1_map_7)
 
 
 def draw():

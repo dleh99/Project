@@ -12,7 +12,7 @@ import Stage_1_map_8
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
-from Enemy_Satan import Satan
+from Item import *
 import make_map
 import destroy_map
 
@@ -20,13 +20,10 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-name = "Stage_1_map_5"
+name = "Stage_1_map_7"
 
 def enter():
-    if not server.Floor_1[server.isaac_head.nowPos]:
-        server.satan = Satan()
-        game_world.add_object(server.satan, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_5.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_7.txt')
 
 
 def exit():
@@ -57,7 +54,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
-        server.Floor_1[5] = True
+        server.Floor_1[7] = True
     if server.isaac_head.nowPos == 4:
         game_framework.change_state(Stage_1_map_4)
     if server.isaac_head.nowPos == 8:
