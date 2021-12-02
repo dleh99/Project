@@ -317,9 +317,10 @@ class Isaac_body:
         for tear in game_world.Mob_Tear_objects():
             if collision.collide(self, tear):
                 game_world.remove_object(tear)
-                for all in game_world.Isaac_objects():
-                    all.invincibility = True
-                    all.life -= 1
+                if not self.invincibility:
+                    for all in game_world.Isaac_objects():
+                        all.invincibility = True
+                        all.life -= 1
 
 
 

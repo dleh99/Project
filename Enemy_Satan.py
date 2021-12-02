@@ -23,10 +23,21 @@ FRAMES_PER_ACTION = 2
 class Satan:
     image = None
 
-    def __init__(self):
+    def __init__(self, direction):
         if Satan.image == None:
             Satan.image = load_image('Satan.png')
-        self.x, self.y, self.velocity = 800 // 2, 30, SPIDER_SPEED_PPS
+        if direction == 1:
+            self.x, self.y, self.velocity = 800 // 2, 30, SPIDER_SPEED_PPS
+            self.dir = 1
+        elif direction == 2:
+            self.x, self.y, self.velocity = 800 - 30, 600 // 2, SPIDER_SPEED_PPS
+            self.dir = 2
+        elif direction == 3:
+            self.x, self.y, self.velocity = 800 // 2, 600 - 30, SPIDER_SPEED_PPS
+            self.dir = 3
+        elif direction == 4:
+            self.x, self.y, self.velocity = 30, 600 // 2, SPIDER_SPEED_PPS
+            self.dir = 4
         self.frame = 0
         self.pixel_x = SATAN_PIXEL_SIZE_LENGHT
         self.pixel_y = SATAN_PIXEL_SIZE_RAW
@@ -47,15 +58,24 @@ class Satan:
         draw_rectangle(*self.get_bb())
 
     def update(self):
-        print(self.y)
         if self.switch:
-            self.x -= self.velocity * game_framework.frame_time
-            if self.x <= 30 + SATAN_PIXEL_SIZE_LENGHT // 2:
-                self.switch = False
+            if self.dir % 2 == 1:
+                self.x -= self.velocity * game_framework.frame_time
+                if self.x <= 30 + SATAN_PIXEL_SIZE_LENGHT // 2:
+                    self.switch = False
+            else:
+                self.y -= self.velocity * game_framework.frame_time
+                if self.y <= 30 + SATAN_PIXEL_SIZE_LENGHT // 2:
+                    self.switch = False
         else:
-            self.x += self.velocity * game_framework.frame_time
-            if self.x >= 800 - 30 - SATAN_PIXEL_SIZE_LENGHT // 2:
-                self.switch = True
+            if self.dir % 2 == 1:
+                self.x += self.velocity * game_framework.frame_time
+                if self.x >= 800 - 30 - SATAN_PIXEL_SIZE_LENGHT // 2:
+                    self.switch = True
+            else:
+                self.y += self.velocity * game_framework.frame_time
+                if self.y >= 600 - 30 - SATAN_PIXEL_SIZE_LENGHT // 2:
+                    self.switch = True
 
         self.attackcount += game_framework.frame_time
         if self.attackcount >= 2:
@@ -63,13 +83,33 @@ class Satan:
         if self.attackcount >= 3:
             self.frame = 2
             if not self.reload:
-                tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
-                game_world.add_objects(tears, server.Mob_Tear_num)
+                if self.dir == 1:
+                    tears = [Enemy_tear(self.x, self.y + 10, (i % 8 + 1)) for i in range(3)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 2:
+                    tears = [Enemy_tear(self.x - 10, self.y, (i % 8 + 1)) for i in range(6, 9)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 3:
+                    tears = [Enemy_tear(self.x, self.y - 10, (i % 8 + 1)) for i in range(4, 7)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 4:
+                    tears = [Enemy_tear(self.x + 10, self.y, (i % 8 + 1)) for i in range(2, 5)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
                 self.reload = True
         if self.attackcount >= 3.5:
             if not self.reload2:
-                tears = [Enemy_tear(self.x, self.y + 10, (i + 1)) for i in range(3)]
-                game_world.add_objects(tears, server.Mob_Tear_num)
+                if self.dir == 1:
+                    tears = [Enemy_tear(self.x, self.y + 10, (i % 8 + 1)) for i in range(3)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 2:
+                    tears = [Enemy_tear(self.x - 10, self.y, (i % 8 + 1)) for i in range(6, 9)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 3:
+                    tears = [Enemy_tear(self.x, self.y - 10, (i % 8 + 1)) for i in range(4, 7)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
+                elif self.dir == 4:
+                    tears = [Enemy_tear(self.x + 10, self.y, (i % 8 + 1)) for i in range(2, 5)]
+                    game_world.add_objects(tears, server.Mob_Tear_num)
                 self.reload2 = True
         if self.attackcount >= 4:
             self.frame = 0

@@ -24,8 +24,8 @@ name = "Stage_1_map_5"
 
 def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
-        server.satan = Satan()
-        game_world.add_object(server.satan, server.Mob_num)
+        server.satan = [Satan(i + 1) for i in range(2)]
+        game_world.add_objects(server.satan, server.Mob_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_5.txt')
 
 
