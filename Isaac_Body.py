@@ -37,25 +37,25 @@ key_event_table = {
 class IdleState:
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
 
     def exit(body, event):
         pass
@@ -77,32 +77,32 @@ class One_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
 
     def exit(body, event):
         pass
 
     def do(body):
-        body.x += body.velocity_x * game_framework.frame_time
-        body.y += body.velocity_y * game_framework.frame_time
+        body.x += body.Accel * body.velocity_x * game_framework.frame_time
+        body.y += body.Accel * body.velocity_y * game_framework.frame_time
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -123,32 +123,32 @@ class Two_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
 
     def exit(body, event):
         pass
 
     def do(body):
-        body.x += body.velocity_x * game_framework.frame_time
-        body.y += body.velocity_y * game_framework.frame_time
+        body.x += body.Accel * body.velocity_x * game_framework.frame_time
+        body.y += body.Accel * body.velocity_y * game_framework.frame_time
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -168,32 +168,32 @@ class Three_RunState:
 
     def enter(body, event):
         if event == D_DOWN:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
             body.dir = 2
         elif event == A_DOWN:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
             body.dir = 4
         elif event == D_UP:
-            body.velocity_x -= body.Accel * RUN_SPEED_PPS
+            body.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            body.velocity_x += body.Accel * RUN_SPEED_PPS
+            body.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
             body.dir = 3
         elif event == S_DOWN:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
             body.dir = 1
         elif event == W_UP:
-            body.velocity_y -= body.Accel * RUN_SPEED_PPS
+            body.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            body.velocity_y += body.Accel * RUN_SPEED_PPS
+            body.velocity_y += RUN_SPEED_PPS
 
     def exit(body, event):
         pass
 
     def do(body):
-        body.x += body.velocity_x * game_framework.frame_time
-        body.y += body.velocity_y * game_framework.frame_time
+        body.x += body.Accel * body.velocity_x * game_framework.frame_time
+        body.y += body.Accel * body.velocity_y * game_framework.frame_time
         body.x = clamp(30 + 45 // 2, body.x, 800 - 30 - 45 // 2)
         body.y = clamp(30 + body.size_y // 2, body.y, 600 - 30 - (34 + body.size_y // 2))
         body.frame = (body.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
@@ -321,11 +321,11 @@ class Isaac_body:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-        # 스피드 아이템과 충돌
-        for speed_item in game_world.Item_objects():
-            if collision(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
-                game_world.remove_object(speed_item)
-                self.Accel += 1.0
+        # # 스피드 아이템과 충돌
+        # for speed_item in game_world.Item_objects():
+        #     if collision(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
+        #         game_world.remove_object(speed_item)
+        #         self.Accel += 1.0
 
 
 

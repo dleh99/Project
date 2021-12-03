@@ -40,25 +40,25 @@ key_event_table = {
 class IdleState:
     def enter(head, event):
         if event == D_DOWN:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
             head.dir = 2
         elif event == A_DOWN:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
             head.dir = 4
         elif event == D_UP:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
             head.dir = 3
         elif event == S_DOWN:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
             head.dir = 1
         elif event == W_UP:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
         if event == DOWN_DOWN:
@@ -91,25 +91,25 @@ class One_RunState:
 
     def enter(head, event):
         if event == D_DOWN:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
             head.dir = 2
         elif event == A_DOWN:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
             head.dir = 4
         elif event == D_UP:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
             head.dir = 3
         elif event == S_DOWN:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
             head.dir = 1
         elif event == W_UP:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
         if event == DOWN_DOWN:
@@ -126,8 +126,8 @@ class One_RunState:
             head.fire_tear()
 
     def do(head):
-        head.x += head.velocity_x * game_framework.frame_time
-        head.y += head.velocity_y * game_framework.frame_time
+        head.x += head.Accel * head.velocity_x * game_framework.frame_time
+        head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
@@ -146,25 +146,25 @@ class Two_RunState:
 
     def enter(head, event):
         if event == D_DOWN:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
             head.dir = 2
         elif event == A_DOWN:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
             head.dir = 4
         elif event == D_UP:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
             head.dir = 3
         elif event == S_DOWN:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
             head.dir = 1
         elif event == W_UP:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
         if event == DOWN_DOWN:
@@ -181,8 +181,8 @@ class Two_RunState:
             head.fire_tear()
 
     def do(head):
-        head.x += head.velocity_x * game_framework.frame_time
-        head.y += head.velocity_y * game_framework.frame_time
+        head.x += head.Accel * head.velocity_x * game_framework.frame_time
+        head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
@@ -200,25 +200,25 @@ class Three_RunState:
 
     def enter(head, event):
         if event == D_DOWN:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
             head.dir = 2
         elif event == A_DOWN:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
             head.dir = 4
         elif event == D_UP:
-            head.velocity_x -= head.Accel * RUN_SPEED_PPS
+            head.velocity_x -= RUN_SPEED_PPS
         elif event == A_UP:
-            head.velocity_x += head.Accel * RUN_SPEED_PPS
+            head.velocity_x += RUN_SPEED_PPS
         if event == W_DOWN:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
             head.dir = 3
         elif event == S_DOWN:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
             head.dir = 1
         elif event == W_UP:
-            head.velocity_y -= head.Accel * RUN_SPEED_PPS
+            head.velocity_y -= RUN_SPEED_PPS
         elif event == S_UP:
-            head.velocity_y += head.Accel * RUN_SPEED_PPS
+            head.velocity_y += RUN_SPEED_PPS
 
     def exit(head, event):
         if event == DOWN_DOWN:
@@ -235,8 +235,8 @@ class Three_RunState:
             head.fire_tear()
 
     def do(head):
-        head.x += head.velocity_x * game_framework.frame_time
-        head.y += head.velocity_y * game_framework.frame_time
+        head.x += head.Accel * head.velocity_x * game_framework.frame_time
+        head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 +head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
 
@@ -368,11 +368,11 @@ class Isaac_head:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-        # 스피드 아이템과 충돌
-        for speed_item in game_world.Item_objects():
-            if collision(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
-                game_world.remove_object(speed_item)
-                self.Accel += 1.0
+        # # 스피드 아이템과 충돌
+        # for speed_item in game_world.Item_objects():
+        #     if collision.collide(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
+        #         game_world.remove_object(speed_item)
+        #         self.Accel += 1.0
 
 
     def draw(self):

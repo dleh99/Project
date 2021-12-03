@@ -8,5 +8,5 @@ os.chdir('d:/2DGP/Project/Sprite')
 
 
 pico2d.open_canvas(800, 600)
-game_framework.run(start_state)
+game_framework.run(set_up)
 pico2d.close_canvas()

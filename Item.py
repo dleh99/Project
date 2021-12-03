@@ -86,3 +86,12 @@ class Item_Speed_injector(Item_Heal):
             self.y -= 0.1
             if self.y <= (600 // 2) - 10:
                 self.isUp = True
+
+        if self.isVisualize:
+            for isaac in game_world.Isaac_objects():
+                if collision.collide(isaac, self):
+                    game_world.remove_object(self)
+                    server.item = None
+                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    for all in game_world.Isaac_objects():
+                        all.Accel += 0.5
