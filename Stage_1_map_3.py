@@ -54,7 +54,7 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if len(game_world.objects[1]) == 0:
+    if len(game_world.objects[server.Mob_num]) == 0:
         server.Floor_1[3] = True
     if server.isaac_head.nowPos == 2:
         game_framework.change_state(Stage_1_map_2)

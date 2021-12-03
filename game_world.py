@@ -1,9 +1,9 @@
 import pickle
 # layer 0: Background Objects
-# layer 1: Mob Objects
-# layer 2: Obstacle Objects
-# layer 3: Door Objects
-# layer 4: Item Objects
+# layer 1: Obstacle Objects
+# layer 2: Door Objects
+# layer 3: Item Objects
+# layer 4: Mob Objects
 # layer 5: Tear Objects
 # layer 6: Mob Tear Objects
 # layer 7: 주인공 Objects
@@ -48,19 +48,19 @@ def Background_objects():
     for o in objects[0]:
         yield o
 
-def Mob_objects():
+def Obs_objects():
     for o in objects[1]:
         yield o
 
-def Obs_objects():
+def Door_objects():
     for o in objects[2]:
         yield o
 
-def Door_objects():
+def Item_objects():
     for o in objects[3]:
         yield o
 
-def Item_objects():
+def Mob_objects():
     for o in objects[4]:
         yield o
 

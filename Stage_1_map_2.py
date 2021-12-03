@@ -12,7 +12,7 @@ import Stage_1_map_3
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
-from Enemy_spider import *
+from Enemy_Fly import *
 from Obstacle import Obstacle_Rock
 import make_map
 import destroy_map
@@ -24,6 +24,9 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_2"
 
 def enter():
+    if not server.Floor_1[server.isaac_head.nowPos]:
+        server.fly = [Fly() for i in range(5)]
+        game_world.add_objects(server.fly, server.Mob_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_2.txt')
 
 
@@ -54,7 +57,7 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if len(game_world.objects[1]) == 0:
+    if len(game_world.objects[server.Mob_num]) == 0:
         server.Floor_1[2] = True
     if server.isaac_head.nowPos == 1:
         game_framework.change_state(Stage_1_map_1)
