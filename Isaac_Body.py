@@ -256,8 +256,8 @@ class Isaac_body:
         for tile in game_world.Obs_objects():
             if collision.collide(self, tile):
                 for all in game_world.Isaac_objects():
-                    all.x -= all.velocity_x * game_framework.frame_time
-                    all.y -= all.velocity_y * game_framework.frame_time
+                    all.x -= all.Accel * all.velocity_x * game_framework.frame_time
+                    all.y -= all.Accel * all.velocity_y * game_framework.frame_time
 
     def update(self):
         if self.invincibility:
@@ -321,19 +321,11 @@ class Isaac_body:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-        # # 스피드 아이템과 충돌
-        # for speed_item in game_world.Item_objects():
-        #     if collision(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
-        #         game_world.remove_object(speed_item)
-        #         self.Accel += 1.0
-
-
 
     def draw(self):
         self.cur_state.draw(self)
         draw_rectangle(*self.get_bb())
         #fill here
-
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

@@ -53,7 +53,7 @@ class Item_Heal:
                     server.item = None
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
-                        all.life += 2
+                        all.life += 3
 
     def __getstate__(self):
         state = {'Vis': self.isVisualize}
