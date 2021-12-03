@@ -301,6 +301,7 @@ class Isaac_head:
 
 
     def update(self):
+        print(self.nowPos)
         if self.invincibility:
             self.invincibilitycount += 1
             if self.invincibilitycount == 1000:
@@ -319,11 +320,11 @@ class Isaac_head:
                     if self.y <= 100:
                         for me in game_world.Isaac_objects():
                             me.y += 450
-                            me.nowPos += 3
+                            me.nowPos += 4
                     elif self.y >= 500:
                         for me in game_world.Isaac_objects():
                             me.y -= 450
-                            me.nowPos -= 3
+                            me.nowPos -= 4
                     elif self.x <= 100:
                         for me in game_world.Isaac_objects():
                             me.x += 650

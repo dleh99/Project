@@ -8,7 +8,8 @@ import game_world
 import server
 
 import Stage_1_map_0
-import Stage_1_map_4
+import Stage_1_map_2
+import Stage_1_map_5
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
@@ -61,8 +62,10 @@ def update():
         server.Floor_1[1] = True
     if server.isaac_head.nowPos == 0:
         game_framework.change_state(Stage_1_map_0)
-    if server.isaac_head.nowPos == 4:
-        game_framework.change_state(Stage_1_map_4)
+    if server.isaac_head.nowPos == 2:
+        game_framework.change_state(Stage_1_map_2)
+    if server.isaac_head.nowPos == 5:
+        game_framework.change_state(Stage_1_map_5)
 
 
 def draw():

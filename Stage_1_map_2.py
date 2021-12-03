@@ -7,12 +7,13 @@ import game_framework
 import game_world
 import server
 
+import Stage_1_map_1
 import Stage_1_map_3
-import Stage_1_map_11
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
-from Enemy_Satan import Satan
+from Enemy_spider import *
+from Obstacle import Obstacle_Rock
 import make_map
 import destroy_map
 
@@ -20,13 +21,10 @@ PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-name = "Stage_1_map_7"
+name = "Stage_1_map_2"
 
 def enter():
-    if not server.Floor_1[server.isaac_head.nowPos]:
-        server.satan = [Satan(i + 1) for i in range(2)]
-        game_world.add_objects(server.satan, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_7.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_2.txt')
 
 
 def exit():
@@ -56,12 +54,12 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-    if len(game_world.objects[server.Mob_num]) == 0:
-        server.Floor_1[7] = True
+    if len(game_world.objects[1]) == 0:
+        server.Floor_1[2] = True
+    if server.isaac_head.nowPos == 1:
+        game_framework.change_state(Stage_1_map_1)
     if server.isaac_head.nowPos == 3:
         game_framework.change_state(Stage_1_map_3)
-    if server.isaac_head.nowPos == 11:
-        game_framework.change_state(Stage_1_map_11)
 
 
 def draw():
@@ -69,3 +67,9 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
+
+
+
+
+
+

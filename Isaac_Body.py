@@ -279,11 +279,11 @@ class Isaac_body:
                     if self.y <= 100:
                         for me in game_world.Isaac_objects():
                             me.y += 450
-                            me.nowPos += 3
+                            me.nowPos += 4
                     elif self.y >= 500:
                         for me in game_world.Isaac_objects():
                             me.y -= 450
-                            me.nowPos -= 3
+                            me.nowPos -= 4
                     elif self.x <= 100:
                         for me in game_world.Isaac_objects():
                             me.x += 650
