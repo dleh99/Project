@@ -287,13 +287,16 @@ class Isaac_head:
         self.cur_state.enter(self, None)
         self.Heart = load_image('heart.png')
         self.nowPos = 0
+        self.delay_num = 0
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
     def fire_tear(self):
-        tear = Isaac_tear(self.x, self.y, self.dir)
-        game_world.add_object(tear, server.Tear_num)
+        if self.delay_num >= 100:
+            self.delay_num = 0
+            tear = Isaac_tear(self.x, self.y, self.dir)
+            game_world.add_object(tear, server.Tear_num)
 
 
     def add_event(self, event):
@@ -301,7 +304,8 @@ class Isaac_head:
 
 
     def update(self):
-        print(self.nowPos)
+        # 눈물 발사 딜레이 증가 카운트
+        self.delay_num += 1
         if self.invincibility:
             self.invincibilitycount += 1
             if self.invincibilitycount == 1000:
