@@ -6,6 +6,7 @@ import server
 import collision
 
 from Isaac_Tear import Isaac_tear
+from Item import *
 
 import game_world
 
@@ -288,12 +289,13 @@ class Isaac_head:
         self.Heart = load_image('heart.png')
         self.nowPos = 0
         self.delay_num = 0
+        self.item_delay = 0
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
     def fire_tear(self):
-        if self.delay_num >= 100:
+        if self.delay_num + self.item_delay >= 150:
             self.delay_num = 0
             tear = Isaac_tear(self.x, self.y, self.dir)
             game_world.add_object(tear, server.Tear_num)
@@ -366,7 +368,11 @@ class Isaac_head:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-        
+        # 스피드 아이템과 충돌
+        for speed_item in game_world.Item_objects():
+            if collision(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
+                game_world.remove_object(speed_item)
+                self.Accel += 1.0
 
 
     def draw(self):

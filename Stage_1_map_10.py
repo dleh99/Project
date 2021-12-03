@@ -11,7 +11,7 @@ import Stage_1_map_11
 
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
-from Enemy_spider import *
+from Item import Item_Speed_injector
 from Obstacle import Obstacle_Rock
 import make_map
 import destroy_map
@@ -23,6 +23,11 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_10"
 
 def enter():
+    if server.item == None and not server.Floor_1_item[server.isaac_head.nowPos]:
+        server.item = Item_Speed_injector()
+        game_world.add_object(server.item, server.Item_num)
+    else:
+        game_world.load_item()
     make_map.make_Map('d:/2DGP/Project/Stage/stage_10.txt')
 
 

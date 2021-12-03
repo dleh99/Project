@@ -53,7 +53,7 @@ class Item_Heal:
                     server.item = None
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
-                        all.life += 4
+                        all.life += 2
 
     def __getstate__(self):
         state = {'Vis': self.isVisualize}
@@ -63,3 +63,26 @@ class Item_Heal:
         self.__init__()
         self.__dict__.update(state)
 
+class Item_Speed_injector(Item_Heal):
+    image = None
+
+    def __init__(self):
+        if Item_Speed_injector.image == None:
+            Item_Speed_injector.image = load_image('Speed_item.png')
+        self.x, self.y = 800 // 2, 600 // 2
+        self.pixel_x = Item_PIXEL_SIZE_LENGHT
+        self.pixel_y = Item_PIXEL_SIZE_RAW
+        self.size_x = 100
+        self.size_y = 100
+        self.isUp = False
+        self.isVisualize = True
+
+    def update(self):
+        if self.isUp:
+            self.y += 0.1
+            if self.y >= (600 // 2) + 10:
+                self.isUp = False
+        else:
+            self.y -= 0.1
+            if self.y <= (600 // 2) - 10:
+                self.isUp = True
