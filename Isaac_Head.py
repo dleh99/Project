@@ -290,6 +290,7 @@ class Isaac_head:
         self.nowPos = 0
         self.delay_num = 0
         self.item_delay = 0
+        self.power = 10
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -297,7 +298,7 @@ class Isaac_head:
     def fire_tear(self):
         if self.delay_num + self.item_delay >= 150:
             self.delay_num = 0
-            tear = Isaac_tear(self.x, self.y, self.dir)
+            tear = Isaac_tear(self.x, self.y, self.dir, self.power)
             game_world.add_object(tear, server.Tear_num)
 
 

@@ -25,10 +25,9 @@ name = "Stage_1_map_5"
 def enter():
     if not server.Floor_1_item[server.isaac_head.nowPos]:
         if server.Floor_1_item_store[server.isaac_head.nowPos] == 0:
-            store(2)
+            store(4)
         else:
             load(server.Floor_1_item_store[server.isaac_head.nowPos])
-
     make_map.make_Map('d:/2DGP/Project/Stage/stage_5.txt')
 
 

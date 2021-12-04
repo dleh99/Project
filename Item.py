@@ -95,3 +95,35 @@ class Item_Speed_injector(Item_Heal):
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
                         all.Accel += 0.5
+
+class Item_Steven(Item_Heal):
+    image = None
+
+    def __init__(self):
+        if Item_Steven.image == None:
+            Item_Steven.image = load_image('Steven.png')
+        self.x, self.y = 800 // 2, 600 // 2
+        self.pixel_x = Item_PIXEL_SIZE_LENGHT
+        self.pixel_y = Item_PIXEL_SIZE_RAW
+        self.size_x = 100
+        self.size_y = 100
+        self.isUp = False
+        self.isVisualize = True
+
+    def update(self):
+        if self.isUp:
+            self.y += 0.1
+            if self.y >= (600 // 2) + 10:
+                self.isUp = False
+        else:
+            self.y -= 0.1
+            if self.y <= (600 // 2) - 10:
+                self.isUp = True
+
+        if self.isVisualize:
+            for isaac in game_world.Isaac_objects():
+                if collision.collide(isaac, self):
+                    game_world.remove_object(self)
+                    server.item = None
+                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    server.isaac_head.power += 5

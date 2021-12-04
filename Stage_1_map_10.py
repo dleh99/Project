@@ -6,6 +6,7 @@ from pico2d import *
 import game_framework
 import game_world
 import server
+from item_store_load import *
 
 import Stage_1_map_11
 
@@ -24,8 +25,10 @@ name = "Stage_1_map_10"
 
 def enter():
     if not server.Floor_1_item[server.isaac_head.nowPos]:
-        server.item = Item_Speed_injector()
-        game_world.add_object(server.item, server.Item_num)
+        if server.Floor_1_item_store[server.isaac_head.nowPos] == 0:
+            store(4)
+        else:
+            load(server.Floor_1_item_store[server.isaac_head.nowPos])
     make_map.make_Map('d:/2DGP/Project/Stage/stage_10.txt')
 
 

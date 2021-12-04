@@ -10,11 +10,11 @@ TEAR_SPEED_PPS = PIXEL_PER_METER * TEAR_SPEED_MPS
 class Isaac_tear:
     image = None
 
-    def __init__(self, x = 400, y = 300, dir = 1):
+    def __init__(self, x = 400, y = 300, dir = 1, Damage = 10):
         if Isaac_tear.image == None:
             Isaac_tear.image = load_image('Isaac_Tear.png')
         self.x, self.y, self.velocity, self.dir = x, y, TEAR_SPEED_PPS, dir
-        self.power = 10
+        self.power = Damage
 
     def get_bb(self):
         return self.x - 5, self.y - 5, self.x + 5, self.y + 5
