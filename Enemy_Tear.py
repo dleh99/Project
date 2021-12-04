@@ -43,6 +43,9 @@ class Enemy_tear:
             self.y -= self.velocity * game_framework.frame_time
         elif self.dir == 8:
             self.x -= self.velocity * game_framework.frame_time
+        self.velocity -= 0.5
+        if self.velocity <= 0.0:
+            game_world.remove_object(self)
         if self.x - 35 <= 0 or self.x + 35 >= 800 or self.y - 35 <= 0 or self.y + 35 >= 600:
             game_world.remove_object(self)
 
