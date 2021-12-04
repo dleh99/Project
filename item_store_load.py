@@ -14,9 +14,12 @@ def store(num):
         server.item = Item_Speed_injector()
         game_world.add_object(server.item, server.Item_num)
     elif random.randint(0, num - 1) % num == 2:
-        print('들어감')
         server.Floor_1_item_store[server.isaac_head.nowPos] = 3
         server.item = Item_Steven()
+        game_world.add_object(server.item, server.Item_num)
+    elif random.randint(0, num - 1) % num == 3:
+        server.Floor_1_item_store[server.isaac_head.nowPos] = 4
+        server.item = Item_Onion()
         game_world.add_object(server.item, server.Item_num)
 
 def load(num):
@@ -28,4 +31,7 @@ def load(num):
         game_world.add_object(server.item, server.Item_num)
     elif num == 3:
         server.item = Item_Steven()
+        game_world.add_object(server.item, server.Item_num)
+    elif num == 4:
+        server.item = Item_Onion()
         game_world.add_object(server.item, server.Item_num)

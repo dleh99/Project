@@ -127,3 +127,35 @@ class Item_Steven(Item_Heal):
                     server.item = None
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     server.isaac_head.power += 5
+
+class Item_Onion(Item_Heal):
+    image = None
+
+    def __init__(self):
+        if Item_Onion.image == None:
+            Item_Onion.image = load_image('Onion.png')
+        self.x, self.y = 800 // 2, 600 // 2
+        self.pixel_x = Item_PIXEL_SIZE_LENGHT
+        self.pixel_y = Item_PIXEL_SIZE_RAW
+        self.size_x = 30
+        self.size_y = 30
+        self.isUp = False
+        self.isVisualize = True
+
+    def update(self):
+        if self.isUp:
+            self.y += 0.1
+            if self.y >= (600 // 2) + 10:
+                self.isUp = False
+        else:
+            self.y -= 0.1
+            if self.y <= (600 // 2) - 10:
+                self.isUp = True
+
+        if self.isVisualize:
+            for isaac in game_world.Isaac_objects():
+                if collision.collide(isaac, self):
+                    game_world.remove_object(self)
+                    server.item = None
+                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    server.isaac_head.item_delay += 20
