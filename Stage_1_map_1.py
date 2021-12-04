@@ -14,6 +14,7 @@ import Stage_1_map_5
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Enemy_spider import *
+from Enemy_Head_hunt import *
 from Obstacle import Obstacle_Rock
 import make_map
 import destroy_map
@@ -28,6 +29,9 @@ def enter():
     # if not server.Floor_1[server.isaac_head.nowPos]:
     #     server.red_spiders = [Red_Spider() for i in range(3)]
     #     game_world.add_objects(server.red_spiders, server.Mob_num)
+    if not server.Floor_1[server.isaac_head.nowPos]:
+        server.head_hunt = Head_hunt(4)
+        game_world.add_object(server.head_hunt, server.Mob_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_1.txt')
 
 

@@ -3,6 +3,7 @@ isaac_body = None
 red_spiders = None
 satan = None
 fly = None
+head_hunt = None
 isaac_hearts = None
 obstacle_rocks = None
 item = None

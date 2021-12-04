@@ -4,7 +4,7 @@ import game_world
 import game_framework
 
 PIXEL_PER_METER = (1.0 / 0.033)     # 1px = 33cm
-TEAR_SPEED_MPS = (50.0 / 3.0)       # 50m = 3초 > 주인공보다 약 3배 빠름
+TEAR_SPEED_MPS = (50.0 / 4.32)       # 50m = 3초 > 주인공보다 약 2.5배 빠름
 TEAR_SPEED_PPS = PIXEL_PER_METER * TEAR_SPEED_MPS
 
 class Enemy_tear:

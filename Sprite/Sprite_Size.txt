@@ -6,4 +6,5 @@
 붉은 거미 110	80
 사탄	46	31
 파리	97	88
+헤드헌터	32	32
 https://www.spriters-resource.com/search/?q=the+binding+of+isaac
