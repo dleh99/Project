@@ -1,5 +1,8 @@
 import os
 
+import pico2d.pico2d
+
+import Obstacle
 import Tile
 import game_framework
 from pico2d import *
@@ -253,11 +256,12 @@ class Isaac_body:
         self.event_que.insert(0, event)
 
     def collision_obs(self):
-        for tile in game_world.Obs_objects():
-            if collision.collide(self, tile):
-                for all in game_world.Isaac_objects():
-                    all.x -= all.Accel * all.velocity_x * game_framework.frame_time
-                    all.y -= all.Accel * all.velocity_y * game_framework.frame_time
+        for Obs in game_world.Obs_objects():
+            if isinstance(Obs, Obstacle.Obstacle_Rock):
+                if collision.collide(self, Obs):
+                    for all in game_world.Isaac_objects():
+                        all.x -= all.Accel * all.velocity_x * game_framework.frame_time
+                        all.y -= all.Accel * all.velocity_y * game_framework.frame_time
 
     def update(self):
         if self.invincibility:

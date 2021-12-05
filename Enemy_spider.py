@@ -68,17 +68,3 @@ class Red_Spider:
                 self.hp -= tear.power
                 if self.hp <= 0:
                     game_world.remove_object(self)
-
-        # for isaac in game_world.Isaac_objects():
-        #     if abs(isaac.x - self.x) > 100:
-        #         self.x += (isaac.x - self.x) / 1000
-        #     else:
-        #         self.x += (isaac.x - self.x) / 400
-        #     if abs(isaac.y - self.y) > 100:
-        #         self.y += (isaac.y - self.y) / 1000
-        #     else:
-        #         self.y += (isaac.y - self.y) / 400
-        #     self.x = clamp(self.pixel_x // 2, self.x, 800 - self.pixel_x // 2)
-        #     self.y = clamp(self.pixel_y // 2, self.y, 600 - (self.pixel_y // 2))
-
-

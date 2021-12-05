@@ -369,11 +369,6 @@ class Isaac_head:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-        # # 스피드 아이템과 충돌
-        # for speed_item in game_world.Item_objects():
-        #     if collision.collide(self, speed_item) and speed_item.isVisualize and isinstance(speed_item, Item_Speed_injector):
-        #         game_world.remove_object(speed_item)
-        #         self.Accel += 1.0
 
 
     def draw(self):
