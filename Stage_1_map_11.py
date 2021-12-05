@@ -16,6 +16,7 @@ from Isaac_Body import Isaac_body
 from Item import *
 import make_map
 import destroy_map
+from Obstacle import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -24,6 +25,14 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_11"
 
 def enter():
+    server.obstacle_rocks = [Obstacle_Rock(52 + 45 * i, 52 + 45 * j) for i in range(0, 7) for j in range(0, 5)] \
+                            + [Obstacle_Rock(480 + 45 * i, 52 + 45 * j) for i in range(0, 7) for j in range(0, 5)] \
+                            + [Obstacle_Rock(52 + 45 * i, 366 + 45 * j) for i in range(0, 7) for j in range(0, 5)] \
+                            + [Obstacle_Rock(480 + 45 * i, 366 + 45 * j) for i in range(0, 7) for j in range(0, 5)] \
+                            + [Obstacle_Sting(800 // 2, 600 * 3 // 4, 2), Obstacle_Sting(800 // 2, 600 // 4, 2),
+                               Obstacle_Sting(800 // 4, 600 // 2, 2), \
+                               Obstacle_Sting(800 * 3 // 4, 600 // 2, 2), Obstacle_Sting(800 // 2, 600 // 2, 0)]
+    game_world.add_objects(server.obstacle_rocks, server.Obs_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_11.txt')
 
 

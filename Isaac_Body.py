@@ -257,7 +257,7 @@ class Isaac_body:
 
     def collision_obs(self):
         for Obs in game_world.Obs_objects():
-            if isinstance(Obs, Obstacle.Obstacle_Rock):
+            if isinstance(Obs, Obstacle.Obstacle_Rock) or isinstance(Obs, Tile.Tile_f):
                 if collision.collide(self, Obs):
                     for all in game_world.Isaac_objects():
                         all.x -= all.Accel * all.velocity_x * game_framework.frame_time

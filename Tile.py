@@ -4,6 +4,7 @@ import game_world
 import game_framework
 import server
 import collision
+import Isaac_Body
 
 os.chdir('d:/2DGP/Project/Sprite')
 

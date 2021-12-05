@@ -40,6 +40,7 @@ class Obstacle_Rock:
         draw_rectangle(*self.get_bb())
 
     def update(self):
+        # print(self.pixel_x, self.pixel_y)
         for tear in game_world.Tear_objects():
             if collision.collide(tear, self):
                 game_world.remove_object(tear)
@@ -51,8 +52,8 @@ class Obstacle_Sting:
     image = None
 
     def __init__(self, x, y, num):
-        if Obstacle_Rock.image == None:
-            Obstacle_Rock.image = load_image('Obs_Son.png')
+        if Obstacle_Sting.image == None:
+            Obstacle_Sting.image = load_image('Obs_Son.png')
         self.x, self.y = x, y
         self.pixel_x = STING_PIXEL_SIZE_LENGHT
         self.pixel_y = STING_PIXEL_SIZE_RAW
@@ -70,6 +71,7 @@ class Obstacle_Sting:
         draw_rectangle(*self.get_bb())
 
     def update(self):
+        # print(self.pixel_x, self.pixel_y)
         self.On_Timer += game_framework.frame_time
         if 0.0 <= self.On_Timer < 2.0:
             self.isOn = True
@@ -80,25 +82,25 @@ class Obstacle_Sting:
         if self.isOn:
             self.image = load_image('Obs_Son.png')
             for isaac in game_world.Isaac_objects():
-                if not isaac.invincibility:
-                    if collision.up_collide(isaac, self) or collision.down_collide(isaac, self) or collision.left_collide(
-                            isaac, self) or \
-                            collision.right_collide(isaac, self) or collision.collide(isaac, self):
-                        for all in game_world.Isaac_objects():
-                            all.invincibility = True
-                            all.life -= 1
-                        if collision.up_collide(isaac, self):
+                if isinstance(isaac, Isaac_Body.Isaac_body):
+                    if not isaac.invincibility:
+                        if collision.up_collide(isaac, self) or collision.down_collide(isaac, self) or\
+                                collision.left_collide(isaac, self) or collision.right_collide(isaac, self) or collision.collide(isaac, self):
                             for all in game_world.Isaac_objects():
-                                all.y += Isaac_Body.RUN_SPEED_PPS // 3
-                        elif collision.down_collide(isaac, self):
-                            for all in game_world.Isaac_objects():
-                                all.y -= Isaac_Body.RUN_SPEED_PPS // 3
-                        elif collision.left_collide(isaac, self):
-                            for all in game_world.Isaac_objects():
-                                all.x -= Isaac_Body.RUN_SPEED_PPS // 3
-                        else:
-                            for all in game_world.Isaac_objects():
-                                all.x += Isaac_Body.RUN_SPEED_PPS // 3
+                                all.invincibility = True
+                                all.life -= 1
+                            if collision.up_collide(isaac, self):
+                                for all in game_world.Isaac_objects():
+                                    all.y += Isaac_Body.RUN_SPEED_PPS // 3
+                            elif collision.down_collide(isaac, self):
+                                for all in game_world.Isaac_objects():
+                                    all.y -= Isaac_Body.RUN_SPEED_PPS // 3
+                            elif collision.left_collide(isaac, self):
+                                for all in game_world.Isaac_objects():
+                                    all.x -= Isaac_Body.RUN_SPEED_PPS // 3
+                            else:
+                                for all in game_world.Isaac_objects():
+                                    all.x += Isaac_Body.RUN_SPEED_PPS // 3
         else:
             self.image = load_image('Obs_Soff.png')
 
