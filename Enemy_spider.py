@@ -13,7 +13,7 @@ SPIDER_REAL_SIZE_RAW_M = 1.0               # 적 세로 크기 1m
 SPIDER_PIXEL_SIZE_LENGHT = SPIDER_REAL_SIZE_LENGHT_M * PIXEL_PER_METER      # 픽셀로 했을 때 길이
 SPIDER_PIXEL_SIZE_RAW = SPIDER_REAL_SIZE_RAW_M * PIXEL_PER_METER
 
-SPIDER_SPEED_MPS = (75.0 / 10.8)       # 50m = 3초 > 주인공보다 1.5배 빠름
+SPIDER_SPEED_MPS = (60.0 / 10.8)       # 50m = 3초 > 주인공보다 1.2배 빠름
 SPIDER_SPEED_PPS = PIXEL_PER_METER * SPIDER_SPEED_MPS
 
 ACTION_PER_TIME = 1.0 / 0.166         # 1초에 6번 움직임
@@ -33,6 +33,7 @@ class Red_Spider:
         self.size_y = 80
         self.hp = 50
         self.dir = random.random() * 2 * math.pi
+        self.timer = 2
 
     def get_bb(self):
         return self.x - SPIDER_PIXEL_SIZE_LENGHT // 2, self.y - SPIDER_PIXEL_SIZE_RAW // 2,\
@@ -45,6 +46,21 @@ class Red_Spider:
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        self.timer -= game_framework.frame_time
+
+        if 1 < self.timer <= 2:
+            self.dir = math.atan2(server.isaac_body.y - self.y, server.isaac_body.x - self.x)
+            self.x += self.velocity * math.cos(self.dir) * game_framework.frame_time
+            self.y += self.velocity * math.sin(self.dir) * game_framework.frame_time
+            self.x = clamp(self.pixel_x // 2, self.x, 800 - self.pixel_x // 2)
+            self.y = clamp(self.pixel_y // 2, self.y, 600 - (self.pixel_y // 2))
+        elif 0.5 <= self.timer <= 1:
+            self.velocity = 0
+        else:
+            self.velocity = SPIDER_SPEED_PPS
+            self.timer = 2
+
+
         # 눈물과 충돌 체크
         for tear in game_world.Tear_objects():
             if collision.collide(self, tear):
