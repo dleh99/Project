@@ -25,7 +25,7 @@ class Red_Spider:
     def __init__(self):
         if Red_Spider.image == None:
             Red_Spider.image = load_image('red_spider.png')
-        self.x, self.y, self.velocity = random.randint(100, 700), random.randint(100, 500), SPIDER_SPEED_PPS
+        self.x, self.y, self.velocity = random.randint(300, 500), random.randint(200, 400), SPIDER_SPEED_PPS
         self.frame = 0
         self.pixel_x = SPIDER_PIXEL_SIZE_LENGHT
         self.pixel_y = SPIDER_PIXEL_SIZE_RAW

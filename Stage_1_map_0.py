@@ -9,7 +9,6 @@ import server
 
 import Stage_1_map_1
 
-from Enemy_Boss_Fistula import *
 from Obstacle import Obstacle_Rock
 import make_map
 import destroy_map
@@ -21,9 +20,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_0"
 
 def enter():
-    if not server.Floor_1[server.isaac_head.nowPos]:
-        server.boss = Fistula_pase_1()
-        game_world.add_object(server.boss, server.Mob_num)
     server.obstacle_rocks = Obstacle_Rock()
     game_world.add_object(server.obstacle_rocks, server.Obs_num)
 

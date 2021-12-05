@@ -14,6 +14,7 @@ from Isaac_Body import Isaac_body
 from Item import *
 import make_map
 import destroy_map
+from Enemy_Boss_Fistula import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -22,6 +23,9 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_15"
 
 def enter():
+    if not server.Floor_1[server.isaac_head.nowPos]:
+        server.boss = Fistula_pase_1()
+        game_world.add_object(server.boss, server.Mob_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_15.txt')
 
 
