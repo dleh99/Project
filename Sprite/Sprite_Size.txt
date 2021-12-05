@@ -7,4 +7,8 @@
 사탄	46	31
 파리	97	88
 헤드헌터	32	32
+모공 1페	80	80
+모공 2페	45	45
+모공 3페	40	40
+모공 4페	30	30
 https://www.spriters-resource.com/search/?q=the+binding+of+isaac
