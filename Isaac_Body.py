@@ -13,7 +13,7 @@ import server
 os.chdir('d:/2DGP/Project/Sprite')
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
-RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
+RUN_SPEED_MPS = 60.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
 TIME_PER_ACTION = 0.166         # 1초에 6번 움직임

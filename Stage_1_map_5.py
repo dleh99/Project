@@ -25,7 +25,6 @@ name = "Stage_1_map_5"
 def enter():
     if not server.Floor_1_item[server.isaac_head.nowPos]:
         if server.Floor_1_item_store[server.isaac_head.nowPos] == 0:
-            print('아이템')
             store(4)
         else:
             load(server.Floor_1_item_store[server.isaac_head.nowPos])

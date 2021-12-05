@@ -25,7 +25,7 @@ class Fly:
     def __init__(self):
         if Fly.image == None:
             Fly.image = load_image('Fly.png')
-        self.x, self.y, self.velocity = random.randint(100, 700), random.randint(100, 500), Fly_SPEED_PPS
+        self.x, self.y, self.velocity = random.randint(300, 500), random.randint(200, 400), Fly_SPEED_PPS
         self.frame = 0
         self.pixel_x = Fly_PIXEL_SIZE_LENGHT
         self.pixel_y = Fly_PIXEL_SIZE_RAW
