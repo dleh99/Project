@@ -20,7 +20,7 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 2
 
-W_DOWN, A_DOWN, S_DOWN, D_DOWN, W_UP, A_UP, S_UP, D_UP, LEFT_DOWN, RIGHT_DOWN, UP_DOWN, DOWN_DOWN = range(12)
+W_DOWN, A_DOWN, S_DOWN, D_DOWN, W_UP, A_UP, S_UP, D_UP, LEFT_DOWN, RIGHT_DOWN, UP_DOWN, DOWN_DOWN, Die = range(13)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_w): W_DOWN,
@@ -76,16 +76,19 @@ class IdleState:
 
     def do(head):
         head.frame = (head.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if head.life <= 0:
+            head.add_event(Die)
 
     def draw(head):
-        if head.dir == 1:
-            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 2:
-            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 3:
-            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 4:
-            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        if head.life > 0:
+            if head.dir == 1:
+                head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 2:
+                head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 3:
+                head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 4:
+                head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
 
 class One_RunState:
 
@@ -130,16 +133,19 @@ class One_RunState:
         head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
+        if head.life <= 0:
+            head.add_event(Die)
 
     def draw(head):
-        if head.dir == 1:
-            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 2:
-            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 3:
-            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 4:
-            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        if head.life > 0:
+            if head.dir == 1:
+                head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 2:
+                head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 3:
+                head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 4:
+                head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
 
 
 class Two_RunState:
@@ -185,16 +191,19 @@ class Two_RunState:
         head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 + head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
+        if head.life <= 0:
+            head.add_event(Die)
 
     def draw(head):
-        if head.dir == 1:
-            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 2:
-            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 3:
-            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 4:
-            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        if head.life > 0:
+            if head.dir == 1:
+                head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 2:
+                head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 3:
+                head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 4:
+                head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
 
 class Three_RunState:
 
@@ -239,31 +248,57 @@ class Three_RunState:
         head.y += head.Accel * head.velocity_y * game_framework.frame_time
         head.x = clamp(30 + head.size_x // 2, head.x, 800 - 30 - head.size_x // 2)
         head.y = clamp(30 +head.size_y // 2 + 17, head.y, 600 - 30 - head.size_y // 2)
+        if head.life <= 0:
+            head.add_event(Die)
 
     def draw(head):
-        if head.dir == 1:
-            head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 2:
-            head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 3:
-            head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
-        elif head.dir == 4:
-            head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+        if head.life > 0:
+            if head.dir == 1:
+                head.image.clip_draw(0 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 2:
+                head.image.clip_draw(2 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 3:
+                head.image.clip_draw(4 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
+            elif head.dir == 4:
+                head.image.clip_draw(6 * head.size_x, 0, head.size_x, head.size_y, head.x, head.y)
 
+class Die_State:
+
+    def enter(body, event):
+        body.velocity_x = 0
+        body.velocity_y = 0
+        body.invincibility = True
+
+    def exit(body, event):
+        pass
+
+    def do(body):
+        body.invincibilitycount = 0
+
+    def draw(body):
+        pass
 
 next_state_table = {
     IdleState: {W_DOWN: One_RunState, A_DOWN: One_RunState, S_DOWN: One_RunState, D_DOWN: One_RunState,
                 W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState,
-                DOWN_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_DOWN: IdleState, LEFT_DOWN: IdleState},
+                DOWN_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_DOWN: IdleState, LEFT_DOWN: IdleState,
+                Die: Die_State},
     One_RunState: {W_DOWN: Two_RunState, A_DOWN: Two_RunState, S_DOWN: Two_RunState, D_DOWN: Two_RunState,
                 W_UP: IdleState, A_UP: IdleState, S_UP: IdleState, D_UP: IdleState,
-                DOWN_DOWN: One_RunState, RIGHT_DOWN: One_RunState, UP_DOWN: One_RunState, LEFT_DOWN: One_RunState},
+                DOWN_DOWN: One_RunState, RIGHT_DOWN: One_RunState, UP_DOWN: One_RunState, LEFT_DOWN: One_RunState,
+                Die: Die_State},
     Two_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
                 W_UP: One_RunState, A_UP: One_RunState, S_UP: One_RunState, D_UP: One_RunState,
-                DOWN_DOWN: Two_RunState, RIGHT_DOWN: Two_RunState, UP_DOWN: Two_RunState, LEFT_DOWN: Two_RunState},
+                DOWN_DOWN: Two_RunState, RIGHT_DOWN: Two_RunState, UP_DOWN: Two_RunState, LEFT_DOWN: Two_RunState,
+                Die: Die_State},
     Three_RunState: {W_DOWN: Three_RunState, A_DOWN: Three_RunState, S_DOWN: Three_RunState, D_DOWN: Three_RunState,
                 W_UP: Two_RunState, A_UP: Two_RunState, S_UP: Two_RunState, D_UP: Two_RunState,
-                DOWN_DOWN: Three_RunState, RIGHT_DOWN: Three_RunState, UP_DOWN: Three_RunState, LEFT_DOWN: Three_RunState}
+                DOWN_DOWN: Three_RunState, RIGHT_DOWN: Three_RunState, UP_DOWN: Three_RunState, LEFT_DOWN: Three_RunState,
+                Die: Die_State},
+    Die_State: {W_DOWN: Die_State, A_DOWN: Die_State, S_DOWN: Die_State, D_DOWN: Die_State,
+                W_UP: Die_State, A_UP: Die_State, S_UP: Die_State, D_UP: Die_State,
+                DOWN_DOWN: Die_State, RIGHT_DOWN: Die_State, UP_DOWN: Die_State, LEFT_DOWN: Die_State,
+                Die: Die_State}
 }
 
 class Isaac_head:
@@ -307,6 +342,8 @@ class Isaac_head:
 
 
     def update(self):
+        if self.life <= 0:
+            self.image = None
         # 눈물 발사 딜레이 증가 카운트
         self.delay_num += 1
         if self.invincibility:
