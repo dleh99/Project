@@ -10,8 +10,6 @@ import server
 import Stage_1_map_1
 import Stage_1_map_3
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Enemy_Fly import *
 from Obstacle import Obstacle_Rock
 import make_map

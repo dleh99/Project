@@ -11,8 +11,6 @@ import Stage_1_map_0
 import Stage_1_map_2
 import Stage_1_map_5
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Enemy_spider import *
 from Obstacle import Obstacle_Rock
 import make_map

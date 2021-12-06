@@ -11,6 +11,7 @@ import collision
 import server
 from Isaac_Head import Isaac_head
 import game_over_state
+import stage2_set_up
 
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -309,6 +310,14 @@ class Isaac_body:
         self.nowPos = 0
         self.now_floor = 1
 
+    def next_floor(self, num):
+        self.x = 800 // 2
+        self.y = 600 // 2
+        self.cur_state = IdleState
+        self.velocity_x = 0
+        self.velocity_y = 0
+        self.nowPos = num
+
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
 
@@ -371,6 +380,33 @@ class Isaac_body:
                             else:
                                 me.y = 600 // 2
                             me.nowPos += 1
+            if server.Floor_2[self.nowPos]:
+                if self.y <= 100:
+                    for me in game_world.Isaac_objects():
+                        me.y += 450
+                        me.x = 800 // 2
+                        me.nowPos += 6
+                elif self.y >= 500:
+                    for me in game_world.Isaac_objects():
+                        me.y -= 450
+                        me.x = 800 // 2
+                        me.nowPos -= 6
+                elif self.x <= 100:
+                    for me in game_world.Isaac_objects():
+                        me.x += 650
+                        if isinstance(me, Isaac_head):
+                            me.y = (600 // 2) + 25
+                        else:
+                            me.y = 600 // 2
+                        me.nowPos -= 1
+                elif self.x >= 700:
+                    for me in game_world.Isaac_objects():
+                        me.x -= 650
+                        if isinstance(me, Isaac_head):
+                            me.y = (600 // 2) + 25
+                        else:
+                            me.y = 600 // 2
+                        me.nowPos += 1
         # 몹과 충돌
         for mob in game_world.Mob_objects():
             if not self.invincibility:

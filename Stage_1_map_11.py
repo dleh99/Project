@@ -11,8 +11,6 @@ import Stage_1_map_7
 import Stage_1_map_10
 import Stage_1_map_15
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Item import *
 import make_map
 import destroy_map

@@ -10,8 +10,6 @@ import server
 import Stage_1_map_11
 
 from Tile import *
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Item import *
 import make_map
 import destroy_map
@@ -59,7 +57,7 @@ def update():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
         server.Floor_1[15] = True
-        # game_world.add_object(Tile_n(800 // 2, 200), server.Obs_num)
+        game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
     if server.isaac_head.nowPos == 11:
         game_framework.change_state(Stage_1_map_11)
 

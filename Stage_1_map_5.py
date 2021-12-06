@@ -10,8 +10,6 @@ from item_store_load import *
 
 import Stage_1_map_1
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Item import *
 import make_map
 import destroy_map

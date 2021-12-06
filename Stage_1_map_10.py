@@ -10,8 +10,6 @@ from item_store_load import *
 
 import Stage_1_map_11
 
-from Isaac_Head import Isaac_head
-from Isaac_Body import Isaac_body
 from Item import Item_Speed_injector
 from Obstacle import Obstacle_Rock
 import make_map
