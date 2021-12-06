@@ -10,6 +10,7 @@ import game_world
 import collision
 import server
 from Isaac_Head import Isaac_head
+import game_over_state
 
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -235,6 +236,26 @@ class Die_State:
         pass
 
     def do(body):
+        body.Die_count += game_framework.frame_time
+        if body.Die_count <= 1.0:
+            if body.Shake:
+                body.Shake_num += 1
+                body.x += 0.3
+                if body.Shake_num == 10:
+                    body.Shake_num = 0
+                    body.Shake = False
+            else:
+                body.Shake_num += 1
+                body.x -= 0.3
+                if body.Shake_num == 10:
+                    body.Shake_num = 0
+                    body.Shake = True
+        if body.Die_count >= 1.0:
+            body.frame = 1
+        if body.Die_count >= 1.2:
+            body.frame = 2
+        if body.Die_count >= 2.5:
+            game_framework.change_state(game_over_state)
         body.invincibilitycount = 0
 
     def draw(body):
@@ -282,6 +303,9 @@ class Isaac_body:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.Die_count = 0
+        self.Shake = False
+        self.Shake_num = 0
         self.nowPos = 0
 
     def get_bb(self):
