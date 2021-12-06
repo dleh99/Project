@@ -16,10 +16,10 @@ class Enemy_tear:
         self.x, self.y, self.velocity, self.dir = x, y, TEAR_SPEED_PPS, dir
 
     def get_bb(self):
-        return self.x - 5, self.y - 5, self.x + 5, self.y + 5
+        return self.x - 8, self.y - 8, self.x + 8, self.y + 8
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.clip_draw(0, 0, 10, 10, self.x, self.y, 16, 16)
         draw_rectangle(*self.get_bb())
 
     def update(self):
