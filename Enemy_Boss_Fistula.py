@@ -40,7 +40,6 @@ class Fistula_pase_1:
         self.hp = 160
         self.dir = 2
         self.timer = 0
-        print(self.dir)
 
     def get_bb(self):
         return self.x - self.pixel_x // 2, self.y - self.pixel_y // 2,\
@@ -93,13 +92,17 @@ class Fistula_pase_1:
                 self.hp -= tear.power
                 if self.hp <= 0:
                     game_world.remove_object(self)
-                    server.boss = [Fistula_pase_2(self.x, self.y) for _ in range(2)]
-                    game_world.add_objects(server.boss, server.Mob_num)
+                    if not self.dir == 4:
+                        server.boss = [Fistula_pase_2(self.x, self.y, self.dir + i) for i in range(2)]
+                        game_world.add_objects(server.boss, server.Mob_num)
+                    else:
+                        server.boss = [Fistula_pase_2(self.x, self.y, self.dir), Fistula_pase_2(self.x, self.y, 1)]
+                        game_world.add_objects(server.boss, server.Mob_num)
 
 class Fistula_pase_2(Fistula_pase_1):
     image = None
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, dir):
         if Fistula_pase_2.image == None:
             Fistula_pase_2.image = load_image('Fistula 2.png')
         self.x, self.y, self.velocity = x, y, FISTULA_Pase_2_SPEED_PPS
@@ -109,8 +112,9 @@ class Fistula_pase_2(Fistula_pase_1):
         self.size_x = 45
         self.size_y = 45
         self.hp = 80
-        self.dir = random.randint(1, 4)
+        self.dir = dir
         self.timer = 0
+        print(self.dir)
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -154,13 +158,17 @@ class Fistula_pase_2(Fistula_pase_1):
                 self.hp -= tear.power
                 if self.hp <= 0:
                     game_world.remove_object(self)
-                    server.boss = [Fistula_pase_3(self.x, self.y) for _ in range(2)]
-                    game_world.add_objects(server.boss, server.Mob_num)
+                    if not self.dir == 4:
+                        server.boss = [Fistula_pase_3(self.x, self.y, self.dir + i) for i in range(2)]
+                        game_world.add_objects(server.boss, server.Mob_num)
+                    else:
+                        server.boss = [Fistula_pase_3(self.x, self.y, self.dir), Fistula_pase_3(self.x, self.y, 1)]
+                        game_world.add_objects(server.boss, server.Mob_num)
 
 class Fistula_pase_3(Fistula_pase_1):
     image = None
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, dir):
         if Fistula_pase_3.image == None:
             Fistula_pase_3.image = load_image('Fistula 3.png')
         self.x, self.y, self.velocity = x, y, FISTULA_Pase_3_SPEED_PPS
@@ -170,7 +178,7 @@ class Fistula_pase_3(Fistula_pase_1):
         self.size_x = 40
         self.size_y = 40
         self.hp = 40
-        self.dir = random.randint(1, 4)
+        self.dir = dir
         self.timer = 0
 
     def update(self):
@@ -215,13 +223,17 @@ class Fistula_pase_3(Fistula_pase_1):
                 self.hp -= tear.power
                 if self.hp <= 0:
                     game_world.remove_object(self)
-                    server.boss = [Fistula_pase_4(self.x, self.y) for _ in range(2)]
-                    game_world.add_objects(server.boss, server.Mob_num)
+                    if not self.dir == 4:
+                        server.boss = [Fistula_pase_4(self.x, self.y, self.dir + i) for i in range(2)]
+                        game_world.add_objects(server.boss, server.Mob_num)
+                    else:
+                        server.boss = [Fistula_pase_4(self.x, self.y, self.dir), Fistula_pase_4(self.x, self.y, 1)]
+                        game_world.add_objects(server.boss, server.Mob_num)
 
 class Fistula_pase_4(Fistula_pase_1):
     image = None
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, dir):
         if Fistula_pase_4.image == None:
             Fistula_pase_4.image = load_image('Fistula 4.png')
         self.x, self.y, self.velocity = x, y, FISTULA_Pase_4_SPEED_PPS
@@ -231,7 +243,7 @@ class Fistula_pase_4(Fistula_pase_1):
         self.size_x = 30
         self.size_y = 30
         self.hp = 20
-        self.dir = random.randint(1, 4)
+        self.dir = dir
         self.timer = 0
 
     def update(self):

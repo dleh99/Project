@@ -20,8 +20,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_0"
 
 def enter():
-    server.obstacle_rocks = Obstacle_Rock(100, 100)
-    game_world.add_object(server.obstacle_rocks, server.Obs_num)
     make_map.make_Map('d:/2DGP/Project/Stage/stage_0.txt')
 
 
