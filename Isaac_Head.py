@@ -327,18 +327,28 @@ class Isaac_head:
                     if self.y <= 100:
                         for me in game_world.Isaac_objects():
                             me.y += 450
+                            me.x = 800 // 2
                             me.nowPos += 4
                     elif self.y >= 500:
                         for me in game_world.Isaac_objects():
                             me.y -= 450
+                            me.x = 800 // 2
                             me.nowPos -= 4
                     elif self.x <= 100:
                         for me in game_world.Isaac_objects():
                             me.x += 650
+                            if isinstance(me, Isaac_head):
+                                me.y = (600 // 2) + 25
+                            else:
+                                me.y = 600 // 2
                             me.nowPos -= 1
                     elif self.x >= 700:
                         for me in game_world.Isaac_objects():
                             me.x -= 650
+                            if isinstance(me, Isaac_head):
+                                me.y = (600 // 2) + 25
+                            else:
+                                me.y = 600 // 2
                             me.nowPos += 1
         # 몹과 충돌                    
         for mob in game_world.Mob_objects():
