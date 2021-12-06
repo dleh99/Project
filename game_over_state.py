@@ -29,7 +29,7 @@ def initial():
 
 def enter():
     global image
-    image = load_image('title_image.png')
+    image = load_image('game_over_image.png')
 
 
 def exit():

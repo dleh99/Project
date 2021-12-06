@@ -31,7 +31,7 @@ class Fistula_pase_1:
     def __init__(self):
         if Fistula_pase_1.image == None:
             Fistula_pase_1.image = load_image('Fistula 1.png')
-        self.x, self.y, self.velocity = random.randint(100, 700), random.randint(100, 500), FISTULA_Pase_1_SPEED_PPS
+        self.x, self.y, self.velocity = 800 // 2, 600 // 2, FISTULA_Pase_1_SPEED_PPS
         self.frame = 0
         self.pixel_x = FISTULA_PIXEL_SIZE_LENGHT
         self.pixel_y = FISTULA_PIXEL_SIZE_RAW
