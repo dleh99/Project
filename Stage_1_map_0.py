@@ -12,6 +12,7 @@ import Stage_1_map_1
 from Obstacle import *
 import make_map
 import destroy_map
+from Tile  import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -20,7 +21,8 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_1_map_0"
 
 def enter():
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_0.txt')
+    game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_0.txt')
 
 
 def exit():

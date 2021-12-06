@@ -26,7 +26,7 @@ def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.satan = [Satan(i + 1) for i in range(2)]
         game_world.add_objects(server.satan, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_7.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_7.txt')
 
 
 def exit():

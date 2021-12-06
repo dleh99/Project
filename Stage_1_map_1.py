@@ -28,7 +28,7 @@ def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.red_spiders = [Red_Spider() for i in range(3)]
         game_world.add_objects(server.red_spiders, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_1.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_1.txt')
 
 
 def exit():

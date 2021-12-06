@@ -307,6 +307,7 @@ class Isaac_body:
         self.Shake = False
         self.Shake_num = 0
         self.nowPos = 0
+        self.now_floor = 1
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -321,6 +322,11 @@ class Isaac_body:
                     for all in game_world.Isaac_objects():
                         all.x -= all.Accel * all.velocity_x * game_framework.frame_time
                         all.y -= all.Accel * all.velocity_y * game_framework.frame_time
+            if isinstance(Obs, Tile.Tile_n):
+                if collision.collide(self, Obs):
+                    if self.now_floor == 1:
+                        game_framework.change_state(stage2_set_up)
+                        self.now_floor = 2
 
     def update(self):
         if self.invincibility:

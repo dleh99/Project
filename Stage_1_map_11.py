@@ -33,7 +33,7 @@ def enter():
                                Obstacle_Sting(800 // 4, 600 // 2, 2), \
                                Obstacle_Sting(800 * 3 // 4, 600 // 2, 2), Obstacle_Sting(800 // 2, 600 // 2, 0)]
     game_world.add_objects(server.obstacle_rocks, server.Obs_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_11.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_11.txt')
 
 
 def exit():

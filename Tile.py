@@ -116,3 +116,22 @@ class Tile_f(Tile_1):
 
     def update(self):
         pass
+
+
+class Tile_n(Tile_1):
+    image = None
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        if Tile_n.image == None:
+            Tile_n.image = load_image('tile_n.png')
+
+    def get_bb(self):
+        return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+
+    def draw(self):
+        self.image.clip_draw(0, 0, 100, 100, self.x, self.y, 100, 100)
+        draw_rectangle(*self.get_bb())
+
+    def update(self):
+        pass

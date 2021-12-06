@@ -27,7 +27,7 @@ def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.fly = [Fly() for i in range(5)]
         game_world.add_objects(server.fly, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_2.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_2.txt')
 
 
 def exit():

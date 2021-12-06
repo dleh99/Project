@@ -29,7 +29,7 @@ def enter():
             store(4)
         else:
             load(server.Floor_1_item_store[server.isaac_head.nowPos])
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_10.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_10.txt')
 
 
 def exit():

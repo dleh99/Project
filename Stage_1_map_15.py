@@ -9,6 +9,7 @@ import server
 
 import Stage_1_map_11
 
+from Tile import *
 from Isaac_Head import Isaac_head
 from Isaac_Body import Isaac_body
 from Item import *
@@ -26,7 +27,7 @@ def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.boss = Fistula_pase_1()
         game_world.add_object(server.boss, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_15.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_15.txt')
 
 
 def exit():
@@ -58,6 +59,7 @@ def update():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
         server.Floor_1[15] = True
+        # game_world.add_object(Tile_n(800 // 2, 200), server.Obs_num)
     if server.isaac_head.nowPos == 11:
         game_framework.change_state(Stage_1_map_11)
 

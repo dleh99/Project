@@ -30,7 +30,7 @@ def enter():
         server.head_hunt = [Head_hunt(i * 2) for i in range(4)]
         game_world.add_object(server.red_spiders, server.Mob_num)
         game_world.add_objects(server.head_hunt, server.Mob_num)
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_3.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_3.txt')
 
 
 def exit():
