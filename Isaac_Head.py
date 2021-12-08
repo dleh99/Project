@@ -335,8 +335,6 @@ class Isaac_head:
         self.hurt_sound = load_wav('Isaac_hurt.wav')
         self.tear_sound = load_wav('tear_fire.wav')
         self.open_door = load_wav('door_open.wav')
-        self.item_sound = load_wav('item_sound.wav')
-        self.item_sound.set_volume(50)
         self.dead_sound.set_volume(50)
         self.tear_sound.set_volume(100)
         self.hurt_sound.set_volume(30)
@@ -353,9 +351,6 @@ class Isaac_head:
 
     def hurt(self):
         self.hurt_sound.play()
-
-    def Item_sound(self):
-        self.item_sound.play()
 
     def next_floor(self, num):
         self.x = 800 // 2
@@ -487,11 +482,6 @@ class Isaac_head:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-
-        for item in game_world.Item_objects():
-            if collision.collide(self, item):
-                self.Item_sound()
-
 
     def draw(self):
         self.cur_state.draw(self)

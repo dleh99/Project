@@ -312,8 +312,6 @@ class Isaac_body:
         self.dead_sound = load_wav('Isaac_dead.wav')
         self.hurt_sound = load_wav('Isaac_hurt.wav')
         self.open_door = load_wav('door_open.wav')
-        self.item_sound = load_wav('item_sound.wav')
-        self.item_sound.set_volume(50)
         self.dead_sound.set_volume(30)
         self.hurt_sound.set_volume(30)
         self.open_door.set_volume(50)
@@ -331,9 +329,6 @@ class Isaac_body:
 
     def hurt(self):
         self.hurt_sound.play()
-
-    def Item_sound(self):
-        self.item_sound.play()
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -461,10 +456,6 @@ class Isaac_body:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
-
-        for item in game_world.Item_objects():
-            if collision.collide(self, item):
-                self.Item_sound()
 
     def draw(self):
         self.cur_state.draw(self)

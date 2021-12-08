@@ -41,10 +41,15 @@ class Fistula_pase_1:
         self.dir = 2
         self.timer = 0
         self.score = 100
+        self.death_sound = load_wav('big_enemy_death.wav')
+        self.death_sound.set_volume(50)
 
     def get_bb(self):
         return self.x - self.pixel_x // 2, self.y - self.pixel_y // 2,\
                self.x + self.pixel_x // 2, self.y + self.pixel_y // 2
+
+    def death(self):
+        self.death_sound.play()
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, self.pixel_x, self.pixel_y)
@@ -92,6 +97,7 @@ class Fistula_pase_1:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)
                     if not self.dir == 4:
@@ -117,6 +123,8 @@ class Fistula_pase_2(Fistula_pase_1):
         self.dir = dir
         self.timer = 0
         self.score = 80
+        self.death_sound = load_wav('big_enemy_death.wav')
+        self.death_sound.set_volume(50)
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -159,6 +167,7 @@ class Fistula_pase_2(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)
                     if not self.dir == 4:
@@ -184,6 +193,8 @@ class Fistula_pase_3(Fistula_pase_1):
         self.dir = dir
         self.timer = 0
         self.score = 50
+        self.death_sound = load_wav('big_enemy_death.wav')
+        self.death_sound.set_volume(50)
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -226,14 +237,16 @@ class Fistula_pase_3(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
-                    game_world.remove_object(self)
                     if not self.dir == 4:
                         server.boss = [Fistula_pase_4(self.x, self.y, self.dir + i) for i in range(2)]
                         game_world.add_objects(server.boss, server.Mob_num)
                     else:
                         server.boss = [Fistula_pase_4(self.x, self.y, self.dir), Fistula_pase_4(self.x, self.y, 1)]
                         game_world.add_objects(server.boss, server.Mob_num)
+                    game_world.remove_object(self)
+
 
 class Fistula_pase_4(Fistula_pase_1):
     image = None
@@ -251,6 +264,8 @@ class Fistula_pase_4(Fistula_pase_1):
         self.dir = dir
         self.timer = 0
         self.score = 30
+        self.death_sound = load_wav('big_enemy_death.wav')
+        self.death_sound.set_volume(50)
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -293,5 +308,6 @@ class Fistula_pase_4(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)

@@ -26,15 +26,25 @@ class Item_Heal:
         self.size_y = 100
         self.isUp = False
         self.isVisualize = True
+        self.Sermon_font = load_font('ENCR10B.TTF', 20)
+        self.Sermon_count = 0
+        self.item_sound = load_wav('item_sound.wav')
+        self.item_sound.set_volume(50)
 
     def get_bb(self):
         return self.x - Item_PIXEL_SIZE_LENGHT // 2, self.y - Item_PIXEL_SIZE_RAW // 2,\
                self.x + Item_PIXEL_SIZE_LENGHT // 2, self.y + Item_PIXEL_SIZE_RAW // 2
 
+    def Item_sound(self):
+        self.item_sound.play()
+
     def draw(self):
         if self.isVisualize:
             self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT, Item_PIXEL_SIZE_RAW)
             draw_rectangle(*self.get_bb())
+        else:
+            self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Health Up',
+                                (255, 255, 255))
 
     def update(self):
         if self.isUp:
@@ -49,11 +59,16 @@ class Item_Heal:
         if self.isVisualize:
             for isaac in game_world.Isaac_objects():
                 if collision.collide(isaac, self):
-                    game_world.remove_object(self)
-                    server.item = None
+                    self.Item_sound()
+                    self.isVisualize = False
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
                         all.life += 3
+        else:
+            self.Sermon_count += game_framework.frame_time
+            if self.Sermon_count >= 3.0:
+                game_world.remove_object(self)
+                server.item = None
 
     def __getstate__(self):
         state = {'Vis': self.isVisualize}
@@ -76,6 +91,18 @@ class Item_Speed_injector(Item_Heal):
         self.size_y = 100
         self.isUp = False
         self.isVisualize = True
+        self.Sermon_font = load_font('ENCR10B.TTF', 20)
+        self.Sermon_count = 0
+        self.item_sound = load_wav('item_sound.wav')
+        self.item_sound.set_volume(50)
+
+    def draw(self):
+        if self.isVisualize:
+            self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT, Item_PIXEL_SIZE_RAW)
+            draw_rectangle(*self.get_bb())
+        else:
+            self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Speed Up',
+                                (255, 255, 255))
 
     def update(self):
         if self.isUp:
@@ -90,11 +117,16 @@ class Item_Speed_injector(Item_Heal):
         if self.isVisualize:
             for isaac in game_world.Isaac_objects():
                 if collision.collide(isaac, self):
-                    game_world.remove_object(self)
-                    server.item = None
+                    self.isVisualize = False
+                    self.Item_sound()
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
                         all.Accel += 0.5
+        else:
+            self.Sermon_count += game_framework.frame_time
+            if self.Sermon_count >= 3.0:
+                game_world.remove_object(self)
+                server.item = None
 
 class Item_Steven(Item_Heal):
     image = None
@@ -109,6 +141,19 @@ class Item_Steven(Item_Heal):
         self.size_y = 100
         self.isUp = False
         self.isVisualize = True
+        self.Sermon_font = load_font('ENCR10B.TTF', 20)
+        self.Sermon_count = 0
+        self.item_sound = load_wav('item_sound.wav')
+        self.item_sound.set_volume(50)
+
+    def draw(self):
+        if self.isVisualize:
+            self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT,
+                                 Item_PIXEL_SIZE_RAW)
+            draw_rectangle(*self.get_bb())
+        else:
+            self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Power Up',
+                                  (255, 255, 255))
 
     def update(self):
         if self.isUp:
@@ -123,10 +168,15 @@ class Item_Steven(Item_Heal):
         if self.isVisualize:
             for isaac in game_world.Isaac_objects():
                 if collision.collide(isaac, self):
-                    game_world.remove_object(self)
-                    server.item = None
+                    self.isVisualize = False
+                    self.Item_sound()
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     server.isaac_head.power += 5
+        else:
+            self.Sermon_count += game_framework.frame_time
+            if self.Sermon_count >= 3.0:
+                game_world.remove_object(self)
+                server.item = None
 
 class Item_Onion(Item_Heal):
     image = None
@@ -141,6 +191,19 @@ class Item_Onion(Item_Heal):
         self.size_y = 30
         self.isUp = False
         self.isVisualize = True
+        self.Sermon_font = load_font('ENCR10B.TTF', 20)
+        self.Sermon_count = 0
+        self.item_sound = load_wav('item_sound.wav')
+        self.item_sound.set_volume(50)
+
+    def draw(self):
+        if self.isVisualize:
+            self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT,
+                                 Item_PIXEL_SIZE_RAW)
+            draw_rectangle(*self.get_bb())
+        else:
+            self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Tears Up',
+                                  (255, 255, 255))
 
     def update(self):
         if self.isUp:
@@ -155,7 +218,12 @@ class Item_Onion(Item_Heal):
         if self.isVisualize:
             for isaac in game_world.Isaac_objects():
                 if collision.collide(isaac, self):
-                    game_world.remove_object(self)
-                    server.item = None
+                    self.isVisualize = False
+                    self.Item_sound()
                     server.Floor_1_item[server.isaac_head.nowPos] = True
                     server.isaac_head.item_delay += 20
+        else:
+            self.Sermon_count += game_framework.frame_time
+            if self.Sermon_count >= 3.0:
+                game_world.remove_object(self)
+                server.item = None
