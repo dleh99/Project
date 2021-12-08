@@ -8,6 +8,7 @@ import game_world
 import server
 
 import Stage_1_map_1
+from Enemy_Boss_Teratoma import *
 
 from Obstacle import *
 import make_map

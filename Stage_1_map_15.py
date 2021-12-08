@@ -13,7 +13,7 @@ from Tile import *
 from Item import *
 import make_map
 import destroy_map
-from Enemy_Boss_Fistula import *
+from Enemy_Boss_Teratoma import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
@@ -23,7 +23,7 @@ name = "Stage_1_map_15"
 
 def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
-        server.boss = Fistula_pase_1()
+        server.boss = TERATOMA_pase_1()
         game_world.add_object(server.boss, server.Mob_num)
         server.background_sound = load_music('Boss_sound.mp3')
         server.background_sound.set_volume(30)
