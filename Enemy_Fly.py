@@ -31,7 +31,7 @@ class Fly:
         self.pixel_y = Fly_PIXEL_SIZE_RAW
         self.size_x = 110
         self.size_y = 80
-        self.hp = 30
+        self.hp = 10
         self.dir = random.random() * 2 * math.pi
 
     def get_bb(self):

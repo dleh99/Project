@@ -37,7 +37,7 @@ class Fistula_pase_1:
         self.pixel_y = FISTULA_PIXEL_SIZE_RAW
         self.size_x = 80
         self.size_y = 80
-        self.hp = 160
+        self.hp = 10
         self.dir = 2
         self.timer = 0
 
@@ -111,7 +111,7 @@ class Fistula_pase_2(Fistula_pase_1):
         self.pixel_y = FISTULA_PIXEL_SIZE_RAW // 2
         self.size_x = 45
         self.size_y = 45
-        self.hp = 80
+        self.hp = 10
         self.dir = dir
         self.timer = 0
         print(self.dir)
@@ -177,7 +177,7 @@ class Fistula_pase_3(Fistula_pase_1):
         self.pixel_y = FISTULA_PIXEL_SIZE_RAW // 4
         self.size_x = 40
         self.size_y = 40
-        self.hp = 40
+        self.hp = 10
         self.dir = dir
         self.timer = 0
 
@@ -242,7 +242,7 @@ class Fistula_pase_4(Fistula_pase_1):
         self.pixel_y = FISTULA_PIXEL_SIZE_RAW // 8
         self.size_x = 30
         self.size_y = 30
-        self.hp = 20
+        self.hp = 10
         self.dir = dir
         self.timer = 0
 

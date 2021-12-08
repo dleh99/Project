@@ -334,6 +334,7 @@ class Isaac_body:
             if isinstance(Obs, Tile.Tile_n):
                 if collision.collide(self, Obs):
                     if self.now_floor == 1:
+                        game_world.remove_object(Obs)
                         game_framework.change_state(stage2_set_up)
                         self.now_floor = 2
 

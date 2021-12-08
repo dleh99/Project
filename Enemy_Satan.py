@@ -47,7 +47,7 @@ class Satan:
         self.reload = False
         self.reload2 = False
         self.attackcount = 0
-        self.hp = 40
+        self.hp = 10
 
     def get_bb(self):
         return self.x - SATAN_PIXEL_SIZE_LENGHT // 2, self.y - SATAN_PIXEL_SIZE_RAW // 2,\

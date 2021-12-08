@@ -5,7 +5,7 @@ import game_world
 
 import set_up
 import Stage_2_map_8
-
+import destroy_map
 
 name = "stage2_set_up"
 image = None
@@ -21,6 +21,7 @@ def enter():
 def exit():
     global image
     del(image)
+    destroy_map.destroy()
 
 
 def handle_events():

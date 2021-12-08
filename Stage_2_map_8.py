@@ -10,7 +10,6 @@ import server
 from Obstacle import *
 import make_map
 import destroy_map
-from Tile import *
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec

@@ -59,7 +59,7 @@ class Head_hunt:
         self.pixel_y = Head_PIXEL_SIZE_RAW
         self.size_x = 32
         self.size_y = 32
-        self.hp = 50
+        self.hp = 10
         self.Shake = True
         self.Shake_num = 0
         self.reload = False

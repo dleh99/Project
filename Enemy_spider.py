@@ -31,7 +31,7 @@ class Red_Spider:
         self.pixel_y = SPIDER_PIXEL_SIZE_RAW
         self.size_x = 110
         self.size_y = 80
-        self.hp = 50
+        self.hp = 10
         self.dir = random.random() * 2 * math.pi
         self.timer = 2
 
