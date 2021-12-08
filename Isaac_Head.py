@@ -369,7 +369,7 @@ class Isaac_head:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-        print(self.now_floor, self.nowPos, server.isaac_body.now_floor, server.isaac_body.nowPos)
+        # print(self.now_floor, self.nowPos, server.isaac_body.now_floor, server.isaac_body.nowPos)
 
         # 문과 충돌
         for door in game_world.Door_objects():

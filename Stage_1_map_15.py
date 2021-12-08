@@ -59,8 +59,15 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
-        server.Floor_1[15] = True
-        game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
+        if server.do == 0:
+            server.do += 1
+            server.Floor_1[15] = True
+            game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
+        if server.sound_do == 0:
+            server.sound_do += 1
+            server.background_sound = load_music('Stage_sound.mp3')
+            server.background_sound.set_volume(30)
+            server.background_sound.repeat_play()
     if server.isaac_head.nowPos == 11:
         game_framework.change_state(Stage_1_map_11)
 

@@ -13,6 +13,8 @@ obstacle_rocks = None
 item = None
 # =============================================
 background_sound = None
+sound_do = 0
+do = 0
 # =============================================
 doors = []
 tile = []
