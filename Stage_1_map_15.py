@@ -6,6 +6,7 @@ from pico2d import *
 import game_framework
 import game_world
 import server
+from item_store_load import *
 
 import Stage_1_map_11
 
@@ -63,6 +64,11 @@ def update():
             server.do += 1
             server.Floor_1[15] = True
             game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
+            if not server.Floor_1_item[server.isaac_head.nowPos]:
+                if server.Floor_1_item_store[server.isaac_head.nowPos] == 0:
+                    store(4)
+                else:
+                    load(server.Floor_1_item_store[server.isaac_head.nowPos])
         if server.sound_do == 0:
             server.sound_do += 1
             server.background_sound = load_music('Stage_sound.mp3')
