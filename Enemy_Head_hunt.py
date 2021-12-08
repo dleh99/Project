@@ -64,6 +64,7 @@ class Head_hunt:
         self.Shake_num = 0
         self.reload = False
         self.attack_count = 0
+        self.score = 50
 
     def get_bb(self):
         return self.x - self.pixel_x // 2, self.y - self.pixel_y // 2,\
@@ -81,6 +82,7 @@ class Head_hunt:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
         if self.Shake:
             self.Shake_num += 1

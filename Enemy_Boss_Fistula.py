@@ -40,6 +40,7 @@ class Fistula_pase_1:
         self.hp = 10
         self.dir = 2
         self.timer = 0
+        self.score = 100
 
     def get_bb(self):
         return self.x - self.pixel_x // 2, self.y - self.pixel_y // 2,\
@@ -91,6 +92,7 @@ class Fistula_pase_1:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
                     if not self.dir == 4:
                         server.boss = [Fistula_pase_2(self.x, self.y, self.dir + i) for i in range(2)]
@@ -114,7 +116,7 @@ class Fistula_pase_2(Fistula_pase_1):
         self.hp = 10
         self.dir = dir
         self.timer = 0
-        print(self.dir)
+        self.score = 80
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -157,6 +159,7 @@ class Fistula_pase_2(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
                     if not self.dir == 4:
                         server.boss = [Fistula_pase_3(self.x, self.y, self.dir + i) for i in range(2)]
@@ -180,6 +183,7 @@ class Fistula_pase_3(Fistula_pase_1):
         self.hp = 10
         self.dir = dir
         self.timer = 0
+        self.score = 50
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -222,6 +226,7 @@ class Fistula_pase_3(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
                     if not self.dir == 4:
                         server.boss = [Fistula_pase_4(self.x, self.y, self.dir + i) for i in range(2)]
@@ -245,6 +250,7 @@ class Fistula_pase_4(Fistula_pase_1):
         self.hp = 10
         self.dir = dir
         self.timer = 0
+        self.score = 30
 
     def update(self):
         self.timer += game_framework.frame_time
@@ -287,4 +293,5 @@ class Fistula_pase_4(Fistula_pase_1):
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)

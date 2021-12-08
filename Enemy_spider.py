@@ -34,6 +34,7 @@ class Red_Spider:
         self.hp = 10
         self.dir = random.random() * 2 * math.pi
         self.timer = 2
+        self.score = 50
 
     def get_bb(self):
         return self.x - SPIDER_PIXEL_SIZE_LENGHT // 2, self.y - SPIDER_PIXEL_SIZE_RAW // 2,\
@@ -67,4 +68,5 @@ class Red_Spider:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)

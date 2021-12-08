@@ -48,6 +48,7 @@ class Satan:
         self.reload2 = False
         self.attackcount = 0
         self.hp = 10
+        self.score = 60
 
     def get_bb(self):
         return self.x - SATAN_PIXEL_SIZE_LENGHT // 2, self.y - SATAN_PIXEL_SIZE_RAW // 2,\
@@ -122,6 +123,7 @@ class Satan:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
 
 

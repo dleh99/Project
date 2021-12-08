@@ -33,6 +33,7 @@ class Fly:
         self.size_y = 80
         self.hp = 10
         self.dir = random.random() * 2 * math.pi
+        self.score = 40
 
     def get_bb(self):
         return self.x - Fly_PIXEL_SIZE_LENGHT // 2, self.y - Fly_PIXEL_SIZE_RAW // 2,\
@@ -57,6 +58,7 @@ class Fly:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    server.isaac_head.Score += self.score
                     game_world.remove_object(self)
 
 
