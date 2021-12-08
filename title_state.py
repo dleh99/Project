@@ -3,6 +3,7 @@ from pico2d import *
 import server
 
 import set_up
+import rank_state
 
 
 name = "TitleState"
@@ -32,6 +33,8 @@ def handle_events():
                 game_framework.quit()
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
                 game_framework.change_state(set_up)
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
+                game_framework.change_state(rank_state)
 
 
 def draw():

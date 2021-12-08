@@ -4,7 +4,7 @@ from pico2d import *
 import game_world
 import start_state
 import server
-
+import json
 
 name = "Game_over_state"
 image = None
@@ -41,6 +41,17 @@ def initial():
     server.Floor_2_item_store = [0 for _ in range(36)]
     server.Background_num, Obs_num, Door_num, Item_num, Mob_num, Tear_num, Mob_Tear_num, Isaac_num = range(8)
 
+def rank_save():
+    global score
+    with open('Rank.json', 'r') as f:
+        server.Rank = json.load(f)
+        server.Rank.append(score)
+        server.Rank.sort(reverse=True)
+        print(server.Rank)
+    with open('Rank.json', 'w') as f:
+        f.write(json.dumps(server.Rank))
+
+
 def enter():
     global image, font, score
     score = (- get_time() + server.isaac_head.start_time + server.isaac_head.Score)
@@ -53,6 +64,7 @@ def enter():
 
 def exit():
     global image
+    rank_save()
     del(image)
 
 
