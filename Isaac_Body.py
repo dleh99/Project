@@ -293,7 +293,7 @@ class Isaac_body:
         self.frame = 0
         self.velocity_x = 0
         self.velocity_y = 0
-        self.Accel = 1.0
+        self.Accel = 2.0
         self.x = 800 // 2
         self.y = 600 // 2
         self.size_x = 29

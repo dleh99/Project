@@ -305,12 +305,13 @@ class Isaac_head:
 
     def __init__(self):
         self.image = load_image('Isaac_Head.png')
-        self.font = load_font('ENCR10B.TTF', 16)
+        self.Time_font = load_font('ENCR10B.TTF', 30)
+        self.Score_font = load_font('ENCR10B.TTF', 20)
         self.dir = 1                # 1 = 정면, 2 = 오른쪽, 3 = 위, 4 = 왼쪽
         self.frame = 0
         self.velocity_x = 0
         self.velocity_y = 0
-        self.Accel = 1.0
+        self.Accel = 2.0
         self.x = 800 // 2
         self.y = 600 // 2 + 25
         self.size_x = 45
@@ -326,6 +327,8 @@ class Isaac_head:
         self.delay_num = 0
         self.item_delay = 0
         self.power = 10
+        self.start_time = get_time()
+        self.Score = 100
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -459,6 +462,8 @@ class Isaac_head:
         for i in range(self.life):
             self.Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
         draw_rectangle(*self.get_bb())
+        self.Time_font.draw((800 // 2) - 105, 600 - 30, 'Time : %3.2f' % (get_time() - self.start_time), (255, 255, 255))
+        self.Score_font.draw((800 // 2) - 60, 600 - 60, 'Score : %0.f' % (- get_time() + self.start_time + self.Score), (255, 255, 255))
         #fill here
 
 
