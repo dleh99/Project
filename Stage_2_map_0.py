@@ -6,7 +6,9 @@ from pico2d import *
 import game_framework
 import game_world
 import server
+from item_store_load import *
 
+from Item import *
 from Obstacle import *
 import make_map
 import destroy_map
@@ -19,6 +21,11 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_2_map_0"
 
 def enter():
+    if not server.Floor_2_item[server.isaac_head.nowPos]:
+        if server.Floor_2_item_store[server.isaac_head.nowPos] == 0:
+            store(4)
+        else:
+            load(server.Floor_2_item_store[server.isaac_head.nowPos])
     make_map.make_Map('d:/2DGP/Project/Stage/stage_2/stage_0.txt')
 
 

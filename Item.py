@@ -61,7 +61,10 @@ class Item_Heal:
                 if collision.collide(isaac, self):
                     self.Item_sound()
                     self.isVisualize = False
-                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    if server.isaac_head.now_floor == 1:
+                        server.Floor_1_item[server.isaac_head.nowPos] = True
+                    elif server.isaac_head.now_floor == 2:
+                        server.Floor_2_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
                         all.life += 3
         else:
@@ -119,7 +122,10 @@ class Item_Speed_injector(Item_Heal):
                 if collision.collide(isaac, self):
                     self.isVisualize = False
                     self.Item_sound()
-                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    if server.isaac_head.now_floor == 1:
+                        server.Floor_1_item[server.isaac_head.nowPos] = True
+                    elif server.isaac_head.now_floor == 2:
+                        server.Floor_2_item[server.isaac_head.nowPos] = True
                     for all in game_world.Isaac_objects():
                         all.Accel += 0.5
         else:
@@ -170,7 +176,10 @@ class Item_Steven(Item_Heal):
                 if collision.collide(isaac, self):
                     self.isVisualize = False
                     self.Item_sound()
-                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    if server.isaac_head.now_floor == 1:
+                        server.Floor_1_item[server.isaac_head.nowPos] = True
+                    elif server.isaac_head.now_floor == 2:
+                        server.Floor_2_item[server.isaac_head.nowPos] = True
                     server.isaac_head.power += 5
         else:
             self.Sermon_count += game_framework.frame_time
@@ -220,7 +229,10 @@ class Item_Onion(Item_Heal):
                 if collision.collide(isaac, self):
                     self.isVisualize = False
                     self.Item_sound()
-                    server.Floor_1_item[server.isaac_head.nowPos] = True
+                    if server.isaac_head.now_floor == 1:
+                        server.Floor_1_item[server.isaac_head.nowPos] = True
+                    elif server.isaac_head.now_floor == 2:
+                        server.Floor_2_item[server.isaac_head.nowPos] = True
                     server.isaac_head.item_delay += 20
         else:
             self.Sermon_count += game_framework.frame_time
