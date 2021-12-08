@@ -333,18 +333,29 @@ class Isaac_head:
         self.now_floor = 1
         self.dead_sound = load_wav('Isaac_dead.wav')
         self.hurt_sound = load_wav('Isaac_hurt.wav')
+        self.tear_sound = load_wav('tear_fire.wav')
+        self.open_door = load_wav('door_open.wav')
+        self.item_sound = load_wav('item_sound.wav')
+        self.item_sound.set_volume(50)
         self.dead_sound.set_volume(50)
+        self.tear_sound.set_volume(100)
         self.hurt_sound.set_volume(30)
-
+        self.open_door.set_volume(50)
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
+
+    def open(self):
+        self.open_door.play()
 
     def dead(self):
         self.dead_sound.play()
 
     def hurt(self):
         self.hurt_sound.play()
+
+    def Item_sound(self):
+        self.item_sound.play()
 
     def next_floor(self, num):
         self.x = 800 // 2
@@ -357,6 +368,7 @@ class Isaac_head:
     def fire_tear(self):
         if self.delay_num + self.item_delay >= 150:
             self.delay_num = 0
+            self.tear_sound.play()
             tear = Isaac_tear(self.x, self.y, self.dir, self.power)
             game_world.add_object(tear, server.Tear_num)
 
@@ -388,6 +400,7 @@ class Isaac_head:
             if collision.collide(door, self):
                 if self.now_floor == 1:
                     if server.Floor_1[self.nowPos]:
+                        self.open()
                         if self.y <= 100:
                             for me in game_world.Isaac_objects():
                                 me.y += 450
@@ -416,6 +429,7 @@ class Isaac_head:
                                 me.nowPos += 1
                 elif self.now_floor == 2:
                     if server.Floor_2[self.nowPos]:
+                        self.open()
                         if self.y <= 100:
                             for me in game_world.Isaac_objects():
                                 me.y += 450
@@ -473,6 +487,10 @@ class Isaac_head:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
+
+        for item in game_world.Item_objects():
+            if collision.collide(self, item):
+                self.Item_sound()
 
 
     def draw(self):

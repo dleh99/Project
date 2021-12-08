@@ -65,10 +65,20 @@ class Head_hunt:
         self.reload = False
         self.attack_count = 0
         self.score = 50
+        self.death_sound = load_wav('small_enemy_death.wav')
+        self.death_sound.set_volume(100)
+        self.fire_sound = load_wav('head_hunt_fire.wav')
+        self.fire_sound.set_volume(80)
 
     def get_bb(self):
         return self.x - self.pixel_x // 2, self.y - self.pixel_y // 2,\
                self.x + self.pixel_x // 2, self.y + self.pixel_y // 2
+
+    def play_fire(self):
+        self.fire_sound.play()
+
+    def death(self):
+        self.death_sound.play()
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, self.pixel_x, self.pixel_y)
@@ -82,6 +92,7 @@ class Head_hunt:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)
         if self.Shake:
@@ -101,6 +112,7 @@ class Head_hunt:
                 or server.isaac_head.y - server.isaac_head.size_y <= self.y <= server.isaac_head.y + server.isaac_head.size_y:
             self.frame = 1
             if not self.reload:
+                self.play_fire()
                 if self.dir == 1:
                     tears = Enemy_tear(self.x, self.y + 10, 2)
                     game_world.add_object(tears, server.Mob_Tear_num)

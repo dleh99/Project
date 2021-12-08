@@ -35,10 +35,16 @@ class Red_Spider:
         self.dir = random.random() * 2 * math.pi
         self.timer = 2
         self.score = 50
+        self.death_sound = load_wav('small_enemy_death.wav')
+        self.death_sound.set_volume(100)
 
     def get_bb(self):
         return self.x - SPIDER_PIXEL_SIZE_LENGHT // 2, self.y - SPIDER_PIXEL_SIZE_RAW // 2,\
                self.x + SPIDER_PIXEL_SIZE_LENGHT // 2, self.y + SPIDER_PIXEL_SIZE_RAW // 2
+
+    def death(self):
+        self.death_sound.play()
+
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, SPIDER_PIXEL_SIZE_LENGHT, SPIDER_PIXEL_SIZE_RAW)
@@ -68,5 +74,6 @@ class Red_Spider:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)

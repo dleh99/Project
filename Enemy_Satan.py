@@ -49,10 +49,20 @@ class Satan:
         self.attackcount = 0
         self.hp = 10
         self.score = 60
+        self.death_sound = load_wav('big_enemy_death.wav')
+        self.death_sound.set_volume(50)
+        self.fire_sound = load_wav('satan_fire.wav')
+        self.fire_sound.set_volume(50)
 
     def get_bb(self):
         return self.x - SATAN_PIXEL_SIZE_LENGHT // 2, self.y - SATAN_PIXEL_SIZE_RAW // 2,\
                self.x + SATAN_PIXEL_SIZE_LENGHT // 2, self.y + SATAN_PIXEL_SIZE_RAW // 2
+
+    def play_fire(self):
+        self.fire_sound.play()
+
+    def death(self):
+        self.death_sound.play()
 
     def draw(self):
         self.image.clip_draw(self.frame * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, SATAN_PIXEL_SIZE_LENGHT, SATAN_PIXEL_SIZE_RAW)
@@ -84,6 +94,7 @@ class Satan:
         if self.attackcount >= 3:
             self.frame = 2
             if not self.reload:
+                self.play_fire()
                 if self.dir == 1:
                     tears = [Enemy_tear(self.x, self.y + 10, (i % 8 + 1)) for i in range(3)]
                     game_world.add_objects(tears, server.Mob_Tear_num)
@@ -99,6 +110,7 @@ class Satan:
                 self.reload = True
         if self.attackcount >= 3.5:
             if not self.reload2:
+                self.play_fire()
                 if self.dir == 1:
                     tears = [Enemy_tear(self.x, self.y + 10, (i % 8 + 1)) for i in range(3)]
                     game_world.add_objects(tears, server.Mob_Tear_num)
@@ -123,6 +135,7 @@ class Satan:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)
 

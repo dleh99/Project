@@ -50,7 +50,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
-        server.Floor_2[26] = True
+        server.Floor_2[32] = True
     if server.isaac_head.nowPos == 26:
         game_framework.change_state(Stage_2_map_26)
 

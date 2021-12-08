@@ -19,7 +19,7 @@ def enter():
     game_world.add_object(server.isaac_body, server.Isaac_num)
     game_world.add_object(server.isaac_head, server.Isaac_num)
     server.background_sound = load_music('Stage_sound.mp3')
-    server.background_sound.set_volume(30)
+    server.background_sound.set_volume(20)
     server.background_sound.repeat_play()
     game_framework.change_state(Stage_1_map_0)
 

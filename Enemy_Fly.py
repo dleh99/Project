@@ -34,6 +34,12 @@ class Fly:
         self.hp = 10
         self.dir = random.random() * 2 * math.pi
         self.score = 40
+        self.flying_sound = load_wav('Fly_sound.wav')
+        self.flying_sound.set_volume(20)
+        self.flying_sound.play()
+        self.death_sound = load_wav('small_enemy_death.wav')
+        self.death_sound.set_volume(100)
+        self.sound_count = 0
 
     def get_bb(self):
         return self.x - Fly_PIXEL_SIZE_LENGHT // 2, self.y - Fly_PIXEL_SIZE_RAW // 2,\
@@ -44,9 +50,19 @@ class Fly:
         draw_rectangle(*self.get_bb())
         # fill here for draw
 
+    def death(self):
+        self.death_sound.play()
+
+    def play_sound(self):
+        self.flying_sound.play()
+
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 2
 
+        self.sound_count += game_framework.frame_time
+        if self.sound_count >= 2:
+            self.sound_count = 0
+            self.play_sound()
         self.dir = math.atan2(server.isaac_body.y - self.y, server.isaac_body.x - self.x)
         self.x += self.velocity * math.cos(self.dir) * game_framework.frame_time
         self.y += self.velocity * math.sin(self.dir) * game_framework.frame_time
@@ -58,6 +74,7 @@ class Fly:
                 game_world.remove_object(tear)
                 self.hp -= tear.power
                 if self.hp <= 0:
+                    self.death()
                     server.isaac_head.Score += self.score
                     game_world.remove_object(self)
 
