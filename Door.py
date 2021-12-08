@@ -26,7 +26,7 @@ class Door_left:
 
     def draw(self):
         self.image.clip_draw(0 , 0, self.size_x, self.size_y, self.x, self.y, DOOR_PIXEL_SIZE_LENGHT, DOOR_PIXEL_SIZE_RAW)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
@@ -60,7 +60,7 @@ class Door_Up:
     def draw(self):
         self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, DOOR_PIXEL_SIZE_RAW,
                              DOOR_PIXEL_SIZE_LENGHT)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

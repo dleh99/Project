@@ -20,7 +20,7 @@ class Enemy_tear:
 
     def draw(self):
         self.image.clip_draw(0, 0, 10, 10, self.x, self.y, 16, 16)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         if self.dir == 1:

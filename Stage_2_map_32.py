@@ -6,7 +6,9 @@ from pico2d import *
 import game_framework
 import game_world
 import server
+from Enemy_Boss_Fistula import *
 
+from Tile import *
 from Obstacle import *
 import make_map
 import destroy_map
@@ -19,6 +21,12 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 name = "Stage_2_map_32"
 
 def enter():
+    if not server.Floor_2[server.isaac_head.nowPos]:
+        server.boss = Fistula_pase_1()
+        game_world.add_object(server.boss, server.Mob_num)
+        server.background_sound = load_music('Boss_sound.mp3')
+        server.background_sound.set_volume(30)
+        server.background_sound.repeat_play()
     make_map.make_Map('d:/2DGP/Project/Stage/stage_2/stage_32.txt')
 
 
@@ -51,6 +59,15 @@ def update():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
         server.Floor_2[32] = True
+        if server.do == 0:
+            server.do += 1
+            server.Floor_1[15] = True
+            game_world.add_object(Tile_n(800 // 2, 400), server.Obs_num)
+        if server.sound_do == 1:
+            server.sound_do += 1
+            server.background_sound = load_music('Stage_sound.mp3')
+            server.background_sound.set_volume(30)
+            server.background_sound.repeat_play()
     if server.isaac_head.nowPos == 26:
         game_framework.change_state(Stage_2_map_26)
 

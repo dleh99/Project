@@ -48,7 +48,7 @@ class Red_Spider:
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, SPIDER_PIXEL_SIZE_LENGHT, SPIDER_PIXEL_SIZE_RAW)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
         # fill here for draw
 
     def update(self):

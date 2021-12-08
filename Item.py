@@ -41,7 +41,7 @@ class Item_Heal:
     def draw(self):
         if self.isVisualize:
             self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT, Item_PIXEL_SIZE_RAW)
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
         else:
             self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Health Up',
                                 (255, 255, 255))
@@ -102,7 +102,7 @@ class Item_Speed_injector(Item_Heal):
     def draw(self):
         if self.isVisualize:
             self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT, Item_PIXEL_SIZE_RAW)
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
         else:
             self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Speed Up',
                                 (255, 255, 255))
@@ -156,7 +156,7 @@ class Item_Steven(Item_Heal):
         if self.isVisualize:
             self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT,
                                  Item_PIXEL_SIZE_RAW)
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
         else:
             self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Power Up',
                                   (255, 255, 255))
@@ -209,7 +209,7 @@ class Item_Onion(Item_Heal):
         if self.isVisualize:
             self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, Item_PIXEL_SIZE_LENGHT,
                                  Item_PIXEL_SIZE_RAW)
-            draw_rectangle(*self.get_bb())
+            # draw_rectangle(*self.get_bb())
         else:
             self.Sermon_font.draw(server.isaac_head.x - 50, server.isaac_head.y + 30, 'Tears Up',
                                   (255, 255, 255))

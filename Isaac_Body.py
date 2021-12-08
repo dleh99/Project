@@ -12,6 +12,7 @@ import server
 from Isaac_Head import Isaac_head
 import game_over_state
 import stage2_set_up
+import game_clear_state
 
 os.chdir('d:/2DGP/Project/Sprite')
 
@@ -299,7 +300,7 @@ class Isaac_body:
         self.size_x = 29
         self.size_y = 25
         self.life = 3
-        self.invincibility = False
+        self.invincibility = True
         self.invincibilitycount = 0
         self.event_que = []
         self.cur_state = IdleState
@@ -350,13 +351,19 @@ class Isaac_body:
                         game_framework.change_state(stage2_set_up)
                         for isaac in game_world.Isaac_objects():
                             isaac.now_floor = 2
+                    elif self.now_floor == 2:
+                        game_world.remove_object(Obs)
+                        game_framework.change_state(game_clear_state)
 
     def update(self):
-        if self.invincibility:
-            self.invincibilitycount += 1
-            if self.invincibilitycount == 1000:
-                self.invincibility = False
-                self.invincibilitycount = 0
+        if self.nowPos == 1:
+            if self.invincibility:
+                self.invincibilitycount += 1
+                if self.invincibilitycount == 1000:
+                    self.invincibility = False
+                    self.invincibilitycount = 0
+        else:
+            self.invincibility = True
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
@@ -459,7 +466,7 @@ class Isaac_body:
 
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
         #fill here
 
     def handle_event(self, event):

@@ -112,7 +112,7 @@ class Tile_f(Tile_1):
 
     def draw(self):
         self.image.clip_draw(0, 0, 100, 100, self.y * 100 + 50, (5 - self.x) * 100 + 50)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
@@ -131,7 +131,7 @@ class Tile_n(Tile_1):
 
     def draw(self):
         self.image.clip_draw(0, 0, 100, 100, self.x, self.y, 100, 100)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

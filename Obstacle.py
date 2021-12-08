@@ -37,7 +37,7 @@ class Obstacle_Rock:
 
     def draw(self):
         self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, self.pixel_x, self.pixel_y)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         # print(self.pixel_x, self.pixel_y)
@@ -68,7 +68,7 @@ class Obstacle_Sting:
 
     def draw(self):
         self.image.clip_draw(0, 0, self.size_x, self.size_y, self.x, self.y, self.pixel_x, self.pixel_y)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         # print(self.pixel_x, self.pixel_y)

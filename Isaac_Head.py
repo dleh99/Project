@@ -318,7 +318,7 @@ class Isaac_head:
         self.size_x = 45
         self.size_y = 42
         self.life = 3
-        self.invincibility = False
+        self.invincibility = True
         self.invincibilitycount = 0
         self.event_que = []
         self.cur_state = IdleState
@@ -377,11 +377,14 @@ class Isaac_head:
             self.image = None
         # 눈물 발사 딜레이 증가 카운트
         self.delay_num += 1
-        if self.invincibility:
-            self.invincibilitycount += 1
-            if self.invincibilitycount == 1000:
-                self.invincibility = False
-                self.invincibilitycount = 0
+        if self.nowPos == 1:
+            if self.invincibility:
+                self.invincibilitycount += 1
+                if self.invincibilitycount == 1000:
+                    self.invincibility = False
+                    self.invincibilitycount = 0
+        else:
+            self.invincibility = True
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
@@ -487,7 +490,7 @@ class Isaac_head:
         self.cur_state.draw(self)
         for i in range(self.life):
             self.Heart.clip_draw(0, 0, 50, 50, 30 * i + 30, 560, 30, 30)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
         self.Time_font.draw((800 // 2) - 105, 600 - 30, 'Time : %3.2f' % (get_time() - self.start_time), (255, 255, 255))
         self.Score_font.draw((800 // 2) - 60, 600 - 60, 'Score : %0.f' % (- get_time() + self.start_time + self.Score), (255, 255, 255))
         #fill here

@@ -66,7 +66,7 @@ class Satan:
 
     def draw(self):
         self.image.clip_draw(self.frame * self.size_x, 0, self.size_x, self.size_y, self.x, self.y, SATAN_PIXEL_SIZE_LENGHT, SATAN_PIXEL_SIZE_RAW)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def update(self):
         if self.switch:
