@@ -6,7 +6,7 @@ from Tile import *
 
 def make_Map(txt):
     f = open(txt)
-    for i in range(8):
+    for i in range(9):
         server.tile.append(f.readline())
     f.close()
 
@@ -59,4 +59,18 @@ def make_Map(txt):
             game_world.add_objects(server.doors, server.Door_num)
         elif server.tile[7][i] == '4':
             server.doors.append(Gold_Left(18, 600 // 2))
+            game_world.add_objects(server.doors, server.Door_num)
+
+    for i in range(len(server.tile[8])):
+        if server.tile[8][i] == '1':
+            server.doors.append(Boss_Down(800 // 2, 18))
+            game_world.add_objects(server.doors, server.Door_num)
+        elif server.tile[8][i] == '2':
+            server.doors.append(Boss_Right(800 - 18, 600 // 2))
+            game_world.add_objects(server.doors, server.Door_num)
+        elif server.tile[8][i] == '3':
+            server.doors.append(Boss_Up(800 // 2, 600 - 18))
+            game_world.add_objects(server.doors, server.Door_num)
+        elif server.tile[8][i] == '4':
+            server.doors.append(Boss_Left(18, 600 // 2))
             game_world.add_objects(server.doors, server.Door_num)
