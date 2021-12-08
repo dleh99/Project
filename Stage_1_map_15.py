@@ -25,6 +25,9 @@ def enter():
     if not server.Floor_1[server.isaac_head.nowPos]:
         server.boss = Fistula_pase_1()
         game_world.add_object(server.boss, server.Mob_num)
+        server.background_sound = load_music('Boss_sound.mp3')
+        server.background_sound.set_volume(30)
+        server.background_sound.repeat_play()
     make_map.make_Map('d:/2DGP/Project/Stage/stage_1/stage_15.txt')
 
 

@@ -1,13 +1,19 @@
+# =============================================
 isaac_head = None
 isaac_body = None
+isaac_hearts = None
+# =============================================
 red_spiders = None
 satan = None
 fly = None
 boss = None
 head_hunt = None
-isaac_hearts = None
+# =============================================
 obstacle_rocks = None
 item = None
+# =============================================
+background_sound = None
+# =============================================
 doors = []
 tile = []
 next_door = None

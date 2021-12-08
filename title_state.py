@@ -1,5 +1,6 @@
 import game_framework
 from pico2d import *
+import server
 
 import set_up
 
@@ -10,6 +11,9 @@ image = None
 
 def enter():
     global image
+    server.background_sound = load_music('title.mp3')
+    server.background_sound.set_volume(30)
+    server.background_sound.repeat_play()
     image = load_image('title_image.png')
 
 
