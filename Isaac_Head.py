@@ -268,6 +268,7 @@ class Die_State:
         body.velocity_x = 0
         body.velocity_y = 0
         body.invincibility = True
+        body.dead()
 
     def exit(body, event):
         pass
@@ -330,9 +331,20 @@ class Isaac_head:
         self.start_time = get_time()
         self.Score = 100
         self.now_floor = 1
+        self.dead_sound = load_wav('Isaac_dead.wav')
+        self.hurt_sound = load_wav('Isaac_hurt.wav')
+        self.dead_sound.set_volume(50)
+        self.hurt_sound.set_volume(30)
+
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
+
+    def dead(self):
+        self.dead_sound.play()
+
+    def hurt(self):
+        self.hurt_sound.play()
 
     def next_floor(self, num):
         self.x = 800 // 2
@@ -436,6 +448,7 @@ class Isaac_head:
                 if collision.up_collide(self, mob) or collision.down_collide(self, mob) or collision.left_collide(
                         self, mob) or \
                         collision.right_collide(self, mob) or collision.collide(self, mob):
+                    self.hurt()
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
@@ -455,6 +468,7 @@ class Isaac_head:
         for tear in game_world.Mob_Tear_objects():
             if collision.collide(self, tear):
                 game_world.remove_object(tear)
+                self.hurt()
                 if not self.invincibility:
                     for all in game_world.Isaac_objects():
                         all.invincibility = True

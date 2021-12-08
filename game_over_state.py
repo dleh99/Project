@@ -30,11 +30,15 @@ def initial():
 def enter():
     global image
     image = load_image('game_over_image.png')
+    server.background_sound = load_music('death_sound.mp3')
+    server.background_sound.set_volume(30)
+    server.background_sound.repeat_play()
 
 
 def exit():
     global image
     del(image)
+    server.background_sound.stop()
 
 
 def handle_events():

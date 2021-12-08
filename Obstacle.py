@@ -86,6 +86,7 @@ class Obstacle_Sting:
                     if not isaac.invincibility:
                         if collision.up_collide(isaac, self) or collision.down_collide(isaac, self) or\
                                 collision.left_collide(isaac, self) or collision.right_collide(isaac, self) or collision.collide(isaac, self):
+                            server.isaac_body.hurt()
                             for all in game_world.Isaac_objects():
                                 all.invincibility = True
                                 all.life -= 1

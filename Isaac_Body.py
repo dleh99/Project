@@ -309,6 +309,10 @@ class Isaac_body:
         self.Shake_num = 0
         self.nowPos = 0
         self.now_floor = 1
+        self.dead_sound = load_wav('Isaac_dead.wav')
+        self.hurt_sound = load_wav('Isaac_hurt.wav')
+        self.dead_sound.set_volume(30)
+        self.hurt_sound.set_volume(30)
 
     def next_floor(self, num):
         self.x = 800 // 2
@@ -317,6 +321,9 @@ class Isaac_body:
         self.velocity_x = 0
         self.velocity_y = 0
         self.nowPos = num
+
+    def hurt(self):
+        self.hurt_sound.play()
 
     def get_bb(self):
         return self.x - self.size_x // 2, self.y - self.size_y // 2, self.x + self.size_x // 2, self.y + self.size_y // 2
@@ -417,6 +424,7 @@ class Isaac_body:
                 if collision.up_collide(self, mob) or collision.down_collide(self, mob) or collision.left_collide(
                         self, mob) or \
                         collision.right_collide(self, mob) or collision.collide(self, mob):
+                    self.hurt()
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
@@ -437,6 +445,7 @@ class Isaac_body:
             if collision.collide(self, tear):
                 game_world.remove_object(tear)
                 if not self.invincibility:
+                    self.hurt()
                     for all in game_world.Isaac_objects():
                         all.invincibility = True
                         all.life -= 1
