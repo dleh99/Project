@@ -336,7 +336,8 @@ class Isaac_body:
                     if self.now_floor == 1:
                         game_world.remove_object(Obs)
                         game_framework.change_state(stage2_set_up)
-                        self.now_floor = 2
+                        for isaac in game_world.Isaac_objects():
+                            isaac.now_floor = 2
 
     def update(self):
         if self.invincibility:
@@ -354,60 +355,62 @@ class Isaac_body:
         # 문과 충돌
         for door in game_world.Door_objects():
             if collision.collide(door, self):
-                if server.Floor_1[self.nowPos]:
-                    if self.y <= 100:
-                        for me in game_world.Isaac_objects():
-                            me.y += 450
-                            me.x = 800 // 2
-                            me.nowPos += 4
-                    elif self.y >= 500:
-                        for me in game_world.Isaac_objects():
-                            me.y -= 450
-                            me.x = 800 // 2
-                            me.nowPos -= 4
-                    elif self.x <= 100:
-                        for me in game_world.Isaac_objects():
-                            me.x += 650
-                            if isinstance(me, Isaac_head):
-                                me.y = (600 // 2) + 25
-                            else:
-                                me.y = 600 // 2
-                            me.nowPos -= 1
-                    elif self.x >= 700:
-                        for me in game_world.Isaac_objects():
-                            me.x -= 650
-                            if isinstance(me, Isaac_head):
-                                me.y = (600 // 2) + 25
-                            else:
-                                me.y = 600 // 2
-                            me.nowPos += 1
-            if server.Floor_2[self.nowPos]:
-                if self.y <= 100:
-                    for me in game_world.Isaac_objects():
-                        me.y += 450
-                        me.x = 800 // 2
-                        me.nowPos += 6
-                elif self.y >= 500:
-                    for me in game_world.Isaac_objects():
-                        me.y -= 450
-                        me.x = 800 // 2
-                        me.nowPos -= 6
-                elif self.x <= 100:
-                    for me in game_world.Isaac_objects():
-                        me.x += 650
-                        if isinstance(me, Isaac_head):
-                            me.y = (600 // 2) + 25
-                        else:
-                            me.y = 600 // 2
-                        me.nowPos -= 1
-                elif self.x >= 700:
-                    for me in game_world.Isaac_objects():
-                        me.x -= 650
-                        if isinstance(me, Isaac_head):
-                            me.y = (600 // 2) + 25
-                        else:
-                            me.y = 600 // 2
-                        me.nowPos += 1
+                if self.now_floor == 1:
+                    if server.Floor_1[self.nowPos]:
+                        if self.y <= 100:
+                            for me in game_world.Isaac_objects():
+                                me.y += 450
+                                me.x = 800 // 2
+                                me.nowPos += 4
+                        elif self.y >= 500:
+                            for me in game_world.Isaac_objects():
+                                me.y -= 450
+                                me.x = 800 // 2
+                                me.nowPos -= 4
+                        elif self.x <= 100:
+                            for me in game_world.Isaac_objects():
+                                me.x += 650
+                                if isinstance(me, Isaac_head):
+                                    me.y = (600 // 2) + 25
+                                else:
+                                    me.y = 600 // 2
+                                me.nowPos -= 1
+                        elif self.x >= 700:
+                            for me in game_world.Isaac_objects():
+                                me.x -= 650
+                                if isinstance(me, Isaac_head):
+                                    me.y = (600 // 2) + 25
+                                else:
+                                    me.y = 600 // 2
+                                me.nowPos += 1
+                elif self.now_floor == 2:
+                    if server.Floor_2[self.nowPos]:
+                        if self.y <= 100:
+                            for me in game_world.Isaac_objects():
+                                me.y += 450
+                                me.x = 800 // 2
+                                me.nowPos += 6
+                        elif self.y >= 500:
+                            for me in game_world.Isaac_objects():
+                                me.y -= 450
+                                me.x = 800 // 2
+                                me.nowPos -= 6
+                        elif self.x <= 100:
+                            for me in game_world.Isaac_objects():
+                                me.x += 650
+                                if isinstance(me, Isaac_head):
+                                    me.y = (600 // 2) + 25
+                                else:
+                                    me.y = 600 // 2
+                                me.nowPos -= 1
+                        elif self.x >= 700:
+                            for me in game_world.Isaac_objects():
+                                me.x -= 650
+                                if isinstance(me, Isaac_head):
+                                    me.y = (600 // 2) + 25
+                                else:
+                                    me.y = 600 // 2
+                                me.nowPos += 1
         # 몹과 충돌
         for mob in game_world.Mob_objects():
             if not self.invincibility:

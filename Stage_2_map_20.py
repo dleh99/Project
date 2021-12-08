@@ -10,17 +10,18 @@ import server
 from Obstacle import *
 import make_map
 import destroy_map
-import Stage_2_map_2
-import Stage_2_map_9
+import Stage_2_map_19
+import Stage_2_map_21
+import Stage_2_map_26
 
 PIXEL_PER_METER = (1.0 / 0.033) # 1px = 3.3 cm
 RUN_SPEED_MPS = 50.0 / 10.8     # 50m per 10.8 sec
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
-name = "Stage_2_map_8"
+name = "Stage_2_map_20"
 
 def enter():
-    make_map.make_Map('d:/2DGP/Project/Stage/stage_2/stage_8.txt')
+    make_map.make_Map('d:/2DGP/Project/Stage/stage_2/stage_20.txt')
 
 
 def exit():
@@ -51,11 +52,13 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     if len(game_world.objects[server.Mob_num]) == 0:
-        server.Floor_2[8] = True
-    if server.isaac_head.nowPos == 2:
-        game_framework.change_state(Stage_2_map_2)
-    if server.isaac_head.nowPos == 9:
-        game_framework.change_state(Stage_2_map_9)
+        server.Floor_2[20] = True
+    if server.isaac_head.nowPos == 19:
+        game_framework.change_state(Stage_2_map_19)
+    if server.isaac_head.nowPos == 21:
+        game_framework.change_state(Stage_2_map_21)
+    if server.isaac_head.nowPos == 26:
+        game_framework.change_state(Stage_2_map_26)
 
 
 def draw():
