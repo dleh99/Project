@@ -74,3 +74,43 @@ class Door_Down(Door_Up):
         self.size_y = 30
         if Door_Down.image == None:
             Door_Down.image = load_image('Door_7.png')
+
+
+class Gold_Left(Door_left):
+    image = None
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.size_x = 30
+        self.size_y = 100
+        if Gold_Left.image == None:
+            Gold_Left.image = load_image('Door_G6.png')
+
+
+class Gold_Right(Door_left):
+    image = None
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.size_x = 30
+        self.size_y = 100
+        if Gold_Right.image == None:
+            Gold_Right.image = load_image('Door_G5.png')
+
+
+class Gold_Up(Door_Up):
+    image = None
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.size_x = 100
+        self.size_y = 30
+        if Gold_Up.image == None:
+            Gold_Up.image = load_image('Door_G8.png')
+
+
+class Gold_Down(Door_Up):
+    image = None
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        self.size_x = 100
+        self.size_y = 30
+        if Gold_Down.image == None:
+            Gold_Down.image = load_image('Door_G7.png')
