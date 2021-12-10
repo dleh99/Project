@@ -299,7 +299,7 @@ class Isaac_body:
         self.y = 600 // 2
         self.size_x = 29
         self.size_y = 25
-        self.life = 3
+        self.life = 1
         self.invincibility = True
         self.invincibilitycount = 0
         self.event_que = []

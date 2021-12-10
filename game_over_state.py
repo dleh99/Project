@@ -47,7 +47,6 @@ def rank_save():
         server.Rank = json.load(f)
         server.Rank.append(score)
         server.Rank.sort(reverse=True)
-        print(server.Rank)
     with open('Rank.json', 'w') as f:
         f.write(json.dumps(server.Rank))
 
